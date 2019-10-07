@@ -23,11 +23,10 @@ const Layout = ({ children }) => {
             <Helmet>
                 <link href="https://fonts.googleapis.com/css?family=Poppins:400,900" rel="stylesheet"/>
             </Helmet>
+            <Header />
             <main>{children}</main>
             <footer>
-                © {new Date().getFullYear()}, Built with
-                {` `}
-                <a href="https://www.gatsbyjs.org">Gatsby</a>
+                
             </footer>
         </>
     )

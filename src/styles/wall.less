@@ -1,3 +1,5 @@
+@import "color";
+
 .wall {
     width: 90%;
     max-width: 1920px;
@@ -14,6 +16,31 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        color: #fff;
+
+        span{
+            display: inline-block;
+            margin: 0 8px;
+            position: relative;
+
+            &:nth-child(even):before, &:nth-child(even):after {
+                content: "";
+                position: absolute;
+                width: 4px;
+                height: 100%;
+                border-radius: 4px;
+                background: @secondary;
+                left: -8px;
+                z-index: 2;
+            }
+
+            &:nth-child(even):after{
+                left: -10px;
+                top: 2px;
+                background: @primary;
+                z-index: 1;
+            }
+        }
     }
 
     .background {

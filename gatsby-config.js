@@ -5,6 +5,15 @@ module.exports = {
         author: `@gatsbyjs`,
     },
     plugins: [
+        {
+            resolve: `gatsby-source-wordpress`,
+            options: {
+                baseUrl: `akzhy.local`,
+                protocol: `http`,
+                hostingWPCOM: false,
+                useACF: true,
+            },
+        },
         `gatsby-plugin-react-helmet`,
         {
             resolve: `gatsby-source-filesystem`,
@@ -15,15 +24,6 @@ module.exports = {
         },
         `gatsby-transformer-sharp`,
         `gatsby-plugin-sharp`,
-        {
-            resolve: `gatsby-source-wordpress`,
-            options: {
-                baseUrl: `akzhy.local`,
-                protocol: `http`,
-                hostingWPCOM: false,
-                useACF: true,
-            },
-        },
         `gatsby-plugin-less`
         // `gatsby-plugin-offline`,
     ],
