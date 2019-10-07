@@ -24,7 +24,7 @@ module.exports = {
                 useACF: true,
             },
         },
-        `gatsby-plugin-theme-ui`
+        `gatsby-plugin-less`
         // `gatsby-plugin-offline`,
     ],
 }
