@@ -1,6 +1,7 @@
 import React from "react"
 import { Link } from "gatsby";
 import Img from "gatsby-image";
+import Title from "./title";
 
 export const ShelfItem = ({ title, description, date, image, link }) => {
     return (
@@ -18,12 +19,9 @@ export const ShelfItem = ({ title, description, date, image, link }) => {
                     <Img fluid={image} alt={title} className="middle"/>
                 </div>
                 <div className="info">
-                    <div className="v-center"></div>
                     <div className="middle">
-                        <h4 className="main-heading">
-                            <span>{title}</span>
-                        </h4>
-                        <p className="font-m">
+                        <Title tag="h3" data={title} className="main-heading"/>
+                        <p className="text-m">
                             {description}
                         </p>
                     </div>

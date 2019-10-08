@@ -13,10 +13,13 @@ export default () => {
             ) {
                 edges {
                     node {
+                        acf{
+                            description
+                        }
                         id
                         date(formatString: "DD MMM YYYY")
-                        excerpt
                         title
+                        path
                         featured_media {
                             source_url
                             localFile {
@@ -37,7 +40,7 @@ export default () => {
     const shelfItems = [];
     query.allWordpressPost.edges.forEach((item,i) => {
         shelfItems.push(
-            <ShelfItem title={item.node.title} description={item.node.excerpt} date={item.node.date} link="/shelf/item" image={item.node.featured_media.localFile.childImageSharp.fluid} id={item.node.id}/>
+            <ShelfItem title={item.node.title} description={item.node.acf.description} date={item.node.date} link={item.node.path} image={item.node.featured_media.localFile.childImageSharp.fluid} id={item.node.id} key={item.node.id}/>
         )
     })
     return (
@@ -45,7 +48,9 @@ export default () => {
             <div className="container">
                 <Title data="Shelf"/>
                 <div className="contents">
-                    <div className="divider"></div>
+                    <div className="divider">
+                        <div className="line"></div>
+                    </div>
                     <div className="row">
                         {shelfItems}
                     </div>
