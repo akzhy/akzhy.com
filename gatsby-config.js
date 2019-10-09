@@ -1,8 +1,8 @@
 module.exports = {
     siteMetadata: {
-        title: `Gatsby Default Starter`,
-        description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-        author: `@gatsbyjs`,
+        title: `akzhy`,
+        description: `Hello, I am Akshay I am a web developer who is very passionate about web development and related fields. I've been into web designing since i was 15 and thats when i discovered my passion for it.I am also into a bit of graphic designing, though i am no pro at it.`,
+        author: `@_akzhy`,
     },
     plugins: [
         {
@@ -24,7 +24,12 @@ module.exports = {
         },
         `gatsby-transformer-sharp`,
         `gatsby-plugin-sharp`,
-        `gatsby-plugin-less`
+        {
+            resolve: `gatsby-plugin-less`,
+            options: {
+                globalVars: theme,
+            },
+        },
         // `gatsby-plugin-offline`,
     ],
 }

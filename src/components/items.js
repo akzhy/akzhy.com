@@ -1,6 +1,8 @@
 import React from "react"
 import { Link } from "gatsby";
 import Img from "gatsby-image";
+import { Calendar } from "react-feather"
+
 import Title from "./title";
 
 export const ShelfItem = ({ title, description, date, image, link }) => {
@@ -27,6 +29,25 @@ export const ShelfItem = ({ title, description, date, image, link }) => {
                     </div>
                 </div>
             </div>
+        </div>
+    )
+}
+
+export const BlogItem = ({title, description, date, image, link}) => {
+    return (
+        <div className="col 12 card">
+            <div className="image">
+                <Img fluid={image} title={title} alt={title}/>
+            </div>
+            <div className="contents">
+                <h4>{title}</h4>
+                <p className="date">
+                    <Calendar />
+                    {date}
+                </p>
+                <p className="description">{description}</p>
+            </div>
+            <Link to={link} title={title} className="overlay-link">{title}</Link>
         </div>
     )
 }
