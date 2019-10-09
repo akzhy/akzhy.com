@@ -4,15 +4,54 @@
     display: flex;
     flex-wrap: nowrap;
     width: 100%;
-    box-shadow: 1px 1px 12px -4px rgba(0,0,0,.3);
+    box-shadow: 2px 2px 12px -6px rgba(0,0,0,.3);
     position: relative;
 
     .image{
         width: 400px;
         max-width: 100%;
+        flex: 0 0 auto;
     }
 
     .contents{
         padding: 16px;
+        width: 100%;
+
+        h4{
+            margin-bottom: 16px;
+            color: @textPrimary;
+            position: relative;
+            
+            &:after{
+                content: "";
+                position: absolute;
+                width: 0%;
+                height: 2px;
+                background: linear-gradient(to right, @primary, @secondary);
+                bottom: 0;
+                left: 0;
+                transition: width .35s;
+            }
+        }
+
+        .description{
+            padding: 8px 0;
+        }
+    }
+
+    &:hover, &:active, &:focus{
+        .contents{
+            h4:after{
+                width: 100%;
+            }
+        }
+    }
+
+    a:active, a:focus{
+        & + .contents{
+            h4:after{
+                width: 100%;
+            }
+        }
     }
 }

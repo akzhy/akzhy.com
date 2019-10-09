@@ -98,6 +98,24 @@
                 &:hover .info .main-heading:before {
                     width: 50%;
                 }
+
+                a:active, a:focus{
+                    & + .info{
+                        opacity: 1;
+
+                        .main-heading:after {
+                            width: 100%;
+                        }
+
+                        .main-heading:before {
+                            width: 50%;
+                        }
+                        
+                        .main-heading, p{
+                            transform: translate(0,0);
+                        }
+                    }
+                }
             }
 
             .connector {

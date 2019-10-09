@@ -2,9 +2,9 @@ import React from "react"
 import "../styles/wall.less"
 
 export default class Wall extends React.Component {
-    constructor(props) {
+    /*constructor(props) {
         super(props)
-    }
+    }*/
 
     render() {
         return (

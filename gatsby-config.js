@@ -26,9 +26,6 @@ module.exports = {
         `gatsby-plugin-sharp`,
         {
             resolve: `gatsby-plugin-less`,
-            options: {
-                globalVars: theme,
-            },
         },
         // `gatsby-plugin-offline`,
     ],
