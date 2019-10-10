@@ -5282,14 +5282,6 @@ gatsby-plugin-react-helmet@^3.1.10:
   dependencies:
     "@babel/runtime" "^7.6.2"
 
-gatsby-plugin-remote-images@^1.0.7:
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-remote-images/-/gatsby-plugin-remote-images-1.0.7.tgz#e5e725813e9d2c2b06836947764374d70f8a3a69"
-  integrity sha512-vi3FJJlCxegSxLp4PNYyDvLgysnJLFkymruJxefyXYJyDYmSDHw2+p9pDO10iapKtt1RW+YuYUvRYD1bDP7E/g==
-  dependencies:
-    gatsby-source-filesystem "^2.0.11"
-    lodash "^4.17.11"
-
 gatsby-plugin-sharp@^2.2.28:
   version "2.2.28"
   resolved "https://registry.yarnpkg.com/gatsby-plugin-sharp/-/gatsby-plugin-sharp-2.2.28.tgz#673c503a9585c88e66bb82e3c76ff860c006d917"
@@ -5324,7 +5316,7 @@ gatsby-react-router-scroll@^2.1.11:
     scroll-behavior "^0.9.10"
     warning "^3.0.0"
 
-gatsby-source-filesystem@^2.0.11, gatsby-source-filesystem@^2.1.29:
+gatsby-source-filesystem@^2.1.29:
   version "2.1.29"
   resolved "https://registry.yarnpkg.com/gatsby-source-filesystem/-/gatsby-source-filesystem-2.1.29.tgz#ca4dd77c850152b1a57d91b6535930b67b35fe73"
   integrity sha512-MRJ3jkGhxJDztXzw0oeh4hizLzs5hGIc/Jq5gwUi5NcrKCR5HDbOFvVVE8irfkoNh7TuvHf6sjWFzDgzlUADgw==
@@ -9492,7 +9484,7 @@ prompts@^2.2.1:
     kleur "^3.0.3"
     sisteransi "^1.0.3"
 
-prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
+prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -9737,13 +9729,6 @@ react-fast-compare@^2.0.2:
   resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-2.0.4.tgz#e84b4d455b0fec113e0402c329352715196f81f9"
   integrity sha512-suNP+J1VU1MWFKcyt7RtjiSWUjvidmQSlqu+eHslq+342xCbGTYmC0mEhPCOHxlW0CywylOC1u2DFAT+bv4dBw==
 
-react-feather@^2.0.3:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/react-feather/-/react-feather-2.0.3.tgz#1453ff5d8c242f72b8c02846118fbd2d406375ad"
-  integrity sha512-XVjtxIyMxb2RFlqC2APoB/IZvXKDW9uLN1c264XEeZNYe8jIxjQVQpeTo3nxtHiLTgMfgf0ZYxJC6HwmY8+9BA==
-  dependencies:
-    prop-types "^15.7.2"
-
 react-helmet@^5.2.1:
   version "5.2.1"
   resolved "https://registry.yarnpkg.com/react-helmet/-/react-helmet-5.2.1.tgz#16a7192fdd09951f8e0fe22ffccbf9bb3e591ffa"
@@ -9795,6 +9780,14 @@ react-side-effect@^1.1.0:
   dependencies:
     exenv "^1.2.1"
     shallowequal "^1.0.1"
+
+react-textarea-autosize@^7.1.0:
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/react-textarea-autosize/-/react-textarea-autosize-7.1.0.tgz#3132cb77e65d94417558d37c0bfe415a5afd3445"
+  integrity sha512-c2FlR/fP0qbxmlrW96SdrbgP/v0XZMTupqB90zybvmDVDutytUgPl7beU35klwcTeMepUIQEpQUn3P3bdshGPg==
+  dependencies:
+    "@babel/runtime" "^7.1.2"
+    prop-types "^15.6.0"
 
 react@^16.10.2:
   version "16.10.2"

@@ -1,4 +1,3 @@
-
 //fontSizes: [12, 14, 16, 20, 24, 32, 48, 64, 72],
 // space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
 
@@ -47,29 +46,29 @@ a {
     outline: 0;
 }
 
-.container{
+.container {
     width: 80%;
     max-width: 1240px;
     margin: 0 auto;
 }
 
-.section{
+.section {
     padding: 64px 8px;
 }
 
-.section .contents{
+.section .contents {
     padding-top: 32px;
 }
 
-.text-m{
+.text-m {
     font-size: 20px;
 }
 
-.text-center{
+.text-center {
     text-align: center;
 }
 
-.overlay-link{
+.overlay-link {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -79,7 +78,71 @@ a {
     opacity: 0;
 }
 
+.input-field {
+    width: 80%;
+    margin: 32px auto;
 
+    label {
+        p {
+            padding-left: 12px;
+            margin-bottom: 4px;
+            display: inline-block;
+        }
+    }
+
+    .field {
+        width: 100%;
+        position: relative;
+        padding: 2px;
+
+        &:after{
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: linear-gradient(to right, @primary, @secondary);
+            border-radius: 8px;
+        }
+
+        .input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 0;
+            font-size: 16px;
+            font-family: "Poppins", sans-serif;
+            position: relative;
+            z-index: 2;
+            background: @background;
+            outline: 0;
+            border: 1px solid transparent;
+            display: block;
+
+            &:focus{
+                border: 1px solid @primary;
+            }
+        }
+    }
+}
+
+.btn{
+    display: inline-block;
+    padding: 12px 24px;
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    background: @background;
+    border: 2px solid @primary;
+    border-radius: 8px;
+    transition: border-color .35s;
+    cursor: pointer;
+    outline: 0;
+
+    &:hover, &:focus, &:active{
+        border-color: @secondary;
+    }
+}
 
 .color-primary,
 .color-primary a {
@@ -94,7 +157,7 @@ a {
         display: inline-block;
         position: relative;
 
-        span{
+        span {
             position: relative;
             z-index: 3;
         }
@@ -123,18 +186,21 @@ a {
     }
 }
 
-.svg-icon{
+.svg-icon {
     display: inline-block;
     vertical-align: bottom;
     width: 24px;
     height: 24px;
 }
 
-
-.fill-primary path{
+.fill-primary path {
     fill: @primary;
 }
 
-.fill-secondary path{
+.fill-text-primary path {
+    fill: @textPrimary;
+}
+
+.fill-secondary path {
     fill: @secondary;
 }
