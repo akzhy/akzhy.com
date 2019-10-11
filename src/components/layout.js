@@ -4,6 +4,7 @@ import { Helmet } from "react-helmet";
 
 import Seo from "./seo"
 import Header from "./header"
+import Footer from "../components/footer"
 
 import "../styles/theme.less";
 
@@ -16,9 +17,7 @@ const Layout = ({ children, seo }) => {
             </Helmet>
             <Header />
             <main>{children}</main>
-            <footer>
-                
-            </footer>
+            <Footer />
         </React.Fragment>
     )
 }

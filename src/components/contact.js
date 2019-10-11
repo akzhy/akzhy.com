@@ -2,6 +2,7 @@ import React from "react";
 import Title from "../components/title"
 import Textarea from "react-textarea-autosize"
 import { Paperplane } from "../components/icons"
+import Social from "../components/social"
 
 export default class Contact extends React.Component{
     render(){
@@ -38,6 +39,7 @@ export default class Contact extends React.Component{
                             <button type="submit" className="btn color-primary">Send <Paperplane className="fill-text-primary"/></button>
                         </div>
                     </div>
+                    <Social style={{ marginTop: "128px" }}/>
                 </div>
             </div>
         )

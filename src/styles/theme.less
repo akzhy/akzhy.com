@@ -146,6 +146,26 @@ a {
     }
 }
 
+.social-profiles{
+
+    ul {
+        list-style: none;
+        text-align: center;
+
+        li{
+            display: inline-block;
+            vertical-align: middle;
+            width: 150px;
+            position: relative;
+            margin: 0 32px;
+
+            svg{
+                width: 100%;
+            }
+        }
+    }
+}
+
 .color-primary,
 .color-primary a {
     color: @textPrimary;
@@ -205,4 +225,8 @@ a {
 
 .fill-secondary path {
     fill: @secondary;
+}
+
+.bg-secondary{
+    background: @backgroundSecondary;
 }
