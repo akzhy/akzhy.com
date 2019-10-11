@@ -95,7 +95,7 @@ a {
         position: relative;
         padding: 2px;
 
-        &:after{
+        &:after {
             content: "";
             position: absolute;
             width: 100%;
@@ -120,14 +120,14 @@ a {
             border: 1px solid transparent;
             display: block;
 
-            &:focus{
+            &:focus {
                 border: 1px solid @primary;
             }
         }
     }
 }
 
-.btn{
+.btn {
     display: inline-block;
     padding: 12px 24px;
     font-family: "Poppins", sans-serif;
@@ -135,11 +135,13 @@ a {
     background: @background;
     border: 2px solid @primary;
     border-radius: 8px;
-    transition: border-color .35s;
+    transition: border-color 0.35s;
     cursor: pointer;
     outline: 0;
 
-    &:hover, &:focus, &:active{
+    &:hover,
+    &:focus,
+    &:active {
         border-color: @secondary;
     }
 }
