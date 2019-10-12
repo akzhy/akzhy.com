@@ -49,7 +49,7 @@ export default () => {
                         <a href="mailto:hi@akzhy.com">Email</a>
                     </li>
                 </ul>
-                <p>Copyright &copy; {(new Date).getFullYear()} akzhy.com</p>
+                <p>Copyright &copy; {(new Date()).getFullYear()} akzhy.com</p>
             </div>
         </footer>
     )
