@@ -1,9 +1,9 @@
 import React from "react"
-import { Link } from "gatsby";
-import Img from "gatsby-image";
+import { Link } from "gatsby"
+import Img from "gatsby-image"
 import { Calendar } from "./icons"
 
-import Title from "./title";
+import Title from "./title"
 
 export const ShelfItem = ({ title, description, date, image, link }) => {
     return (
@@ -17,15 +17,15 @@ export const ShelfItem = ({ title, description, date, image, link }) => {
             <div className="item">
                 <div className="image">
                     <div className="v-center"></div>
-                    <Img fluid={image} alt={title} className="middle"/>
+                    <Img fluid={image} alt={title} className="middle" />
                 </div>
-                <Link to={link} title={title} className="overlay-link">{title}</Link>
+                <Link to={link} title={title} className="overlay-link">
+                    {title}
+                </Link>
                 <div className="info">
                     <div className="middle">
-                        <Title tag="h3" data={title} className="main-heading"/>
-                        <p className="text-m">
-                            {description}
-                        </p>
+                        <Title tag="h3" data={title} className="main-heading" />
+                        <p className="text-m">{description}</p>
                     </div>
                 </div>
             </div>
@@ -33,20 +33,47 @@ export const ShelfItem = ({ title, description, date, image, link }) => {
     )
 }
 
-export const BlogItem = ({title, description, date, image, link}) => {
+export const BlogItem = ({ title, description, date, image, link }) => {
     return (
         <div className="col 12 card">
             <div className="image">
-                <Img fluid={image} title={title} alt={title}/>
+                <Img fluid={image} title={title} alt={title} />
             </div>
-            <Link to={link} title={title} className="overlay-link">{title}</Link>
+            <Link to={link} title={title} className="overlay-link">
+                {title}
+            </Link>
             <div className="contents">
                 <h4>{title}</h4>
                 <p className="date">
-                    <Calendar className="fill-secondary"/>
-                    <span style={{ marginLeft: "8px"}}>{date}</span>
+                    <Calendar className="fill-secondary" />
+                    <span style={{ marginLeft: "8px" }}>{date}</span>
                 </p>
                 <p className="description">{description}</p>
+            </div>
+        </div>
+    )
+}
+
+export const ShelfCard = ({ title, date, description, image, link }) => {
+    return (
+        <div className="shelf-card col s12 m6">
+            <div className="box">
+                <Link to={link} title={title} className="overlay-link">{title}</Link>
+                <div className="data">
+                    <div className="image">
+                        <Img fluid={image} title={title} alt={title} />
+                    </div>
+                    <div className="content">
+                        <h4 className="color-primary">{title}</h4>
+                        <p className="date">
+                            <span title="Publish date">
+                                <Calendar className="fill-primary" />
+                            </span>
+                            {date}
+                        </p>
+                        <p className="description">{description}</p>
+                    </div>
+                </div>
             </div>
         </div>
     )

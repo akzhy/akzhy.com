@@ -71,7 +71,7 @@
                         transform: translate(0, 20px);
                     }
 
-                    .title{
+                    .title {
                         padding: 0;
                     }
 
@@ -99,8 +99,9 @@
                     width: 50%;
                 }
 
-                a:active, a:focus{
-                    & + .info{
+                a:active,
+                a:focus {
+                    & + .info {
                         opacity: 1;
 
                         .main-heading:after {
@@ -110,9 +111,10 @@
                         .main-heading:before {
                             width: 50%;
                         }
-                        
-                        .main-heading, p{
-                            transform: translate(0,0);
+
+                        .main-heading,
+                        p {
+                            transform: translate(0, 0);
                         }
                     }
                 }
@@ -160,14 +162,14 @@
             }
 
             &:nth-child(even) {
+                margin-top: 96px;
+
                 .item {
                     margin-left: 10%;
-                    margin-top: 80px;
                 }
                 .connector {
                     right: auto;
                     left: 0;
-                    top: 40px;
 
                     .date {
                         right: auto;
@@ -189,6 +191,57 @@
                     }
                 }
             }
+        }
+    }
+}
+
+.shelf-card {
+    padding: 24px;
+
+    .box {
+        box-shadow: 1px 1px 12px -8px rgba(0, 0, 0.3);
+        border-radius: 4px;
+        position: relative;
+
+        .content {
+            padding: 12px;
+
+            .date {
+                font-size: 14px;
+                margin-bottom: 8px;
+
+                span {
+                    margin-right: 4px;
+                }
+            }
+
+            .description {
+                margin-top: 12px;
+            }
+        }
+
+        .data {
+            position: relative;
+
+            &:after {
+                position: absolute;
+                content: "";
+                width: 4px;
+                height: 0%;
+                right: 0;
+                background: linear-gradient(to bottom, @primary, @secondary);
+                top: 5%;
+                border-radius: 16px;
+                transition: height 0.35s;
+            }
+        }
+
+        & .overlay-link:focus + .data:after {
+            height: 90%;
+        }
+
+        &:hover .data:after {
+            height: 90%;
         }
     }
 }

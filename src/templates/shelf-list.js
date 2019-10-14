@@ -4,6 +4,8 @@ import Title from "../components/title"
 import { ShelfItem } from "../components/items"
 import { graphql } from "gatsby"
 
+import "../styles/shelf.less"
+
 const seo = {
     title: "Shelf",
     description: "The Shelf is a collection of all the projects and other stuff that I made. It showcases all the works I have done. Almost all of my works are Open Source and can be found in my GitHub page."

@@ -21,6 +21,9 @@ exports.createPages = async ({ graphql, actions }) => {
                         id
                         path
                         status
+                        categories {
+                            name
+                        }
                     }
                 }
             }
@@ -80,6 +83,7 @@ exports.createPages = async ({ graphql, actions }) => {
             component: slash(postTemplate),
             context: {
                 id: edge.node.id,
+                category: edge.node.categories[0].name
             },
         })
     })
