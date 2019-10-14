@@ -1,3 +1,5 @@
+@import "color";
+
 footer{
     padding: 64px 0;
     padding-bottom: 32px;
@@ -15,6 +17,27 @@ footer{
             display: inline-block;
             margin: 0 12px;
             text-transform: uppercase;
+
+            a{
+                position: relative;
+        
+                &:after{
+                    content: "";
+                    position: absolute;
+                    width: 0%;
+                    height: 2px;
+                    background: linear-gradient(to right, @primary, @secondary);
+                    bottom: 0;
+                    left: 0;
+                    transition: width .25s;
+                }
+            }
+        
+            a:active, a:focus{
+                &:after {
+                    width: 100%;
+                }
+            }
         }
     }
 }

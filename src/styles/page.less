@@ -17,6 +17,8 @@
 
 .page{
     padding: 64px 0;
+    width: 90%;
+    margin: 0 auto;
 
     p{
         margin: 12px auto;
@@ -67,5 +69,26 @@
 
     li {
         margin-left: 14px;
+    }
+
+    a{
+        position: relative;
+
+        &:after{
+            content: "";
+            position: absolute;
+            width: 0%;
+            height: 2px;
+            background: linear-gradient(to right, @primary, @secondary);
+            bottom: 0;
+            left: 0;
+            transition: width .25s;
+        }
+    }
+
+    a:active, a:focus{
+        &:after {
+            width: 100%;
+        }
     }
 }
