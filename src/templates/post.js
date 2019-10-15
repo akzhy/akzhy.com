@@ -6,6 +6,7 @@ import Title from "../components/title"
 import Layout from "../components/layout"
 import { Calendar, Pencil } from "../components/icons"
 import { BlogItem, ShelfCard } from "../components/items"
+import { Comments, CommentForm } from "../components/comments"
 
 import "../styles/prism.css"
 import "../styles/page.less"
@@ -57,7 +58,11 @@ export default ({ data }) => {
                     <div className="page">
                         <CodeHighlighter content={post.content} />
                     </div>
-                    <div className="comments"></div>
+                    <div className="comments">
+                        <Title data={"Comments"} tag="h3"/>
+                        <Comments postId={post.wordpress_id}/>
+                        <CommentForm />
+                    </div>
                     <div className="latest">
                         <Title data={"Latest Posts"} tag="h3"/>
                         <div className="row">
@@ -96,6 +101,7 @@ export const query = graphql`
                     }
                 }
             }
+            wordpress_id
             modified(formatString: "DD MMM YYYY")
             content
             date(formatString: "DD MMM YYYY")
