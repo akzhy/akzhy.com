@@ -61,7 +61,7 @@ export default ({ data }) => {
                     <div className="comments">
                         <Title data={"Comments"} tag="h3"/>
                         <Comments postId={post.wordpress_id}/>
-                        <CommentForm />
+                        <CommentForm postId={post.wordpress_id}/>
                     </div>
                     <div className="latest">
                         <Title data={"Latest Posts"} tag="h3"/>
