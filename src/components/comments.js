@@ -3,7 +3,7 @@ import Textarea from "react-textarea-autosize"
 
 export const CommentForm = ({ postId }) => {
     return (
-        <div className="form" style={{ width: "90%", margin: "0 auto" }}>
+        <div className="form">
             <noscript>
                 <h4>Please Enable JavaScript for adding comments.</h4>
             </noscript>
@@ -51,16 +51,15 @@ export const CommentForm = ({ postId }) => {
     )
 }
 
-
 export class Comments extends React.Component {
-    constructor(props){
-        super(props);
+    constructor(props) {
+        super(props)
         this.state = {
-            comments: false
+            comments: false,
         }
     }
     componentDidMount() {
-        const comments = {};
+        const comments = {}
         fetch(
             `http://akzhy.local/wp-json/wp/v2/comments?post=${this.props.postId}`,
             {
@@ -81,31 +80,118 @@ export class Comments extends React.Component {
                     }
                 })
                 this.setState({
-                    comments: comments
+                    comments: comments,
                 })
             })
     }
     render() {
-        return(
-            <div className="comments">
-                {this.state.comments &&
-                    <CommentTree data={this.state.comments}/>
-                }
+        return (
+            <div className="comment-list">
+                {this.state.comments && (
+                    <CommentTree data={this.state.comments} />
+                )}
             </div>
-        );
+        )
     }
 }
 
+class CommentTree extends React.Component {
 
-const CommentTree = ({ data }) => (
-    <ul style={{ paddingLeft: "22px"}}>
-        {data &&
-            Object.keys(data).map(item => (
-                <li key={data[item].id}>
-                    <p dangerouslySetInnerHTML= {{ __html : data[item].content.rendered}}/>
-                    {data[item].replies && <CommentTree data={data[item].replies} />}
-                </li>
-            ))
+    render() {
+        const data = this.props.data;
+        return (
+            <ul>
+                {data &&
+                    Object.keys(data).map(item => {
+                        const options = {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                            hour: "numeric",
+                            minute: "numeric",
+                        }
+                        let date = new Date(data[item].date)
+                        date = date.toLocaleDateString("en-UK", options);
+                        return (
+                            <Comment avatar={data[item].author_avatar_urls["48"]} name={data[item].author_name} date={date} comment={data[item].content.rendered} key={data[item].id}>
+                                <CommentTree data={data[item].replies} />
+                            </Comment> 
+                        )
+                    })}
+            </ul>
+        )
+    }
+}
+
+class Comment extends React.Component{
+    
+    constructor(props){
+        super(props);
+
+        this.state = {
+            replyActivated: false
         }
-    </ul>
-)
+
+        this.addReply = this.addReply.bind(this);
+        this.cancelReply = this.cancelReply.bind(this);
+    }
+
+    addReply(event){
+        event.preventDefault();
+        this.setState({
+            replyActivated: true
+        })
+    }
+
+    cancelReply(event){
+        event.preventDefault();
+        this.setState({
+            replyActivated: false
+        })
+    }
+
+    render(){
+        const {avatar, name, date, comment, children }  = this.props;
+        return (
+            <li>
+                <div className="comment-meta">
+                    <img
+                        src={
+                            avatar
+                        }
+                        alt="User profile"
+                    />
+                    <div className="data">
+                        <p className="name color-primary">
+                            {name}
+                        </p>
+                        <p className="date">{date}</p>
+                    </div>
+                </div>
+                <div
+                    className="comment"
+                    dangerouslySetInnerHTML={{
+                        __html: comment,
+                    }}
+                ></div>
+                <div className="comment-actions">
+                    <button type="button" className="btn" onClick={this.addReply}>
+                        Reply
+                    </button>
+                </div>
+                {this.state.replyActivated &&
+                    <div className="reply-form">
+                        <div className="reply-form-card">
+                            <p>Reply to the comment. <span style={{ borderBottom: "1px solid"}} onClick={this.cancelReply}>Cancel ?</span></p>
+                            <CommentForm />
+                        </div>
+                    </div>
+                }
+                {children && (
+                    <React.Fragment>{children}</React.Fragment>
+                )}
+            </li>      
+        )
+    }
+    
+}
