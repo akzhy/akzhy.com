@@ -145,15 +145,21 @@ export class Comments extends React.Component {
         super(props)
         this.state = {
             comments: false,
+            activeComment: false,
         }
         this.fetchData = this.fetchData.bind(this);
     }
 
-   /* getCommentDepth(comments, obj, depth){
+    getCommentDepth(comments, id, depth){
         depth = depth || 1;
-        if(obj.parent === 0) return depth;
-        return this.getCommentDepth()
-    }*/
+        if(comments[id].parent === 0) return depth;
+        return this.getCommentDepth(comments, comments[id].parent, depth+1);
+    }
+
+    getParentAboveLevel(comments, id, depth){
+        if(depth === 0) return comments[id];
+        return this.getParentAboveLevel(comments, comments[id].parent, depth-1);
+    }
 
     fetchData(){
         const comments = {}
@@ -168,13 +174,20 @@ export class Comments extends React.Component {
             })
             .then(data => {
                 data.forEach(item => (comments[item.id] = item));
-                console.log(data);
                 data.forEach(item => {
                     if (item.parent > 0) {
                         if (!("replies" in comments[item.parent]))
-                            comments[item.parent]["replies"] = [];                  
-                        console.log(comments[item.parent]);
-                        comments[item.parent]["replies"].push(item)
+                            comments[item.parent]["replies"] = []; 
+                        
+                        const commentDepth = this.getCommentDepth(comments, item.id, 1);
+
+                        if(commentDepth > 5){
+                            const parent = this.getParentAboveLevel(comments, item.id, commentDepth-5);
+                            if(!("replies" in parent)) parent.replies = [];
+                            parent.replies.unshift(item);
+                        } else {
+                            comments[item.parent]["replies"].push(item);
+                        }                 
                         delete comments[item.id]
                     }
                 })
@@ -186,9 +199,26 @@ export class Comments extends React.Component {
     }
 
     componentDidMount() {
+
+        const _this = this;
+
         if(!this.props.commentsUpdated){
             this.fetchData();
         }
+
+        if(window.location.hash){
+            this.setState({
+                activeComment: window.location.hash.substring(1)
+            })
+        }
+
+        window.addEventListener("hashchange", function(event){
+            if(window.location.hash){
+                _this.setState({
+                    activeComment: window.location.hash.substring(1)
+                })
+            }
+        })
     }
 
     componentDidUpdate(){
@@ -202,7 +232,7 @@ export class Comments extends React.Component {
         return (
             <div className="comment-list">
                 {this.state.comments && (
-                    <CommentTree data={this.state.comments} postId={this.props.postId} commentUpdateState={this.props.commentUpdateState}/>
+                    <CommentTree data={this.state.comments} postId={this.props.postId} commentUpdateState={this.props.commentUpdateState} activeComment={this.state.activeComment}/>
                 )}
             </div>
         )
@@ -227,8 +257,8 @@ class CommentTree extends React.Component {
                         let date = new Date(data[item].date)
                         date = date.toLocaleDateString("en-UK", options);
                         return (
-                            <Comment avatar={data[item].author_avatar_urls["48"]} name={data[item].author_name} date={date} comment={data[item].content.rendered} key={data[item].id} postId={this.props.postId} commentId={data[item].id} commentUpdateState={this.props.commentUpdateState}>
-                                <CommentTree data={data[item].replies} postId={this.props.postId} commentUpdateState={this.props.commentUpdateState}/>
+                            <Comment avatar={data[item].author_avatar_urls["48"]} name={data[item].author_name} date={date} comment={data[item].content.rendered} key={data[item].id} id={data[item].id} postId={this.props.postId} commentId={data[item].id} commentUpdateState={this.props.commentUpdateState} replyTo={data[item].parent} activeComment={this.props.activeComment}>
+                                <CommentTree data={data[item].replies} postId={this.props.postId} commentUpdateState={this.props.commentUpdateState} activeComment={this.props.activeComment}/>
                             </Comment> 
                         )
                     })}
@@ -265,42 +295,47 @@ class Comment extends React.Component{
     }
 
     render(){
-        const {avatar, name, date, comment, children }  = this.props;
+        const { avatar, name, date, id, comment, children, replyTo }  = this.props;
         return (
-            <li>
-                <div className="comment-meta">
-                    <img
-                        src={
-                            avatar
-                        }
-                        alt="User profile"
-                    />
-                    <div className="data">
-                        <p className="name color-primary">
-                            {name}
-                        </p>
-                        <p className="date">{date}</p>
-                    </div>
-                </div>
-                <div
-                    className="comment"
-                    dangerouslySetInnerHTML={{
-                        __html: comment,
-                    }}
-                ></div>
-                <div className="comment-actions">
-                    <button type="button" className="btn" onClick={this.addReply}>
-                        Reply
-                    </button>
-                </div>
-                {this.state.replyActivated &&
-                    <div className="reply-form">
-                        <div className="reply-form-card">
-                            <p>Reply to the comment. <span style={{ borderBottom: "1px solid"}} onClick={this.cancelReply}>Cancel ?</span></p>
-                            <CommentForm commentId={this.props.commentId} postId={this.props.postId} commentUpdateState={this.props.commentUpdateState}/>
+            <li id={`c${id}`}>
+                <div className={`content${(this.props.activeComment && this.props.activeComment === `c${id}`) ? ' active' : ''}`}>
+                    <div className="comment-meta">
+                        <img
+                            src={
+                                avatar
+                            }
+                            alt="User profile"
+                        />
+                        <div className="data">
+                            <p className="name color-primary">
+                                {name}
+                            </p>
+                            <span className="date">{date}</span>
+                            {(replyTo > 0) &&
+                                <a className="reply-to" href={`#c${replyTo}`}>Replying to #{replyTo}</a>
+                            }
                         </div>
                     </div>
-                }
+                    <div
+                        className="comment"
+                        dangerouslySetInnerHTML={{
+                            __html: comment,
+                        }}
+                    ></div>
+                    <div className="comment-actions">
+                        <button type="button" className="btn" onClick={this.addReply}>
+                            Reply
+                        </button>
+                    </div>
+                    {this.state.replyActivated &&
+                        <div className="reply-form">
+                            <div className="reply-form-card">
+                                <p>Reply to the comment. <span style={{ borderBottom: "1px solid"}} onClick={this.cancelReply}>Cancel ?</span></p>
+                                <CommentForm commentId={this.props.commentId} postId={this.props.postId} commentUpdateState={this.props.commentUpdateState}/>
+                            </div>
+                        </div>
+                    }
+                </div>
                 {children && (
                     <React.Fragment>{children}</React.Fragment>
                 )}

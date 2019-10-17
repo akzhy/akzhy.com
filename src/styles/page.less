@@ -107,6 +107,26 @@
             border-radius: 4px;
             box-shadow: 2px 2px 8px -4px rgba(0,0,0,.3);
 
+            .content {
+                padding: 0 12px;
+                position: relative;
+
+                &:before {
+                    content: "";
+                    position: absolute;
+                    width: 2px;
+                    height: 0%;
+                    left: 0;
+                    top: 0;
+                    background: linear-gradient(to bottom, @primary, @secondary);
+                    transition: height .25s;
+                }
+
+                &.active:before {
+                    height: 100%;
+                }
+            }
+
             ul {
                 margin-top: 24px;
             }
@@ -127,8 +147,13 @@
                         font-size: 20px;
                     }
 
-                    .date {
+                    .date, .reply-to {
                         font-size: 12px;
+                        display: inline-block;
+                    }
+
+                    .reply-to {
+                        margin-left: 12px;
                     }
                 }
             }
