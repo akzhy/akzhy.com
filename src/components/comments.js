@@ -1,5 +1,6 @@
 import React from "react"
 import Textarea from "react-textarea-autosize"
+import config from "../../config.json"
 
 export class CommentForm extends React.Component{
 
@@ -42,7 +43,7 @@ export class CommentForm extends React.Component{
             body.parent = commentId
         }
         
-        fetch(`http://akzhy.local/wp-json/wp/v2/comments`,
+        fetch(`${config.cms}/wp-json/wp/v2/comments`,
         {
             method: "post",
             headers: {
@@ -145,14 +146,19 @@ export class Comments extends React.Component {
         this.state = {
             comments: false,
         }
-
         this.fetchData = this.fetchData.bind(this);
     }
+
+   /* getCommentDepth(comments, obj, depth){
+        depth = depth || 1;
+        if(obj.parent === 0) return depth;
+        return this.getCommentDepth()
+    }*/
 
     fetchData(){
         const comments = {}
         fetch(
-            `http://akzhy.local/wp-json/wp/v2/comments?post=${this.props.postId}&per_page=100`,
+            `${config.cms}/wp-json/wp/v2/comments?post=${this.props.postId}&per_page=100`,
             {
                 method: "get",
             }
@@ -162,10 +168,12 @@ export class Comments extends React.Component {
             })
             .then(data => {
                 data.forEach(item => (comments[item.id] = item));
+                console.log(data);
                 data.forEach(item => {
                     if (item.parent > 0) {
                         if (!("replies" in comments[item.parent]))
-                            comments[item.parent]["replies"] = []
+                            comments[item.parent]["replies"] = [];                  
+                        console.log(comments[item.parent]);
                         comments[item.parent]["replies"].push(item)
                         delete comments[item.id]
                     }
@@ -190,10 +198,11 @@ export class Comments extends React.Component {
     }
 
     render() {
+
         return (
             <div className="comment-list">
                 {this.state.comments && (
-                    <CommentTree data={this.state.comments} postId={this.props.postId}/>
+                    <CommentTree data={this.state.comments} postId={this.props.postId} commentUpdateState={this.props.commentUpdateState}/>
                 )}
             </div>
         )
@@ -218,8 +227,8 @@ class CommentTree extends React.Component {
                         let date = new Date(data[item].date)
                         date = date.toLocaleDateString("en-UK", options);
                         return (
-                            <Comment avatar={data[item].author_avatar_urls["48"]} name={data[item].author_name} date={date} comment={data[item].content.rendered} key={data[item].id} postId={this.props.postId} commentId={data[item].id}>
-                                <CommentTree data={data[item].replies} />
+                            <Comment avatar={data[item].author_avatar_urls["48"]} name={data[item].author_name} date={date} comment={data[item].content.rendered} key={data[item].id} postId={this.props.postId} commentId={data[item].id} commentUpdateState={this.props.commentUpdateState}>
+                                <CommentTree data={data[item].replies} postId={this.props.postId} commentUpdateState={this.props.commentUpdateState}/>
                             </Comment> 
                         )
                     })}
@@ -288,7 +297,7 @@ class Comment extends React.Component{
                     <div className="reply-form">
                         <div className="reply-form-card">
                             <p>Reply to the comment. <span style={{ borderBottom: "1px solid"}} onClick={this.cancelReply}>Cancel ?</span></p>
-                            <CommentForm commentId={this.props.commentId} postId={this.props.postId}/>
+                            <CommentForm commentId={this.props.commentId} postId={this.props.postId} commentUpdateState={this.props.commentUpdateState}/>
                         </div>
                     </div>
                 }
