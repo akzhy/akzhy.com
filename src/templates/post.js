@@ -13,66 +13,102 @@ import "../styles/page.less"
 import "../styles/blog.less"
 import "../styles/shelf.less"
 
-export default ({ data }) => {
-    const post = data.wordpressPost
+export default class Post extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            commentsUpdated: false
+        }
 
-    const seo = {
-        title: post.title,
-        description: post.acf.meta_description,
-        image: post.featured_media.localFile.childImageSharp.fluid.src,
+        this.commentUpdateState = this.commentUpdateState.bind(this);
     }
 
-    const latestPosts = [];
+    commentUpdateState(state){
+        this.setState({
+            commentsUpdated: state
+        })
+    }
+ 
+    render() {  
+        const data = this.props.data;
+        const post = data.wordpressPost;
 
-    data.latest.edges.forEach((item,i) => {
-        if(item.node.categories[0].name === "blog"){
-            latestPosts.push(
-                <BlogItem title={item.node.title} description={item.node.acf.description} date={item.node.date} image={item.node.featured_media.localFile.childImageSharp.fluid} link={item.node.path} key={item.node.id}/>
-            )
-        }else {
-            latestPosts.push(
-                <ShelfCard title={item.node.title} description={item.node.acf.description} date={item.node.date} image={item.node.featured_media.localFile.childImageSharp.fluid} link={item.node.path} key={item.node.id}/>
-            )
+        const seo = {
+            title: post.title,
+            description: post.acf.meta_description,
+            image: post.featured_media.localFile.childImageSharp.fluid.src,
         }
-    })
 
-    return (
-        <Layout seo={seo}>
-            <div className="section">
-                <div className="container">
-                    <div className="meta">
-                        <Title data={post.title} />
-                        <p className="date" title="Posted date">
-                            <span>
-                                <Calendar className="fill-primary" />
-                            </span>
-                            {post.date}
-                        </p>
-                        <p className="date" title="Modified date">
-                            <span>
-                                <Pencil className="fill-primary" />
-                            </span>
-                            {post.modified}
-                        </p>
-                    </div>
-                    <div className="page">
-                        <CodeHighlighter content={post.content} />
-                    </div>
-                    <div className="comments">
-                        <Title data={"Comments"} tag="h3"/>
-                        <Comments postId={post.wordpress_id}/>
-                        <CommentForm postId={post.wordpress_id}/>
-                    </div>
-                    <div className="latest">
-                        <Title data={"Latest Posts"} tag="h3"/>
-                        <div className="row">
-                        {latestPosts}
+        const latestPosts = []
+
+        data.latest.edges.forEach((item, i) => {
+            if (item.node.categories[0].name === "blog") {
+                latestPosts.push(
+                    <BlogItem
+                        title={item.node.title}
+                        description={item.node.acf.description}
+                        date={item.node.date}
+                        image={
+                            item.node.featured_media.localFile.childImageSharp
+                                .fluid
+                        }
+                        link={item.node.path}
+                        key={item.node.id}
+                    />
+                )
+            } else {
+                latestPosts.push(
+                    <ShelfCard
+                        title={item.node.title}
+                        description={item.node.acf.description}
+                        date={item.node.date}
+                        image={
+                            item.node.featured_media.localFile.childImageSharp
+                                .fluid
+                        }
+                        link={item.node.path}
+                        key={item.node.id}
+                    />
+                )
+            }
+        })
+
+        return (
+            <Layout seo={seo}>
+                <div className="section">
+                    <div className="container">
+                        <div className="meta">
+                            <Title data={post.title} />
+                            <p className="date" title="Posted date">
+                                <span>
+                                    <Calendar className="fill-primary" />
+                                </span>
+                                {post.date}
+                            </p>
+                            <p className="date" title="Modified date">
+                                <span>
+                                    <Pencil className="fill-primary" />
+                                </span>
+                                {post.modified}
+                            </p>
+                        </div>
+                        <div className="page">
+                            <CodeHighlighter content={post.content} />
+                        </div>
+                        <div className="comments">
+                            <Title data={"Comments"} tag="h3" />
+                            <Comments postId={post.wordpress_id} commentsUpdated={this.state.commentsUpdated} commentUpdateState={this.commentUpdateState}/>
+                            <CommentForm postId={post.wordpress_id} commentUpdateState={this.commentUpdateState}/>
+                        </div>
+                        <div className="latest">
+                            <Title data={"Latest Posts"} tag="h3" />
+                            <div className="row">{latestPosts}</div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </Layout>
-    )
+            </Layout>
+        )
+    }
 }
 
 class CodeHighlighter extends React.Component {

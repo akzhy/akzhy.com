@@ -9,12 +9,21 @@ export class CommentForm extends React.Component{
         this.cName = React.createRef();
         this.cEmail = React.createRef();
         this.cComment = React.createRef();
+        this.form = React.createRef();
+
+        this.state = {
+            message: false,
+            btnEnabled: true,
+            error: true
+        }
 
         this.formSubmit = this.formSubmit.bind(this);
     }
 
     formSubmit(event){
         event.preventDefault();
+
+        this.setState({ btnEnabled: false })
 
         const { postId, commentId } = this.props;
 
@@ -43,9 +52,29 @@ export class CommentForm extends React.Component{
         }).then((response) => {
             return response.json();
         }).then(obj => {
-            console.log(obj)
+            if(obj.code){
+                switch(obj.code){
+                    case 'rest_comment_author_data_required':
+                        this.setState({ message: "Please enter a valid name and email address"});
+                        break;
+                    case 'rest_comment_content_invalid':
+                        this.setState({ message: "Please enter a comment"});
+                        break;
+                    default:
+                        this.setState({ message: "An error occured while adding the comment"});
+                }
+            }else {
+                this.setState({
+                    message: "Comment added.",
+                    error: false
+                })
+                this.form.current.reset();
+                this.props.commentUpdateState(false);
+            }
+            this.setState({ btnEnabled: true });
         }).catch(err => {
-            console.log("Error",err);
+            console.log(err);
+            this.setState({ btnEnabled: true });
         })
     }
     render(){
@@ -54,7 +83,7 @@ export class CommentForm extends React.Component{
                 <noscript>
                     <h4>Please Enable JavaScript for adding comments.</h4>
                 </noscript>
-                <form>
+                <form ref={this.form}>
                     <div className="input-field">
                         <label>
                             <p>Name</p>
@@ -96,8 +125,13 @@ export class CommentForm extends React.Component{
                             </div>
                         </label>
                     </div>
+                    {this.state.message &&
+                        <div className="input-field">
+                            <p className={this.state.error ? "error" : "success"}>{this.state.message}</p>
+                        </div>
+                    }
                     <div className="input-field">
-                        <button type="submit" className="btn">Comment</button>
+                        <button type="submit" className={`btn ${this.state.btnEnabled ? '' : 'disabled'}`} disabled={!this.state.btnEnabled}>Comment</button>
                     </div>
                 </form>
             </div>
@@ -111,11 +145,14 @@ export class Comments extends React.Component {
         this.state = {
             comments: false,
         }
+
+        this.fetchData = this.fetchData.bind(this);
     }
-    componentDidMount() {
+
+    fetchData(){
         const comments = {}
         fetch(
-            `http://akzhy.local/wp-json/wp/v2/comments?post=${this.props.postId}`,
+            `http://akzhy.local/wp-json/wp/v2/comments?post=${this.props.postId}&per_page=100`,
             {
                 method: "get",
             }
@@ -124,7 +161,7 @@ export class Comments extends React.Component {
                 return res.json()
             })
             .then(data => {
-                data.forEach(item => (comments[item.id] = item))
+                data.forEach(item => (comments[item.id] = item));
                 data.forEach(item => {
                     if (item.parent > 0) {
                         if (!("replies" in comments[item.parent]))
@@ -133,11 +170,25 @@ export class Comments extends React.Component {
                         delete comments[item.id]
                     }
                 })
+                this.props.commentUpdateState(true);
                 this.setState({
-                    comments: comments,
+                    comments: comments
                 })
             })
     }
+
+    componentDidMount() {
+        if(!this.props.commentsUpdated){
+            this.fetchData();
+        }
+    }
+
+    componentDidUpdate(){
+        if(!this.props.commentsUpdated){
+            this.fetchData();
+        }
+    }
+
     render() {
         return (
             <div className="comment-list">
