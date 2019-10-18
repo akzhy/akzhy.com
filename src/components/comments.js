@@ -337,7 +337,7 @@ class Comment extends React.Component{
                             <p className="name color-primary">
                                 {author_name}
                                 {author !== 0 &&
-                                    <span className="badge">mod</span>
+                                    <span className="badge">mod &#x2605;</span>
                                 }
                             </p>
                             <span className="date">{date}</span>
