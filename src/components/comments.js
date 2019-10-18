@@ -15,10 +15,26 @@ export class CommentForm extends React.Component{
         this.state = {
             message: false,
             btnEnabled: true,
-            error: true
+            error: true,
+            user: {
+                code: false
+            }
         }
 
+
         this.formSubmit = this.formSubmit.bind(this);
+    }
+
+    componentDidMount(){
+        if(localStorage.getItem("auth")){
+            const user = JSON.parse(localStorage.getItem("auth"));
+            this.setState({
+                code: user.token
+            })
+
+            this.cName.current.value = user.user_display_name;
+            this.cEmail.current.value = user.user_email;
+        }
     }
 
     formSubmit(event){
@@ -36,19 +52,26 @@ export class CommentForm extends React.Component{
             author_email: email,
             author_name: name,
             content: comment,
-            post: postId
+            post: postId,
         }
 
         if(commentId){
             body.parent = commentId
         }
+
+        const headers = {
+            'Content-Type': 'application/json'
+        }
+
+        if(this.state.code){
+            headers.Authorization = `Bearer ${this.state.code}`;
+            body.author = 1;
+        }
         
         fetch(`${config.cms}/wp-json/wp/v2/comments`,
         {
             method: "post",
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            headers: headers,
             body: JSON.stringify(body)
         }).then((response) => {
             return response.json();
@@ -78,6 +101,7 @@ export class CommentForm extends React.Component{
             this.setState({ btnEnabled: true });
         })
     }
+
     render(){
         return (
             <div className="form" onSubmit={this.formSubmit}>
@@ -247,17 +271,8 @@ class CommentTree extends React.Component {
             <ul>
                 {data &&
                     Object.keys(data).map(item => {
-                        const options = {
-                            year: "numeric",
-                            month: "long",
-                            day: "numeric",
-                            hour: "numeric",
-                            minute: "numeric",
-                        }
-                        let date = new Date(data[item].date)
-                        date = date.toLocaleDateString("en-UK", options);
                         return (
-                            <Comment avatar={data[item].author_avatar_urls["48"]} name={data[item].author_name} date={date} comment={data[item].content.rendered} key={data[item].id} id={data[item].id} postId={this.props.postId} commentId={data[item].id} commentUpdateState={this.props.commentUpdateState} replyTo={data[item].parent} activeComment={this.props.activeComment}>
+                            <Comment data={data[item]} key={data[item].id} postId={this.props.postId} commentUpdateState={this.props.commentUpdateState} activeComment={this.props.activeComment}>
                                 <CommentTree data={data[item].replies} postId={this.props.postId} commentUpdateState={this.props.commentUpdateState} activeComment={this.props.activeComment}/>
                             </Comment> 
                         )
@@ -295,20 +310,35 @@ class Comment extends React.Component{
     }
 
     render(){
-        const { avatar, name, date, id, comment, children, replyTo }  = this.props;
+        const children = this.props.children;
+        const { author_avatar_urls, author_name, id, content, author }  = this.props.data;
+        const replyTo = this.props.data.parent;
+        const options = {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+            hour: "numeric",
+            minute: "numeric",
+        }
+        let date = new Date(this.props.data.date)
+        date = date.toLocaleDateString(undefined, options);
+
         return (
             <li id={`c${id}`}>
                 <div className={`content${(this.props.activeComment && this.props.activeComment === `c${id}`) ? ' active' : ''}`}>
                     <div className="comment-meta">
                         <img
                             src={
-                                avatar
+                                author_avatar_urls["48"]
                             }
                             alt="User profile"
                         />
                         <div className="data">
                             <p className="name color-primary">
-                                {name}
+                                {author_name}
+                                {author !== 0 &&
+                                    <span className="badge">mod</span>
+                                }
                             </p>
                             <span className="date">{date}</span>
                             {(replyTo > 0) &&
@@ -319,7 +349,7 @@ class Comment extends React.Component{
                     <div
                         className="comment"
                         dangerouslySetInnerHTML={{
-                            __html: comment,
+                            __html: content.rendered,
                         }}
                     ></div>
                     <div className="comment-actions">
@@ -331,7 +361,7 @@ class Comment extends React.Component{
                         <div className="reply-form">
                             <div className="reply-form-card">
                                 <p>Reply to the comment. <span style={{ borderBottom: "1px solid"}} onClick={this.cancelReply}>Cancel ?</span></p>
-                                <CommentForm commentId={this.props.commentId} postId={this.props.postId} commentUpdateState={this.props.commentUpdateState}/>
+                                <CommentForm commentId={id} postId={this.props.postId} commentUpdateState={this.props.commentUpdateState}/>
                             </div>
                         </div>
                     }
