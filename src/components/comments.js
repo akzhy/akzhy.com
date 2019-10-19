@@ -92,7 +92,7 @@ export class CommentForm extends React.Component{
                     message: "Comment added.",
                     error: false
                 })
-                this.cComment.current.value = "";
+                this.cComment.value = "";
                 this.props.commentUpdateState(false);
             }
             this.setState({ btnEnabled: true });
@@ -269,6 +269,14 @@ class CommentTree extends React.Component {
         const data = this.props.data;
         return (
             <ul>
+                {data &&
+                    (Object.keys(data).length === 0) &&
+                        <li>
+                            <div className="content title">
+                                <h6>No comments yet.</h6>
+                            </div>
+                        </li>
+                }
                 {data &&
                     Object.keys(data).map(item => {
                         return (
