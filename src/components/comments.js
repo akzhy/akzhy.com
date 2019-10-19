@@ -92,7 +92,7 @@ export class CommentForm extends React.Component{
                     message: "Comment added.",
                     error: false
                 })
-                this.form.current.reset();
+                this.cComment.current.value = "";
                 this.props.commentUpdateState(false);
             }
             this.setState({ btnEnabled: true });
