@@ -53,6 +53,7 @@ export class CommentForm extends React.Component{
             author_name: name,
             content: comment,
             post: postId,
+            lstc_subscribe: 1
         }
 
         if(commentId){
@@ -67,6 +68,8 @@ export class CommentForm extends React.Component{
             headers.Authorization = `Bearer ${this.state.code}`;
             body.author = 1;
         }
+
+        console.log(body);
         
         fetch(`${config.cms}/wp-json/wp/v2/comments`,
         {
