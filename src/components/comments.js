@@ -53,11 +53,11 @@ export class CommentForm extends React.Component{
             author_name: name,
             content: comment,
             post: postId,
-            lstc_subscribe: 1
+            subscribe_to_replies: true
         }
 
         if(commentId){
-            body.parent = commentId
+            body.parent = commentId;
         }
 
         const headers = {
@@ -68,8 +68,6 @@ export class CommentForm extends React.Component{
             headers.Authorization = `Bearer ${this.state.code}`;
             body.author = 1;
         }
-
-        console.log(body);
         
         fetch(`${config.cms}/wp-json/wp/v2/comments`,
         {
@@ -79,6 +77,8 @@ export class CommentForm extends React.Component{
         }).then((response) => {
             return response.json();
         }).then(obj => {
+            console.log(obj);
+
             if(obj.code){
                 switch(obj.code){
                     case 'rest_comment_author_data_required':
@@ -259,7 +259,18 @@ export class Comments extends React.Component {
         return (
             <div className="comment-list">
                 {this.state.comments && (
-                    <CommentTree data={this.state.comments} postId={this.props.postId} commentUpdateState={this.props.commentUpdateState} activeComment={this.state.activeComment}/>
+                    <React.Fragment>
+                        {(Object.keys(this.state.comments).length === 0) &&
+                            <ul>
+                                <li>
+                                    <div className="content title">
+                                        <h6>No comments yet.</h6>
+                                    </div>
+                                </li>
+                            </ul>
+                        }
+                        <CommentTree data={this.state.comments} postId={this.props.postId} commentUpdateState={this.props.commentUpdateState} activeComment={this.state.activeComment}/>
+                    </React.Fragment>
                 )}
             </div>
         )
@@ -272,14 +283,6 @@ class CommentTree extends React.Component {
         const data = this.props.data;
         return (
             <ul>
-                {data &&
-                    (Object.keys(data).length === 0) &&
-                        <li>
-                            <div className="content title">
-                                <h6>No comments yet.</h6>
-                            </div>
-                        </li>
-                }
                 {data &&
                     Object.keys(data).map(item => {
                         return (
