@@ -20,7 +20,8 @@ export class CommentForm extends React.Component{
             error: true,
             user: {
                 code: false
-            }
+            },
+            hasStoredData: false
         }
 
 
@@ -36,6 +37,19 @@ export class CommentForm extends React.Component{
 
             this.cName.current.value = user.user_display_name;
             this.cEmail.current.value = user.user_email;
+
+            this.setState({
+                hasStoredData: true
+            })
+        }else if(localStorage.getItem("user")){
+            this.setState({
+                hasStoredData: true
+            })
+            const user = JSON.parse(localStorage.getItem("user"));
+
+            this.cName.current.value = user.name;
+            this.cEmail.current.value = user.email;
+            this.subscribe.current.checked = user.subscribe;
         }
     }
 
@@ -48,14 +62,23 @@ export class CommentForm extends React.Component{
 
         const name = this.cName.current.value,
         email = this.cEmail.current.value,
-        comment = this.cComment.value;
+        comment = this.cComment.value,
+        subscribe = this.subscribe.current.checked
 
         const body = {
             author_email: email,
             author_name: name,
             content: comment,
             post: postId,
-            subscribe_to_replies: true
+            subscribe_to_replies: subscribe
+        }
+
+        if(this.saveData.current.checked){
+            localStorage.setItem("user",JSON.stringify({
+                name,
+                email,
+                subscribe
+            }));
         }
 
         if(commentId){
@@ -162,6 +185,7 @@ export class CommentForm extends React.Component{
                             <p>Send email notifications for replies.</p>
                         </label>
                     </div>
+                    {!this.state.hasStoredData &&
                     <div className="input-field checkbox">
                         <label>
                             <input type="checkbox" ref={this.saveData} name="savedata" value="true" defaultChecked/>
@@ -169,6 +193,7 @@ export class CommentForm extends React.Component{
                             <p>Save my name, email and notification preferences on this browser.</p>
                         </label>
                     </div>
+                    }
                     {this.state.message &&
                         <div className="input-field">
                             <p className={this.state.error ? "error" : "success"}>{this.state.message}</p>
