@@ -11,6 +11,8 @@ export class CommentForm extends React.Component{
         this.cEmail = React.createRef();
         this.cComment = React.createRef();
         this.form = React.createRef();
+        this.subscribe = React.createRef();
+        this.saveData = React.createRef();
 
         this.state = {
             message: false,
@@ -151,6 +153,20 @@ export class CommentForm extends React.Component{
                                     inputRef={tag => (this.cComment = tag)}
                                 />
                             </div>
+                        </label>
+                    </div>
+                    <div className="input-field checkbox">
+                        <label>
+                            <input type="checkbox" ref={this.subscribe} name="subscribe" value="true" defaultChecked/>
+                            <span className="icon"></span>
+                            <p>Send email notifications for replies.</p>
+                        </label>
+                    </div>
+                    <div className="input-field checkbox">
+                        <label>
+                            <input type="checkbox" ref={this.saveData} name="savedata" value="true" defaultChecked/>
+                            <span className="icon"></span>
+                            <p>Save my name, email and notification preferences on this browser.</p>
                         </label>
                     </div>
                     {this.state.message &&
