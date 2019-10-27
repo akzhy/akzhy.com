@@ -132,7 +132,7 @@ export class CommentForm extends React.Component{
 
     render(){
         return (
-            <div className="form" onSubmit={this.formSubmit}>
+            <div className="form boxed" onSubmit={this.formSubmit}>
                 <noscript>
                     <h4>Please Enable JavaScript for adding comments.</h4>
                 </noscript>
@@ -298,7 +298,7 @@ export class Comments extends React.Component {
     render() {
 
         return (
-            <div className="comment-list">
+            <div className="comment-list boxed">
                 {this.state.comments && (
                     <React.Fragment>
                         {(Object.keys(this.state.comments).length === 0) &&

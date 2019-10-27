@@ -10,7 +10,7 @@ export default class Contact extends React.Component{
             <div className="section" id="contact">
                 <div className="container">
                     <Title data="Contact"/>
-                    <div className="contents">
+                    <div className="contents boxed">
                         <div className="input-field">
                             <label>
                                 <p>Name</p>
