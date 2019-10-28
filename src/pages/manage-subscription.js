@@ -83,30 +83,32 @@ export default class Login extends React.Component {
                     <div className="container">
                         <div className="boxed">
                             <Title data="Manage Subscriptions" />
-                            {this.state.subscriptions && 
-                                <Subscriptions data={this.state.subscriptions}/>
-                            }
-                            {!this.state.hasToken && (
-                                <form onSubmit={this.submit}>
-                                    <p>To manage your subscriptions, please enter your email address.</p>
-                                    <div className="input-field">
-                                        <label>
-                                            <p>Email</p>
-                                            <div className="field">
-                                                <input
-                                                    type="text"
-                                                    className="input"
-                                                    ref={this.email}
-                                                    name="email"
-                                                />
-                                            </div>
-                                        </label>
-                                    </div>
-                                    <div className="input-field">
-                                        <button type="submit" className="btn">Submit</button>
-                                    </div>
-                                </form>
-                            )}
+                            <div className="page-content">
+                                {this.state.subscriptions && 
+                                    <Subscriptions data={this.state.subscriptions}/>
+                                }
+                                {!this.state.hasToken && (
+                                    <form onSubmit={this.submit}>
+                                        <p>To manage your subscriptions, please enter your email address.</p>
+                                        <div className="input-field">
+                                            <label>
+                                                <p>Email</p>
+                                                <div className="field">
+                                                    <input
+                                                        type="text"
+                                                        className="input"
+                                                        ref={this.email}
+                                                        name="email"
+                                                    />
+                                                </div>
+                                            </label>
+                                        </div>
+                                        <div className="input-field">
+                                            <button type="submit" className="btn">Submit</button>
+                                        </div>
+                                    </form>
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -155,11 +157,16 @@ class Row extends React.Component{
 
     render(){
         const data = this.props.data;
-        
+
         return (
             <tr className="subscription-item">
                 <td>
-                    <input type="checkbox" name="select-subscriptions"/>
+                    <div className="input-field checkbox">
+                        <label>
+                            <input type="checkbox" name="select-subscriptions"/>
+                            <span className="icon"></span>
+                        </label>
+                    </div>
                 </td>
                 <td>{data.name}</td>
                 <td><a href={data.post.slug} title={data.post.title}>{data.post.title}</a></td>
