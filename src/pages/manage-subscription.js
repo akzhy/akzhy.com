@@ -16,7 +16,11 @@ export default class Login extends React.Component {
         this.state = {
             hasToken: false,
             searchParams: {},
-            subscriptions: false
+            subscriptions: false,
+            formResult: {
+                message: false,
+                error: true
+            }
         }
     }
 
@@ -55,23 +59,33 @@ export default class Login extends React.Component {
 
     submit(event) {
         event.preventDefault()
-        fetch(`${config.cms}/wp-json/jwt-auth/v1/token`, {
-            method: "post",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                username: this.name.current.value,
-                password: this.password.current.value,
-            }),
-        })
-            .then(res => {
-                return res.json()
-            })
-            .then(obj => {
-                if (obj.token) {
-                    localStorage.setItem("auth", JSON.stringify(obj))
-                    window.location = "/"
+        fetch(`${config.cms}/wp-json/restcommentsubscribing/v1/req_manage`,
+            {
+                method: "post",
+                body: JSON.stringify({
+                    email: this.email.current.value
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            }).then((response) => {
+                return response.json();
+            }).then(obj => {
+                if(obj.result === "success"){
+                    this.email.current.value = "";
+                    this.setState({
+                        formResult:{
+                            message: "Email sent succesfully",
+                            error: false
+                        } 
+                    })
+                }else {
+                    this.setState({
+                        formResult: {
+                            message: "Error sending email",
+                            error: true
+                        }
+                    })
                 }
             })
     }
@@ -84,6 +98,11 @@ export default class Login extends React.Component {
                         <div className="boxed">
                             <Title data="Manage Subscriptions" />
                             <div className="page-content">
+                                {(this.state.hasToken && !this.state.subscriptions) &&
+                                <div className="text-center">
+                                    <p>Loading, please wait</p>
+                                </div>
+                                }
                                 {this.state.subscriptions && 
                                     <Subscriptions data={this.state.subscriptions}/>
                                 }
@@ -103,6 +122,11 @@ export default class Login extends React.Component {
                                                 </div>
                                             </label>
                                         </div>
+                                        {
+                                            this.state.formResult.message && (
+                                                <p className={this.state.formResult.error ? "error": "success"}>{this.state.formResult.message}</p>
+                                            )
+                                        }
                                         <div className="input-field">
                                             <button type="submit" className="btn">Submit</button>
                                         </div>
@@ -117,35 +141,62 @@ export default class Login extends React.Component {
     }
 }
 
-const Subscriptions = ({data}) => {
-    
-    const list = [];
+class Subscriptions extends React.Component{
 
-    data.forEach((item,index) => {
-        list.push(
-            <Row key={"tr"+index} data={item}/>
+    constructor(props){
+        super(props);
+        this.state = {
+            checkedItems: {}
+        }
+    }
+
+    changeCheckedItems(data){
+        this.setState({
+            checkedItems: data
+        })
+    }
+
+    render(){
+
+        const data = this.props.data;
+
+        const list = [];
+
+        data.forEach((item,index) => {
+            list.push(
+                <Row key={"tr"+index+""+item.id} data={item} id={item.id}/>
+            )
+        })
+        
+        return (
+            <div>
+                <table>
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Post</th>
+                        <th>Comment</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {list}
+                    </tbody>
+                </table>
+                <button className="btn">Unsubscribe selected</button>
+            </div>
         )
-    })
-    
-    return (
-        <table>
-            <thead>
-            <tr>
-                <th></th>
-                <th>Name</th>
-                <th>Post</th>
-                <th>Comment</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-                {list}
-            </tbody>
-        </table>
-    )
+    }
 }
 
 class Row extends React.Component{
+
+    constructor(props){
+        super(props);
+
+        this.checkBox = React.createRef();
+    }
 
     componentDidMount(){
 
@@ -163,7 +214,7 @@ class Row extends React.Component{
                 <td>
                     <div className="input-field checkbox">
                         <label>
-                            <input type="checkbox" name="select-subscriptions"/>
+                            <input type="checkbox" name="select-subscriptions" ref={this.checkBox}/>
                             <span className="icon"></span>
                         </label>
                     </div>
