@@ -7,7 +7,7 @@ import Title from "../components/title"
 const seo = {
     title: "Manage Subscriptions",
 }
-export default class Login extends React.Component {
+export default class Subscription extends React.Component {
     constructor(props) {
         super(props)
         this.submit = this.submit.bind(this)
@@ -146,14 +146,28 @@ class Subscriptions extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            checkedItems: {}
+            checkedItems: []
+        }
+
+    }
+
+    addCheckedItems = (data) => {
+        if(!this.state.checkedItems.includes(data)){
+            const items = this.state.checkedItems;
+            items.push(data);
+            this.setState({
+                checkedItems: items
+            })
         }
     }
 
-    changeCheckedItems(data){
-        this.setState({
-            checkedItems: data
-        })
+    removeCheckedItems = (data) => {
+        if(this.state.checkedItems.includes(data)){
+            const items = this.state.checkedItems.filter(e => e !== data);
+            this.setState({
+                checkedItems: items
+            })
+        }
     }
 
     render(){
@@ -164,7 +178,7 @@ class Subscriptions extends React.Component{
 
         data.forEach((item,index) => {
             list.push(
-                <Row key={"tr"+index+""+item.id} data={item} id={item.id}/>
+                <Row key={"tr"+index+""+item.id} data={item} id={item.id} addCheckedItems={this.addCheckedItems} removeCheckedItems={this.removeCheckedItems}/>
             )
         })
         
@@ -184,7 +198,7 @@ class Subscriptions extends React.Component{
                         {list}
                     </tbody>
                 </table>
-                <button className="btn">Unsubscribe selected</button>
+                <button className="btn" disabled={(this.state.checkedItems.length === 0) ? true: false} title={(this.state.checkedItems.length === 0) ? "Please select an item to unsubscribe": "Unsubscribe selected items"}>Unsubscribe selected</button>
             </div>
         )
     }
@@ -194,16 +208,40 @@ class Row extends React.Component{
 
     constructor(props){
         super(props);
-
-        this.checkBox = React.createRef();
+        this.handleCheckBox = this.handleCheckBox.bind(this);
+        this.unsub = this.unsub.bind(this);
     }
 
-    componentDidMount(){
+    handleCheckBox(e){
+        const data = this.props.data;
 
+        const target = e.target;
+        if(target.checked){
+            this.props.addCheckedItems(data.comment.id)
+        } else {
+            this.props.removeCheckedItems(data.comment.id)
+        }
     }
 
-    unsub(){
+    unsub(e){
+        e.preventDefault();
 
+        let params = (new URL(document.location)).searchParams;
+        fetch(`${config.cms}/wp-json/restcommentsubscribing/v1/unsub`,
+            {
+                method: "post",
+                body: JSON.stringify({
+                    token: params.get("token"),
+                    unsub: this.props.data.comment.id
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            }).then((response) => {
+                return response.json();
+            }).then(obj => {
+                console.log(obj);
+            })
     }
 
     render(){
@@ -214,7 +252,7 @@ class Row extends React.Component{
                 <td>
                     <div className="input-field checkbox">
                         <label>
-                            <input type="checkbox" name="select-subscriptions" ref={this.checkBox}/>
+                            <input type="checkbox" name="select-subscriptions" onChange={this.handleCheckBox}/>
                             <span className="icon"></span>
                         </label>
                     </div>
@@ -222,7 +260,7 @@ class Row extends React.Component{
                 <td>{data.name}</td>
                 <td><a href={data.post.slug} title={data.post.title}>{data.post.title}</a></td>
                 <td><a href={`${data.post.slug}#c${data.comment.id}`}>{data.comment.content}</a></td>
-                <td><a href="#unsub">Unsubscribe</a></td>
+                <td><a href="#unsub" onClick={this.unsub}>Unsubscribe</a></td>
             </tr>
         )
     }
