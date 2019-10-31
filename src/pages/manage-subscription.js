@@ -16,12 +16,22 @@ export default class Subscription extends React.Component {
         this.state = {
             hasToken: false,
             searchParams: {},
-            subscriptions: false,
+            subscriptions: {
+                data: false,
+                loaded: false,
+                message: false
+            },
             formResult: {
                 message: false,
                 error: true
             }
         }
+    }
+
+    changeSubscriptions = (change) => {
+        this.setState({
+            subscriptions: change
+        })
     }
 
     componentDidMount(){
@@ -49,7 +59,24 @@ export default class Subscription extends React.Component {
                 if(obj.result === "success"){
                     const data = JSON.parse(obj.data);
                     this.setState({
-                        subscriptions: data
+                        subscriptions: {
+                            loaded: true,
+                            data: data
+                        }
+                    })
+                }else if(obj.result === "no_subscription"){
+                    this.setState({
+                        subscriptions: {
+                            loaded: true,
+                            message: "You are not subscribed to any comments."
+                        }
+                    })
+                } else {
+                    this.setState({
+                        subscriptions: {
+                            loaded: true,
+                            message: "An error occured. Please try again later."
+                        }
                     })
                 }
             })
@@ -98,13 +125,18 @@ export default class Subscription extends React.Component {
                         <div className="boxed">
                             <Title data="Manage Subscriptions" />
                             <div className="page-content">
-                                {(this.state.hasToken && !this.state.subscriptions) &&
+                                {(this.state.hasToken && !this.state.subscriptions.loaded) &&
                                 <div className="text-center">
                                     <p>Loading, please wait</p>
                                 </div>
                                 }
-                                {this.state.subscriptions && 
-                                    <Subscriptions data={this.state.subscriptions}/>
+                                {(this.state.subscriptions.loaded && this.state.subscriptions.message) && 
+                                <div className="text-center">
+                                    <p>{this.state.subscriptions.message}</p>
+                                </div>
+                                }
+                                {(this.state.subscriptions.loaded && !this.state.subscriptions.message) && 
+                                    <Subscriptions changeSubscriptions={this.changeSubscriptions} data={this.state.subscriptions.data}/>
                                 }
                                 {!this.state.hasToken && (
                                     <form onSubmit={this.submit}>
@@ -146,9 +178,11 @@ class Subscriptions extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            checkedItems: []
+            checkedItems: [],
+            isFetchingData: false,
+            hasError: false
         }
-
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     addCheckedItems = (data) => {
@@ -170,6 +204,48 @@ class Subscriptions extends React.Component{
         }
     }
 
+    handleSubmit(e){
+        e.preventDefault();
+        let params = (new URL(document.location)).searchParams;
+        const unsub = this.state.checkedItems.map(Number);
+
+        this.setState({
+            isFetchingData: true
+        })
+
+        fetch(`${config.cms}/wp-json/restcommentsubscribing/v1/unsub`,
+            {
+                method: "post",
+                body: JSON.stringify({
+                    token: params.get("token"),
+                    unsub: unsub
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            }).then((response) => {
+                return response.json();
+            }).then(obj => {
+                this.setState({
+                    isFetchingData: false,
+                    hasError: false
+                })
+                if(obj.result === "success"){
+                    const data = this.props.data.filter(item => !unsub.includes(parseInt(item.comment.id,10)));
+
+                    this.props.changeSubscriptions({
+                        loaded: true,
+                        message: data.length === 0 ? "All subscriptions have been cancelled" : false,
+                        data: data
+                    })
+                } else {
+                    this.setState({
+                        hasError: true
+                    })
+                }
+            })
+    }
+
     render(){
 
         const data = this.props.data;
@@ -178,12 +254,12 @@ class Subscriptions extends React.Component{
 
         data.forEach((item,index) => {
             list.push(
-                <Row key={"tr"+index+""+item.id} data={item} id={item.id} addCheckedItems={this.addCheckedItems} removeCheckedItems={this.removeCheckedItems}/>
+                <Row key={"tr"+index+""+item.id} data={item} id={item.id} addCheckedItems={this.addCheckedItems} changeSubscriptions={this.props.changeSubscriptions} removeCheckedItems={this.removeCheckedItems} allData={data} rowDisabled={(this.state.checkedItems.includes(item.comment.id) && this.state.isFetchingData) ? true: false}/>
             )
         })
         
         return (
-            <div>
+            <form onSubmit={this.handleSubmit}>
                 <table>
                     <thead>
                     <tr>
@@ -198,8 +274,11 @@ class Subscriptions extends React.Component{
                         {list}
                     </tbody>
                 </table>
+                {this.state.hasError &&
+                <p className="error">An error occured while processing your request. Please try again later.</p>
+                }
                 <button className="btn" disabled={(this.state.checkedItems.length === 0) ? true: false} title={(this.state.checkedItems.length === 0) ? "Please select an item to unsubscribe": "Unsubscribe selected items"}>Unsubscribe selected</button>
-            </div>
+            </form>
         )
     }
 }
@@ -210,6 +289,11 @@ class Row extends React.Component{
         super(props);
         this.handleCheckBox = this.handleCheckBox.bind(this);
         this.unsub = this.unsub.bind(this);
+
+        this.state = {
+            rowDisabled: false,
+            hasError: false
+        }
     }
 
     handleCheckBox(e){
@@ -224,7 +308,14 @@ class Row extends React.Component{
     }
 
     unsub(e){
+
         e.preventDefault();
+
+        if(this.state.rowDisabled) return;
+
+        this.setState({
+            rowDisabled: true
+        })
 
         let params = (new URL(document.location)).searchParams;
         fetch(`${config.cms}/wp-json/restcommentsubscribing/v1/unsub`,
@@ -240,15 +331,38 @@ class Row extends React.Component{
             }).then((response) => {
                 return response.json();
             }).then(obj => {
-                console.log(obj);
+                this.setState({
+                    rowDisabled: false,
+                    hasError: false
+                })
+                if(obj.result === "success"){
+                    const data = this.props.allData.filter(item => item.comment.id !== this.props.data.comment.id);
+                    
+                    this.props.changeSubscriptions({
+                        loaded: true,
+                        message: data.length === 0 ? "All subscriptions have been cancelled" : false,
+                        data: data
+                    })
+                } else {
+                    this.setState({
+                        hasError: true
+                    })
+                }
             })
     }
 
     render(){
         const data = this.props.data;
 
+       if(this.state.rowDisabled !== this.props.rowDisabled){
+            this.setState({
+                rowDisabled: this.props.rowDisabled
+            });
+        }
+
+
         return (
-            <tr className="subscription-item">
+            <tr className={`subscription-item${this.state.rowDisabled ? ' disabled': ''}`}>
                 <td>
                     <div className="input-field checkbox">
                         <label>
@@ -260,7 +374,12 @@ class Row extends React.Component{
                 <td>{data.name}</td>
                 <td><a href={data.post.slug} title={data.post.title}>{data.post.title}</a></td>
                 <td><a href={`${data.post.slug}#c${data.comment.id}`}>{data.comment.content}</a></td>
-                <td><a href="#unsub" onClick={this.unsub}>Unsubscribe</a></td>
+                <td>
+                    <a href="#unsub" onClick={this.unsub}>Unsubscribe</a>
+                    {this.state.hasError && 
+                    <p className="error">An error occured while processing your request, please try again later.</p>
+                    }
+                </td>
             </tr>
         )
     }
