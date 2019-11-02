@@ -24,9 +24,7 @@ module.exports = {
         },
         `gatsby-transformer-sharp`,
         `gatsby-plugin-sharp`,
-        {
-            resolve: `gatsby-plugin-less`,
-        },
+        `gatsby-plugin-sass`,
         // `gatsby-plugin-offline`,
     ],
 }

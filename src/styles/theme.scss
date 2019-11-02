@@ -14,7 +14,13 @@ body {
     font-family: "Poppins", sans-serif;
     font-size: 16px;
     line-height: 1.5;
-    color: @textDefault;
+}
+
+#main {
+    @include theme() {
+        color: theme(textDefault);
+        background: theme(background);
+    }
 }
 
 h1 {
@@ -107,7 +113,13 @@ a {
             height: 100%;
             top: 0;
             left: 0;
-            background: linear-gradient(to right, @primary, @secondary);
+            @include theme() {
+                background: linear-gradient(
+                    to right,
+                    theme(primary),
+                    theme(secondary)
+                );
+            }
             border-radius: 8px;
         }
 
@@ -120,19 +132,24 @@ a {
             font-family: "Poppins", sans-serif;
             position: relative;
             z-index: 2;
-            background: @background;
+            @include theme() {
+                background: theme(background);
+                color: theme(textDefault);
+            }
             outline: 0;
             border: 1px solid transparent;
             display: block;
 
             &:focus {
-                border: 1px solid @primary;
+                @include theme() {
+                    border: 1px solid theme(primary);
+                }
             }
         }
     }
 }
 
-.page-content{
+.page-content {
     margin-top: 64px;
 }
 
@@ -141,8 +158,11 @@ a {
     padding: 12px 24px;
     font-family: "Poppins", sans-serif;
     font-size: 16px;
-    background: @background;
-    border: 2px solid @primary;
+    @include theme() {
+        background: theme(background);
+        color: theme(textDefault);
+        border: 2px solid theme(primary);
+    }
     border-radius: 8px;
     transition: border-color 0.35s;
     cursor: pointer;
@@ -151,43 +171,48 @@ a {
     &:hover,
     &:focus,
     &:active {
-        border-color: @secondary;
+        @include theme() {
+            border-color: theme(secondary);
+        }
     }
 }
 
 .checkbox {
-    
     .icon {
         position: relative;
         display: inline-block;
         width: 20px;
         height: 20px;
-        border: 2px solid @textDefault;
+        @include theme() {
+            border: 2px solid theme(textDefault);
+        }
         border-radius: 4px;
         vertical-align: middle;
-        transition: transform .35s;
+        transition: transform 0.35s;
 
-        &:after{
+        &:after {
             position: absolute;
             content: "\2713";
             font-weight: bold;
             line-height: 20px;
             left: 50%;
             transform: translate(-50%, 0) scale(0);
-            transition: transform .35s;
-            color: @textDefault;
+            transition: transform 0.35s;
+            @include theme() {
+                color: theme(textDefault);
+            }
         }
 
-        &:hover{
+        &:hover {
             transform: scale(1.1);
         }
     }
 
-    input{
+    input {
         opacity: 0;
         position: absolute;
 
-        &:checked + .icon{
+        &:checked + .icon {
             &:after {
                 transform: translate(-50%, 0) scale(1);
             }
@@ -198,30 +223,32 @@ a {
 table {
     width: 100%;
 
-    thead, tbody{
+    thead,
+    tbody {
         text-align: left;
     }
 }
 
-.social-profiles{
-
+.social-profiles {
     ul {
         list-style: none;
         text-align: center;
 
-        li{
+        li {
             display: inline-block;
             vertical-align: middle;
             width: 150px;
             position: relative;
             margin: 0 32px;
 
-            svg{
+            svg {
                 width: 100%;
-                transition: transform .25s;
+                transition: transform 0.25s;
             }
 
-            a:active, a:focus, a:hover {
+            a:active,
+            a:focus,
+            a:hover {
                 & + svg {
                     transform: scale(1.1);
                 }
@@ -232,7 +259,9 @@ table {
 
 .color-primary,
 .color-primary a {
-    color: @textPrimary;
+    @include theme() {
+        color: theme(textPrimary);
+    }
 }
 
 .title {
@@ -253,7 +282,9 @@ table {
             position: absolute;
             width: 50%;
             height: 15px;
-            background: @secondary;
+            @include theme() {
+                background: theme(secondary);
+            }
             bottom: 10px;
             right: -10px;
             z-index: 1;
@@ -264,7 +295,9 @@ table {
             position: absolute;
             width: 100%;
             height: 15px;
-            background: @primary;
+            @include theme() {
+                background: theme(primary);
+            }
             bottom: 20px;
             left: 5px;
             z-index: 2;
@@ -280,29 +313,41 @@ table {
 }
 
 .fill-primary path {
-    fill: @primary;
+    @include theme() {
+        fill: theme(primary);
+    }
 }
 
 .fill-text-primary path {
-    fill: @textPrimary;
+    @include theme() {
+        fill: theme(textPrimary);
+    }
 }
 
 .fill-secondary path {
-    fill: @secondary;
+    @include theme() {
+        fill: theme(secondary);
+    }
 }
 
-.bg-secondary{
-    background: @backgroundSecondary;
+.bg-secondary {
+    @include theme() {
+        background: theme(backgroundSecondary);
+    }
 }
 
 .error {
-    color: @error;
+    @include theme() {
+        color: theme(error);
+    }
 }
 
 .success {
-    color: @success;
+    @include theme() {
+        color: theme(success);
+    }
 }
 
 .disabled {
-    opacity: .6;
+    opacity: 0.6;
 }

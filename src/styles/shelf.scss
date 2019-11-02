@@ -13,7 +13,9 @@
         .line {
             position: absolute;
             width: 2px;
-            background: #efebe9;
+            @include theme() {
+                background: rgba(theme(invert), 0.2);
+            }
             height: 100%;
             border-radius: 25px;
             left: 0;
@@ -36,7 +38,9 @@
                 overflow: hidden;
                 border-radius: 15px;
                 width: 90%;
-                background: #80deea;
+                @include theme() {
+                    background: theme(overlay);
+                }
                 position: relative;
                 cursor: pointer;
 
@@ -51,10 +55,12 @@
                     height: 100%;
                     top: 0;
                     left: 0;
-                    background: #efebe9;
+                    @include theme() {
+                        background: theme(overlay);
+                        color: theme(textDefault);
+                    }
                     text-align: center;
                     padding: 20px;
-                    color: #343959;
                     opacity: 0;
                     display: flex;
                     align-items: center;
@@ -199,7 +205,9 @@
     padding: 24px;
 
     .box {
-        box-shadow: 1px 1px 12px -8px rgba(0, 0, 0.3);
+        @include theme() {
+            box-shadow: 1px 1px 12px -8px rgba(theme(invert), 0.3);
+        }
         border-radius: 4px;
         position: relative;
 
@@ -229,14 +237,21 @@
                 width: 4px;
                 height: 0%;
                 right: 0;
-                background: linear-gradient(to bottom, @primary, @secondary);
+                @include theme() {
+                    background: linear-gradient(
+                        to bottom,
+                        theme(primary),
+                        theme(secondary)
+                    );
+                }
                 top: 5%;
                 border-radius: 16px;
                 transition: height 0.35s;
             }
         }
 
-        & .overlay-link:focus + .data:after, & .overlay-link:focus + .data:after {
+        & .overlay-link:focus + .data:after,
+        & .overlay-link:focus + .data:after {
             height: 90%;
         }
 

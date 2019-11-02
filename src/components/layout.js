@@ -6,19 +6,21 @@ import Seo from "./seo"
 import Header from "./header"
 import Footer from "../components/footer"
 
-import "../styles/theme.less";
+import "../styles/theme.scss";
 
 const Layout = ({ children, seo }) => {
     return (
-        <React.Fragment>
-            <Seo {...seo}/>
-            <Helmet bodyAttributes={{ class: 'theme-dark'}}>
-                <link href="https://fonts.googleapis.com/css?family=Poppins:400,900" rel="stylesheet"/>
-            </Helmet>
-            <Header />
-            <main>{children}</main>
-            <Footer />
-        </React.Fragment>
+        <div id="wrapper" className="theme-light">
+            <div id="main">
+                <Seo {...seo}/>
+                <Helmet>
+                    <link href="https://fonts.googleapis.com/css?family=Poppins:400,900" rel="stylesheet"/>
+                </Helmet>
+                <Header />
+                <main>{children}</main>
+                <Footer />
+            </div>
+        </div>
     )
 }
 

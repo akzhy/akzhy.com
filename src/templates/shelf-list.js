@@ -4,7 +4,7 @@ import Title from "../components/title"
 import { ShelfItem } from "../components/items"
 import { graphql } from "gatsby"
 
-import "../styles/shelf.less"
+import "../styles/shelf.scss"
 
 const seo = {
     title: "Shelf",

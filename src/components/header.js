@@ -2,7 +2,7 @@ import React from "react";
 
 import NavBar from "./navbar";
 
-import "../styles/header.less";
+import "../styles/header.scss";
 
 export default () => {
     return(

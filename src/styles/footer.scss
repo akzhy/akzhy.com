@@ -1,39 +1,47 @@
 @import "color";
 
-footer{
+footer {
     padding: 64px 0;
     padding-bottom: 32px;
 
-    img{
+    img {
         height: 44px;
         max-width: 90%;
     }
 
-    ul{
+    ul {
         list-style: none;
         margin: 18px 0;
 
-        li{
+        li {
             display: inline-block;
             margin: 0 12px;
             text-transform: uppercase;
 
-            a{
+            a {
                 position: relative;
-        
-                &:after{
+
+                &:after {
                     content: "";
                     position: absolute;
                     width: 0%;
                     height: 2px;
-                    background: linear-gradient(to right, @primary, @secondary);
+                    @include theme() {
+                        background: linear-gradient(
+                            to right,
+                            theme(primary),
+                            theme(secondary)
+                        );
+                    }
                     bottom: 0;
                     left: 0;
-                    transition: width .25s;
+                    transition: width 0.25s;
                 }
             }
-        
-            a:active, a:focus{
+
+            a:active,
+            a:focus,
+            a:hover {
                 &:after {
                     width: 100%;
                 }

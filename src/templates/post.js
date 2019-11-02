@@ -9,9 +9,9 @@ import { BlogItem, ShelfCard } from "../components/items"
 import { Comments, CommentForm } from "../components/comments"
 
 import "../styles/prism.css"
-import "../styles/page.less"
-import "../styles/blog.less"
-import "../styles/shelf.less"
+import "../styles/page.scss"
+import "../styles/blog.scss"
+import "../styles/shelf.scss"
 
 export default class Post extends React.Component {
     constructor(props){

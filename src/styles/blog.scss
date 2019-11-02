@@ -1,58 +1,71 @@
 @import "color";
 
-.card{
+.card {
     display: flex;
     flex-wrap: nowrap;
     width: 100%;
-    box-shadow: 2px 2px 12px -6px rgba(0,0,0,.3);
+    @include theme() {
+        box-shadow: 2px 2px 12px -6px rgba(theme(invert), 0.3);
+    }
     position: relative;
     margin: 24px 0;
     border-radius: 4px;
     overflow: hidden;
 
-    .image{
+    .image {
         width: 400px;
         max-width: 100%;
         flex: 0 0 auto;
     }
 
-    .contents{
+    .contents {
         padding: 16px;
         width: 100%;
 
-        h4{
+        h4 {
             margin-bottom: 16px;
-            color: @textPrimary;
+            @include theme() {
+                color: theme(textPrimary);
+            }
             position: relative;
-            
-            &:after{
+
+            &:after {
                 content: "";
                 position: absolute;
                 width: 0%;
                 height: 2px;
-                background: linear-gradient(to right, @primary, @secondary);
+                @include theme() {
+                    background: linear-gradient(
+                        to right,
+                        theme(primary),
+                        theme(secondary)
+                    );
+                }
                 bottom: 0;
                 left: 0;
-                transition: width .35s;
+                transition: width 0.35s;
             }
         }
 
-        .description{
+        .description {
             padding: 8px 0;
         }
     }
 
-    &:hover, &:active, &:focus{
-        .contents{
-            h4:after{
+    &:hover,
+    &:active,
+    &:focus {
+        .contents {
+            h4:after {
                 width: 100%;
             }
         }
     }
 
-    a:active, a:focus{
-        & + .contents{
-            h4:after{
+    a:active,
+    a:focus {
+        & + .contents {
+            h4:after {
                 width: 100%;
             }
         }

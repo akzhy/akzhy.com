@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "gatsby";
 import logoBlack from "../images/logo-black.png";
-import "../styles/footer.less"
+import "../styles/footer.scss"
 
 export default () => {
     const links = [

@@ -4,7 +4,7 @@ import Title from "../components/title"
 import { BlogItem } from "../components/items"
 import { graphql } from "gatsby"
 
-import "../styles/blog.less"
+import "../styles/blog.scss"
 
 const seo = {
     title: "Blog",

@@ -6,7 +6,7 @@ import Title from "../components/title"
 import Layout from "../components/layout"
 
 import "../styles/prism.css"
-import "../styles/page.less"
+import "../styles/page.scss"
 
 
 export default ({ data }) => {

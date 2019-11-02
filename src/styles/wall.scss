@@ -17,27 +17,34 @@
         align-items: center;
         justify-content: center;
         color: #fff;
+        position: relative;
+        z-index: 2;
 
-        span{
+        span {
             display: inline-block;
             margin: 0 8px;
             position: relative;
 
-            &:nth-child(even):before, &:nth-child(even):after {
+            &:nth-child(even):before,
+            &:nth-child(even):after {
                 content: "";
                 position: absolute;
                 width: 4px;
                 height: 100%;
                 border-radius: 4px;
-                background: @secondary;
+                @include theme() {
+                    background: theme(secondary);
+                }
                 left: -8px;
                 z-index: 2;
             }
 
-            &:nth-child(even):after{
+            &:nth-child(even):after {
                 left: -10px;
                 top: 2px;
-                background: @primary;
+                @include theme() {
+                    background: theme(primary);
+                }
                 z-index: 1;
             }
         }
@@ -49,7 +56,7 @@
         height: 100%;
         top: 0;
         left: 0;
-        z-index: -1;
+        z-index: 1;
         background: #fec7c9;
 
         .layer {

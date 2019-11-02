@@ -1,5 +1,5 @@
 import React from "react"
-import "../styles/wall.less"
+import "../styles/wall.scss"
 
 export default class Wall extends React.Component {
     /*constructor(props) {

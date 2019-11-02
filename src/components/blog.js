@@ -3,7 +3,7 @@ import { graphql, useStaticQuery } from "gatsby"
 import Title from "./title"
 import { BlogItem } from "./items"
 
-import "../styles/blog.less"
+import "../styles/blog.scss"
 
 export default () => {
     const query = useStaticQuery(graphql`
