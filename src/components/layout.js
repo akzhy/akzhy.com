@@ -12,7 +12,7 @@ const Layout = ({ children, seo }) => {
     return (
         <React.Fragment>
             <Seo {...seo}/>
-            <Helmet>
+            <Helmet bodyAttributes={{ class: 'theme-dark'}}>
                 <link href="https://fonts.googleapis.com/css?family=Poppins:400,900" rel="stylesheet"/>
             </Helmet>
             <Header />

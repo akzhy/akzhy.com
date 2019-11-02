@@ -218,6 +218,13 @@ table {
 
             svg{
                 width: 100%;
+                transition: transform .25s;
+            }
+
+            a:active, a:focus, a:hover {
+                & + svg {
+                    transform: scale(1.1);
+                }
             }
         }
     }
