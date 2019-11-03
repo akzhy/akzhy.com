@@ -260,3 +260,74 @@
         }
     }
 }
+
+
+@media screen and (max-width: 701px) {
+    #shelf {
+        .divider {
+            display: none;
+        }
+
+        .contents {
+            .row{
+                .col, .col:nth-child(even){
+                    padding-top: 0;
+
+                    .connector {
+                        width: 100%;
+                        z-index: 2;
+
+                        .top, .circle {
+                            display: none;
+                        }
+
+                        .date {
+                            top: 0;
+                            right: auto;
+                            left: 50%;
+                            transform: translate(-50%, 0);
+                            padding: 12px;
+                            margin-top: 12px;
+                            border-radius: 24px;
+                            @include theme(){
+                                background: theme(overlay);
+                            }
+                        }
+                    }
+
+                    .item {
+                        width: 100%;
+                        margin-left: 0;
+
+                        .info {
+                            position: relative;
+                            height: auto;
+                            display: block;
+                            opacity: 1;
+                            text-align: left;
+
+                            .title {
+                                text-align: left;
+                                
+                                .h{
+                                    transform: none;
+                                    &:after, &:before {
+                                        width: 100%;
+                                    }
+
+                                    &:before {
+                                        width: 60%;
+                                    }
+                                }
+                            }
+
+                            p{
+                                transform: none;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

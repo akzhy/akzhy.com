@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "gatsby";
-import logoBlack from "../images/logo-black.png";
+import Logo from "../components/logo";
+
 import "../styles/footer.scss"
 
 export default () => {
@@ -35,9 +36,7 @@ export default () => {
     return(
         <footer className="bg-secondary">
             <div className="container color-primary text-center">
-                <div>
-                    <img src={logoBlack} alt="akzhy"/>
-                </div>
+                <Logo />
                 <ul>
                     {list}
                 </ul>

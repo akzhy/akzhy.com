@@ -90,6 +90,29 @@ a {
     margin-right: auto;
 }
 
+.logo-container {
+    display: inline-block;
+
+    img {
+        display: none;
+    }
+
+    img.dark {
+        display: inline-block;
+    }
+}
+
+.theme-dark {
+    .logo-container {
+        img{
+            display: none;
+        }
+        img.light {
+            display: inline-block;
+        }
+    }
+}
+
 .input-field {
     margin: 32px auto;
 
@@ -230,6 +253,8 @@ table {
 }
 
 .social-profiles {
+    margin-top: 128px;
+
     ul {
         list-style: none;
         text-align: center;
@@ -350,4 +375,23 @@ table {
 
 .disabled {
     opacity: 0.6;
+}
+
+@media only screen and (max-width: 701px){
+    .boxed {
+        width: 100%;
+    }
+    .container {
+        width: 95%;
+    }
+
+    .social-profiles{
+        margin-top: 48px;
+
+        ul{
+            li {
+                width: 64px;
+            }
+        }
+    }
 }

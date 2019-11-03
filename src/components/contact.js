@@ -146,7 +146,7 @@ export default class Contact extends React.Component {
                             }
                         </div>
                     </form>
-                    <Social style={{ marginTop: "128px" }} />
+                    <Social/>
                 </div>
             </div>
         )

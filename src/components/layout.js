@@ -10,7 +10,7 @@ import "../styles/theme.scss";
 
 const Layout = ({ children, seo }) => {
     return (
-        <div id="wrapper" className="theme-light">
+        <div id="wrapper" className="theme-dark">
             <div id="main">
                 <Seo {...seo}/>
                 <Helmet>

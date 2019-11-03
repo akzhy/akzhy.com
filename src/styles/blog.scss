@@ -71,3 +71,13 @@
         }
     }
 }
+
+@media only screen and (max-width: 701px){
+    .card {
+        display: block;
+
+        .image {
+            width: 100%;
+        }
+    }
+}

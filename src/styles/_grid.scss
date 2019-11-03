@@ -5,11 +5,10 @@ $m2 : 993px;
 $m3 : 1201px;
 
 @mixin create-col($n, $prefix, $it: 1){
-    @for $i from $it to $n{
+    @for $i from 1 to 13{
         &.#{$prefix}#{$i} {
             width: ($i * 100% / $n);
         }
-        @include create-col($n, $prefix, ($i + 1));
     }
 }
 

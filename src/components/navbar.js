@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "gatsby";
-import logo from "../images/logo-black.png";
+import Logo from "./logo";
 
 export default () => {
     const navLinks = [
@@ -13,7 +13,7 @@ export default () => {
         },{
             name: "Home",
             url: "/",
-            image: logo,
+            logo: true,
         },{
             name: "Blog",
             url: "/blog"
@@ -46,10 +46,10 @@ const NavLink = ({data}) => {
     return (
         <li className={"color-primary "+(data.image ? "has-image": "")}>
             <Link to={data.url} title={data.name}>
-                {data.image &&
-                <img src={data.image} alt={data.name}/>
+                {data.logo &&
+                    <Logo/>
                 }
-                {!data.image &&
+                {!data.logo &&
                 <React.Fragment>{data.name}</React.Fragment>
                 }
             </Link>
