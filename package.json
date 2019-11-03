@@ -24,6 +24,7 @@
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-helmet": "^5.2.1",
+    "react-sidebar": "^3.0.2",
     "react-textarea-autosize": "^7.1.0"
   },
   "devDependencies": {
