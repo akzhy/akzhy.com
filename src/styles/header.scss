@@ -136,6 +136,8 @@ nav {
             .hamburger {
                 $size: 36px;
 
+                border: 0;
+                background: transparent;
                 width: $size;
                 height: $size;
                 
@@ -148,6 +150,10 @@ nav {
                     border-radius: 12px;
                     @include theme(){
                         background: linear-gradient(to right,theme(primary), theme(secondary));
+                    }
+
+                    &:first-child {
+                        margin-top: 0;
                     }
 
                     &:nth-child(2){

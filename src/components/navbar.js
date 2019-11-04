@@ -152,11 +152,11 @@ export default class Navbar extends React.Component {
                         <ul className="main-nav">{list}</ul>
                         <ul className="mobile-nav">
                             <li className="menu-button" onClick={() => this.onSetSidebarOpen(true)}>
-                                <div className="hamburger">
+                                <button className="hamburger" name="toggle-menu" title="Toggle Menu">
                                     <div></div>
                                     <div></div>
                                     <div></div>
-                                </div>
+                                </button>
                             </li>
                             <li>
                                 <Logo />
