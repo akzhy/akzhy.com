@@ -55,12 +55,16 @@ nav {
                 &:hover:before,
                 &.active:before,
                 &.active:after,
-                &:hover:after {
+                &:hover:after,
+                &.active:after,
+                &.active:before {
                     width: 100%;
                 }
 
                 &:active:after,
-                &:focus:after {
+                &:focus:after,
+                &.active:after,
+                &.active:before {
                     width: 100%;
                 }
 
@@ -194,6 +198,57 @@ nav {
         height: 100%;
         flex-direction: column;
         justify-content: space-around;
+    }
+
+    a {
+        padding: 4px 12px;
+        font-weight: 900;
+        position: relative;
+        z-index: 1;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+
+        &:before,
+        &:after {
+            content: "";
+            position: absolute;
+            width: 0%;
+            height: 5px;
+            bottom: 4px;
+            z-index: 1;
+            transition: width 0.25s;
+        }
+
+        &:before {
+            bottom: 0px;
+            right: -4px;
+            @include theme() {
+                background: theme(secondary);
+            }
+        }
+
+        &:after {
+            left: 0;
+            @include theme() {
+                background: theme(primary);
+            }
+        }
+
+        &:hover:before,
+        &.active:before,
+        &.active:after,
+        &:hover:after,
+        &.active:after,
+        &.active:before {
+            width: 100%;
+        }
+
+        &:active:after,
+        &:focus:after,
+        &.active:after,
+        &.active:before {
+            width: 100%;
+        }
     }
 
     @include theme(){

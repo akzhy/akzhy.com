@@ -4,11 +4,12 @@ import Logo from "./logo"
 import Sidebar from "react-sidebar"
 import SocialLinks from "./social"
 
-const SidebarContents = () => {
+const SidebarContents = ({ location }) => {
     const navLinks = [
         {
             name: "Home",
             url: "/",
+            active: (location === "/")
         },
         {
             name: "About",
@@ -28,10 +29,17 @@ const SidebarContents = () => {
         },
     ]
 
+    if(location.pathname !== "/"){
+        navLinks.map(item => {
+            if(item.url.split("/")[1] === location.pathname.split("/")[1]){
+                item.active = true;
+            }
+        })
+    }
+
     const list = []
 
     navLinks.forEach((item, i) => {
-        if (item.sidebar) return
         list.push(
             <NavLink data={item} key={"sidenav" + item.name + "" + item.url} />
         )
@@ -92,6 +100,7 @@ export default class Navbar extends React.Component {
     }
 
     render() {
+        const location = this.props.location.location;
         const navLinks = [
             {
                 name: "About",
@@ -105,6 +114,7 @@ export default class Navbar extends React.Component {
                 name: "Home",
                 url: "/",
                 logo: true,
+                active: (location.pathname === "/")
             },
             {
                 name: "Blog",
@@ -114,7 +124,15 @@ export default class Navbar extends React.Component {
                 name: "Contact",
                 url: "/contact",
             },
-        ]
+        ];
+
+        if(location.pathname !== "/"){
+            navLinks.map(item => {
+                if(item.url.split("/")[1] === location.pathname.split("/")[1]){
+                    item.active = true;
+                }
+            })
+        }
 
         const list = []
 
@@ -126,7 +144,7 @@ export default class Navbar extends React.Component {
             <React.Fragment>
                 <div className="sidebar-container">
                     <Sidebar
-                        sidebar={<SidebarContents />}
+                        sidebar={<SidebarContents location={location}/>}
                         open={this.state.sidebarOpen}
                         onSetOpen={this.onSetSidebarOpen}
                         sidebarClassName="sidebar-content"
@@ -159,43 +177,22 @@ export default class Navbar extends React.Component {
                                 </button>
                             </li>
                             <li>
-                                <Logo />
+                                <Link to="/">
+                                    <Logo />
+                                </Link>
                             </li>
                         </ul>
                     </div>
                 </nav>
             </React.Fragment>
         )
-        /* return (
-            <React.Fragment>
-                <Sidebar
-                    sidebar={<SidebarContents />}
-                    open={this.state.sidebarOpen}
-                    onSetOpen={this.onSetSidebarOpen}
-                    sidebarClassName="sidebar-content"
-                >
-                    <span></span>
-                </Sidebar>
-                <nav className="text-secondary" ref={c => (this.nav = c)}>
-                    <a href="#mobilenav" id="menu-open" onClick={this.menuOpen}>
-                        <span className="icon">
-                            <Hamburger />
-                        </span>
-                    </a>
-                    <Link to="/">
-                        <Logo />
-                    </Link>
-                    <NavLinks />
-                </nav>
-            </React.Fragment>
-        );*/
     }
 }
 
 const NavLink = ({ data }) => {
     return (
-        <li className={"color-primary " + (data.image ? "has-image" : "")}>
-            <Link to={data.url} title={data.name}>
+        <li className={"color-primary " + (data.logo ? "has-image" : "")}>
+            <Link to={data.url} title={data.name} className={data.active ? "active" : ""}>
                 {data.logo && <Logo />}
                 {!data.logo && <React.Fragment>{data.name}</React.Fragment>}
             </Link>

@@ -8,7 +8,7 @@ const seo = {
         "Contact me for anything related to web development, or if you just want to chat 😊",
 }
 
-export default () => {
+export default (props) => {
     return (
         <Layout seo={seo}>
             <Contact />
