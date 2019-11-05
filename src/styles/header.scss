@@ -136,9 +136,11 @@ nav {
             top: 50%;
             transform: translate(0, -50%);
             min-width: auto;
+            padding: 0;
+            line-height: 0;
 
             .hamburger {
-                $size: 36px;
+                $size: 30px;
 
                 border: 0;
                 background: transparent;
@@ -170,13 +172,7 @@ nav {
             }
         }
 
-        ul {
-            li {
-                img {
-                    height: 52px;
-                }
-            }
-        }
+        
 
         &.scrolled {
             padding: 16px 0;
@@ -202,6 +198,7 @@ nav {
 
     a {
         padding: 4px 12px;
+        display: inline-block;
         font-weight: 900;
         position: relative;
         z-index: 1;

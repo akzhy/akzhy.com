@@ -377,7 +377,73 @@ table {
     opacity: 0.6;
 }
 
+@media only screen and (max-width: 1290px){
+    h1 {
+        font-size: 64px;
+    }
+    
+    h2 {
+        font-size: 48px;
+    }
+    
+    h3 {
+        font-size: 32px;
+    }
+    
+    h4 {
+        font-size: 24px;
+    }
+    
+    h5 {
+        font-size: 20px;
+    }
+    
+    h6 {
+        font-size: 18px;
+    }
+
+    .container {
+        width: 90%;
+    }
+
+    .boxed {
+        width: 95%;
+    }
+
+    nav ul li {
+        min-width: auto;
+    }
+
+    .social-profiles ul li {
+        width: 80px;
+    }
+}
+
 @media only screen and (max-width: 701px){
+    h1 {
+        font-size: 48px;
+    }
+    
+    h2 {
+        font-size: 32px;
+    }
+    
+    h3 {
+        font-size: 24px;
+    }
+    
+    h4 {
+        font-size: 20px;
+    }
+    
+    h5 {
+        font-size: 18px;
+    }
+
+    h6 {
+        font-size: 16px;
+    }
+
     .boxed {
         width: 100%;
     }

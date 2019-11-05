@@ -254,6 +254,11 @@
     }
 }
 
+@media only screen and (max-width: 1290px){
+    .comment-list ul li {
+        padding: 12px;
+    }
+}
 
 @media only screen and (max-width: 701px){
     .page {
