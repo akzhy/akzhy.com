@@ -253,3 +253,28 @@
         }
     }
 }
+
+
+@media only screen and (max-width: 701px){
+    .page {
+        width: 100%;
+    }
+
+    .comment-list{
+        ul {
+            li {
+                padding: 6px;
+
+                .reply-form{
+                    .reply-form-card {
+                        width: 100%;
+                    }
+                }
+
+                ul {
+                    padding-left: 6px;
+                }
+            }
+        }
+    }
+}

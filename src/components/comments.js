@@ -319,6 +319,17 @@ export class Comments extends React.Component {
             })
     }
 
+    onHashChange = (e) => {
+        if (window.location.hash) {
+            const linkedComment = window.location.hash.substring(1);
+            if (linkedComment[0] === "c") {
+                this.setState({
+                    activeComment: linkedComment,
+                })
+            }
+        }
+    }
+
     componentDidMount() {
         const _this = this
 
@@ -338,16 +349,7 @@ export class Comments extends React.Component {
             }
         }
 
-        window.addEventListener("hashchange", function(event) {
-            if (window.location.hash) {
-                const linkedComment = window.location.hash.substring(1);
-                if (linkedComment[0] === "c") {
-                    _this.setState({
-                        activeComment: linkedComment,
-                    })
-                }
-            }
-        })
+        window.addEventListener("hashchange", this.onHashChange)
     }
 
     componentDidUpdate() {
@@ -357,7 +359,7 @@ export class Comments extends React.Component {
     }
 
     componentWillUnmount(){
-        window.removeEventListener("hashchange");
+        window.removeEventListener("hashchange", this.onHashChange);
     }
 
     render() {
