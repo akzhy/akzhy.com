@@ -336,4 +336,9 @@
     .shelf-card {
         padding: 6px;
     }
+
+    #shelf .contents .row .col:nth-child(even), #shelf .contents .row .col{
+        margin-top: 24px;
+    }
+
 }
