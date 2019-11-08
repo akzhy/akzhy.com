@@ -221,11 +221,11 @@ const NavLink = ({ data }) => {
 
 const NavActionIcons = ({cycleTheme, currentTheme}) => (
     <li className="color-primary action-icons">
-        <div className="icons" onClick={cycleTheme}>
-            <div className="ico" title="Change Theme">
+        <div className="icons">
+            <button className="ico" title={`Switch to ${currentTheme.nextTheme.charAt(0).toUpperCase() + currentTheme.nextTheme.slice(1)} Theme`} onClick={cycleTheme}>
                 <Moon className={currentTheme.theme === "light" ? "active" : ""}/>
                 <Sun className={currentTheme.theme === "dark" ? "active" : ""} />
-            </div>
+            </button>
         </div>
     </li>
 )
