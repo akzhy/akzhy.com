@@ -1,15 +1,17 @@
 import React from "react"
 import { Link } from "gatsby"
-import Logo from "./logo"
 import Sidebar from "react-sidebar"
+
+import Logo from "./logo"
 import SocialLinks from "./social"
+import { Sun, Moon } from "./icons"
 
 const SidebarContents = ({ location }) => {
     const navLinks = [
         {
             name: "Home",
             url: "/",
-            active: (location === "/")
+            active: location === "/",
         },
         {
             name: "About",
@@ -29,10 +31,10 @@ const SidebarContents = ({ location }) => {
         },
     ]
 
-    if(location.pathname !== "/"){
+    if (location.pathname !== "/") {
         navLinks.map(item => {
-            if(item.url.split("/")[1] === location.pathname.split("/")[1]){
-                item.active = true;
+            if (item.url.split("/")[1] === location.pathname.split("/")[1]) {
+                item.active = true
             }
         })
     }
@@ -100,7 +102,7 @@ export default class Navbar extends React.Component {
     }
 
     render() {
-        const location = this.props.location.location;
+        const location = this.props.location.location
         const navLinks = [
             {
                 name: "About",
@@ -114,7 +116,7 @@ export default class Navbar extends React.Component {
                 name: "Home",
                 url: "/",
                 logo: true,
-                active: (location.pathname === "/")
+                active: location.pathname === "/",
             },
             {
                 name: "Blog",
@@ -124,12 +126,14 @@ export default class Navbar extends React.Component {
                 name: "Contact",
                 url: "/contact",
             },
-        ];
+        ]
 
-        if(location.pathname !== "/"){
+        if (location.pathname !== "/") {
             navLinks.map(item => {
-                if(item.url.split("/")[1] === location.pathname.split("/")[1]){
-                    item.active = true;
+                if (
+                    item.url.split("/")[1] === location.pathname.split("/")[1]
+                ) {
+                    item.active = true
                 }
             })
         }
@@ -140,26 +144,30 @@ export default class Navbar extends React.Component {
             list.push(<NavLink data={item} key={item.name + "" + item.url} />)
         })
 
+        list.push(
+            <NavActionIcons key="navactionicons" cycleTheme={this.props.cycleTheme} currentTheme={this.props.currentTheme}/>
+        )
+
         return (
             <React.Fragment>
                 <div className="sidebar-container">
                     <Sidebar
-                        sidebar={<SidebarContents location={location}/>}
+                        sidebar={<SidebarContents location={location} />}
                         open={this.state.sidebarOpen}
                         onSetOpen={this.onSetSidebarOpen}
                         sidebarClassName="sidebar-content"
                         styles={{
                             sidebar: {
                                 zIndex: 101,
-                                position: "fixed"
+                                position: "fixed",
                             },
                             overlay: {
-                                zIndex: 100
+                                zIndex: 100,
                             },
                             dragHandle: {
                                 position: "fixed",
-                                zIndex: "99999"
-                            }
+                                zIndex: "99999",
+                            },
                         }}
                     >
                         <span></span>
@@ -169,8 +177,15 @@ export default class Navbar extends React.Component {
                     <div className="container">
                         <ul className="main-nav">{list}</ul>
                         <ul className="mobile-nav">
-                            <li className="menu-button" onClick={() => this.onSetSidebarOpen(true)}>
-                                <button className="hamburger" name="toggle-menu" title="Toggle Menu">
+                            <li
+                                className="menu-button"
+                                onClick={() => this.onSetSidebarOpen(true)}
+                            >
+                                <button
+                                    className="hamburger"
+                                    name="toggle-menu"
+                                    title="Toggle Menu"
+                                >
                                     <div></div>
                                     <div></div>
                                     <div></div>
@@ -192,10 +207,25 @@ export default class Navbar extends React.Component {
 const NavLink = ({ data }) => {
     return (
         <li className={"color-primary " + (data.logo ? "has-image" : "")}>
-            <Link to={data.url} title={data.name} className={data.active ? "active" : ""}>
+            <Link
+                to={data.url}
+                title={data.name}
+                className={data.active ? "active" : ""}
+            >
                 {data.logo && <Logo />}
                 {!data.logo && <React.Fragment>{data.name}</React.Fragment>}
             </Link>
         </li>
     )
 }
+
+const NavActionIcons = ({cycleTheme, currentTheme}) => (
+    <li className="color-primary action-icons">
+        <div className="icons" onClick={cycleTheme}>
+            <div className="ico" title="Change Theme">
+                <Moon className={currentTheme.theme === "light" ? "active" : ""}/>
+                <Sun className={currentTheme.theme === "dark" ? "active" : ""} />
+            </div>
+        </div>
+    </li>
+)

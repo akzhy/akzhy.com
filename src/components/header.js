@@ -5,11 +5,11 @@ import NavBar from "./navbar";
 
 import "../styles/header.scss";
 
-export default () => {
+export default ({ cycleTheme, currentTheme }) => {
     return(
         <div className="header">
             <Location>
-                {location => <NavBar location={location}/>}
+                {location => <NavBar location={location} cycleTheme={cycleTheme} currentTheme={currentTheme}/>}
             </Location>
         </div>
     )

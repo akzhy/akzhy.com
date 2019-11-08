@@ -5,6 +5,7 @@ nav {
     padding: 32px 0;
 
     ul {
+        position: relative;
         list-style: none;
 
         li {
@@ -80,6 +81,44 @@ nav {
                 &:before,
                 &:after {
                     display: none;
+                }
+            }
+
+            &.action-icons {
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translate(0, -50%);
+
+                svg path {
+                    @include theme(){
+                        fill: theme(textPrimary);
+                        stroke: theme(textPrimary);
+                    }
+                    stroke-width: 0.8;
+                }
+
+                .ico {
+                    width: 32px;
+                    height: 32px;
+                    cursor: pointer;
+                    position: relative;
+
+                    svg {
+                        position: absolute;
+                        width: 100%;
+                        height: 100%;
+                        left: 0;
+                        top: 0;
+                        transition: transform 0.35s, opacity 0.35s;
+                        opacity: 0;
+                        transform: scale(0);
+
+                        &.active {
+                            opacity: 1;
+                            transform: scale(1);
+                        }
+                    }
                 }
             }
         }
