@@ -83,52 +83,52 @@ nav {
                     display: none;
                 }
             }
-
-            &.action-icons {
-                position: absolute;
-                right: 0;
-                top: 50%;
-                transform: translate(0, -50%);
-
-                svg path {
-                    @include theme(){
-                        fill: theme(textPrimary);
-                        stroke: theme(textPrimary);
-                    }
-                    stroke-width: 0.8;
-                }
-
-                .ico {
-                    width: 32px;
-                    height: 32px;
-                    cursor: pointer;
-                    position: relative;
-                    border: 0;
-                    background: transparent;
-                    outline: 0;
-
-                    svg {
-                        position: absolute;
-                        width: 100%;
-                        height: 100%;
-                        left: 0;
-                        top: 0;
-                        transition: transform 0.35s, opacity 0.35s;
-                        opacity: 0;
-                        transform: scale(0);
-
-                        &.active {
-                            opacity: 1;
-                            transform: scale(1);
-                        }
-                    }
-                }
-            }
         }
     }
 
     .mobile-nav {
         display: none;
+    }
+}
+
+.action-icons {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(0, -50%);
+
+    svg path {
+        @include theme(){
+            fill: theme(textPrimary);
+            stroke: theme(textPrimary);
+        }
+        stroke-width: 0.8;
+    }
+
+    .ico {
+        width: 32px;
+        height: 32px;
+        cursor: pointer;
+        position: relative;
+        border: 0;
+        background: transparent;
+        outline: 0;
+
+        svg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            transition: transform 0.35s, opacity 0.35s;
+            opacity: 0;
+            transform: scale(0);
+
+            &.active {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
     }
 }
 
@@ -231,14 +231,21 @@ nav {
     z-index: 99;
     text-align: center;
 
+    .action-icons {
+        position: relative;
+        right: auto;
+        top: auto;
+        transform: none;
+    }
+
     .sidebar-contents {
         display: flex;
         height: 100%;
         flex-direction: column;
-        justify-content: space-around;
+        justify-content: space-between;
     }
 
-    a {
+    .links a {
         padding: 4px 12px;
         display: inline-block;
         font-weight: 900;

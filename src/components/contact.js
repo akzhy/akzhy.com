@@ -1,12 +1,24 @@
 import React from "react"
 import Title from "../components/title"
+import { RecaptchaContainer, Recaptcha } from "../components/recaptcha"
 import Textarea from "react-textarea-autosize"
 import { Paperplane } from "../components/icons"
 import Social from "../components/social"
-import config from "../../config" 
+import config from "../../config"
 
 export default class Contact extends React.Component {
+    render() {
+        return (
+            <RecaptchaContainer>
+                <Recaptcha>
+                    <ContactForm />
+                </Recaptcha>
+            </RecaptchaContainer>
+        )
+    }
+}
 
+class ContactForm extends React.Component {
     constructor(props) {
         super(props)
 
@@ -17,36 +29,46 @@ export default class Contact extends React.Component {
         this.state = {
             error: false,
             btnDisbaled: false,
-            message: false
+            message: false,
         }
 
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this)
     }
 
-    handleSubmit(event){
-        event.preventDefault();
+    handleSubmit(event) {
+        event.preventDefault()
 
         this.setState({
             message: false,
-            error: false
+            error: false,
         })
 
-        const name = this.cName.current, email = this.cEmail.current, message = this.cMessage;
+        const name = this.cName.current,
+            email = this.cEmail.current,
+            message = this.cMessage
 
-        if(name.value !== "" && email.value !== "" && message.value !== ""){
-            if(message.value.length < 15){
+        if (!this.props.recaptchaToken) {
+            this.setState({
+                message: "Please wait while recaptcha is generated",
+                error: true,
+            })
+            return;
+        }
+
+        if (name.value !== "" && email.value !== "" && message.value !== "") {
+            if (message.value.length < 15) {
                 this.setState({
                     error: true,
-                    message: "Message should contain atleast 15 characters"
+                    message: "Message should contain atleast 15 characters",
                 })
                 return;
             }
 
             this.setState({
-                btnDisbaled: true
+                btnDisbaled: true,
             })
 
-            fetch(`${config.cms}/wp-json/restcontact/v1/add`,{
+            fetch(`${config.cms}/wp-json/restcontact/v1/add`, {
                 method: "post",
                 headers: {
                     "Content-Type": "application/json",
@@ -54,30 +76,34 @@ export default class Contact extends React.Component {
                 body: JSON.stringify({
                     name: name.value,
                     email: email.value,
-                    message: message.value
-                })
-            }).then((res) => res.json()).then((body) => {
-                this.setState({
-                    btnDisbaled: false
-                })
-                if(body.result === "success"){
-                    this.setState({
-                        error: false,
-                        message: "Email sent succesfully"
-                    })
-
-                    this.cMessage.value = "";
-                }else {
-                    this.setState({
-                        error: true,
-                        message: body.message
-                    })
-                }
+                    message: message.value,
+                    recaptchaToken: this.props.recaptchaToken,
+                }),
             })
+                .then(res => res.json())
+                .then(body => {
+                    this.setState({
+                        btnDisbaled: false,
+                    })
+                    if (body.result === "success") {
+                        this.setState({
+                            error: false,
+                            message: "Email sent succesfully",
+                        })
+
+                        this.cMessage.value = ""
+                    } else {
+                        this.setState({
+                            error: true,
+                            message: body.message,
+                        })
+                    }
+                    this.props.generateRecaptcha();
+                })
         } else {
             this.setState({
                 error: true,
-                message: "Please fill all the fields"
+                message: "Please fill all the fields",
             })
         }
     }
@@ -123,14 +149,20 @@ export default class Contact extends React.Component {
                                             className="input"
                                             minRows={3}
                                             placeholder="Message"
-                                            inputRef={tag => (this.cMessage = tag)}
+                                            inputRef={tag =>
+                                                (this.cMessage = tag)
+                                            }
                                         />
                                     </div>
                                 </label>
                             </div>
-                            {this.state.error &&
-                                <p className="error">{this.state.message}</p>
-                            }
+                            {this.state.error && (
+                                <p className="error" style={{ marginBottom: "12px"}}>{this.state.message}</p>
+                            )}
+                            <div>
+                                This site is protected by reCAPTCHA and the
+                                Google <a href="https://policies.google.com/privacy" target="_blank">Privacy Policy</a> and <a href="https://policies.google.com/terms" target="_blank"> Terms of Service</a> apply.
+                            </div>
                             <div className="input-field">
                                 <button
                                     type="submit"
@@ -141,12 +173,12 @@ export default class Contact extends React.Component {
                                     <Paperplane className="fill-text-primary" />
                                 </button>
                             </div>
-                            {(!this.state.error && this.state.message) &&
+                            {!this.state.error && this.state.message && (
                                 <p className="success">{this.state.message}</p>
-                            }
+                            )}
                         </div>
                     </form>
-                    <Social/>
+                    <Social />
                 </div>
             </div>
         )

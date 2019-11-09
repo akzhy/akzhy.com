@@ -6,7 +6,7 @@ import Logo from "./logo"
 import SocialLinks from "./social"
 import { Sun, Moon } from "./icons"
 
-const SidebarContents = ({ location }) => {
+const SidebarContents = ({ location, cycleTheme, currentTheme }) => {
     const navLinks = [
         {
             name: "Home",
@@ -45,7 +45,12 @@ const SidebarContents = ({ location }) => {
         list.push(
             <NavLink data={item} key={"sidenav" + item.name + "" + item.url} />
         )
-    })
+    });
+
+    list.push(
+        <NavActionIcons key="navactioniconssidebar" cycleTheme={cycleTheme} currentTheme={currentTheme}/>
+    );
+
     return (
         <div className="sidebar-contents">
             <div className="logo">
@@ -152,7 +157,7 @@ export default class Navbar extends React.Component {
             <React.Fragment>
                 <div className="sidebar-container">
                     <Sidebar
-                        sidebar={<SidebarContents location={location} />}
+                        sidebar={<SidebarContents location={location} cycleTheme={this.props.cycleTheme} currentTheme={this.props.currentTheme} />}
                         open={this.state.sidebarOpen}
                         onSetOpen={this.onSetSidebarOpen}
                         sidebarClassName="sidebar-content"

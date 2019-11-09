@@ -50,6 +50,7 @@ h6 {
 a {
     text-decoration: none;
     outline: 0;
+    color: #2196f3;
 }
 
 .container {
@@ -263,11 +264,13 @@ table {
             display: inline-block;
             vertical-align: middle;
             width: 150px;
+            height: 150px;
             position: relative;
-            margin: 0 32px;
+            margin: 18px;
 
             svg {
                 width: 100%;
+                height: 100%;
                 transition: transform 0.25s;
             }
 
@@ -365,6 +368,7 @@ table {
     @include theme() {
         color: theme(error);
     }
+    animation: hide 5s forwards;
 }
 
 .success {
@@ -373,8 +377,13 @@ table {
     }
 }
 
-.disabled {
+
+.disabled, .btn:disabled {
     opacity: 0.6;
+}
+
+.grecaptcha-badge { 
+    visibility: hidden;
 }
 
 @media only screen and (max-width: 1290px){
@@ -416,6 +425,7 @@ table {
 
     .social-profiles ul li {
         width: 80px;
+        height: 80px;
     }
 }
 
@@ -425,23 +435,23 @@ table {
     }
     
     h2 {
-        font-size: 32px;
+        font-size: 38px;
     }
     
     h3 {
-        font-size: 24px;
+        font-size: 28px;
     }
     
     h4 {
-        font-size: 20px;
+        font-size: 24px;
     }
     
     h5 {
-        font-size: 18px;
+        font-size: 20px;
     }
 
     h6 {
-        font-size: 16px;
+        font-size: 18px;
     }
 
     .section {
@@ -461,6 +471,7 @@ table {
         ul{
             li {
                 width: 64px;
+                height: 64px;
             }
         }
     }
