@@ -40,7 +40,6 @@ export class Recaptcha extends React.Component {
         }
     }
     verifyCallback(recaptchaToken) {
-        console.log(recaptchaToken, "<= your recaptcha token");
         this.setState({
             token: recaptchaToken
         })

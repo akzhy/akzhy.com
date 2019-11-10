@@ -1,8 +1,19 @@
 import React from "react"
 import Textarea from "react-textarea-autosize"
+import { Recaptcha, RecaptchaContainer } from "./recaptcha"
+import Message from "./message";
 import config from "../../config.json"
 
-export class CommentForm extends React.Component {
+export const CommentForm = (props) => {
+    return (
+        <RecaptchaContainer>
+            <Recaptcha>
+                <CommentFormLayout {...props}/>
+            </Recaptcha>
+        </RecaptchaContainer>
+    )
+}
+class CommentFormLayout extends React.Component {
     constructor(props) {
         super(props)
 
@@ -54,6 +65,14 @@ export class CommentForm extends React.Component {
     formSubmit(event) {
         event.preventDefault()
 
+        if (!this.props.recaptchaToken) {
+            this.setState({
+                message: "Please wait while recaptcha is generated",
+                error: true,
+            })
+            return;
+        }
+
         this.setState({ btnEnabled: false })
 
         const { postId, commentId } = this.props
@@ -69,17 +88,20 @@ export class CommentForm extends React.Component {
             content: comment,
             post: postId,
             subscribe_to_replies: subscribe,
+            recaptchaToken: this.props.recaptchaToken
         }
 
-        if (this.saveData.current.checked) {
-            localStorage.setItem(
-                "user",
-                JSON.stringify({
-                    name,
-                    email,
-                    subscribe,
-                })
-            )
+        if (this.saveData.current) {
+            if(this.saveData.current.checked){
+                localStorage.setItem(
+                    "user",
+                    JSON.stringify({
+                        name,
+                        email,
+                        subscribe,
+                    })
+                )
+            }
         }
 
         if (commentId) {
@@ -104,9 +126,8 @@ export class CommentForm extends React.Component {
                 return response.json()
             })
             .then(obj => {
-                console.log(obj)
-
                 if (obj.code) {
+                    console.log(obj);
                     switch (obj.code) {
                         case "rest_comment_author_data_required":
                             this.setState({
@@ -116,6 +137,9 @@ export class CommentForm extends React.Component {
                             break
                         case "rest_comment_content_invalid":
                             this.setState({ message: "Please enter a comment" })
+                            break
+                        case "invalid_recaptcha":
+                            this.setState({ message: "Failed to validate recaptcha, please try again later." })
                             break
                         default:
                             this.setState({
@@ -132,6 +156,7 @@ export class CommentForm extends React.Component {
                     this.props.commentUpdateState(false)
                 }
                 this.setState({ btnEnabled: true })
+                this.props.generateRecaptcha();
             })
             .catch(err => {
                 console.log(err)
@@ -220,15 +245,13 @@ export class CommentForm extends React.Component {
                     )}
                     {this.state.message && (
                         <div className="input-field">
-                            <p
-                                className={
-                                    this.state.error ? "error" : "success"
-                                }
-                            >
-                                {this.state.message}
-                            </p>
+                            <Message error={this.state.error} message={this.state.message}/>
                         </div>
                     )}
+                    <div>
+                        This site is protected by reCAPTCHA and the
+                        Google <a href="https://policies.google.com/privacy" target="_blank">Privacy Policy</a> and <a href="https://policies.google.com/terms" target="_blank"> Terms of Service</a> apply.
+                    </div>
                     <div className="input-field">
                         <button
                             type="submit"
@@ -319,9 +342,9 @@ export class Comments extends React.Component {
             })
     }
 
-    onHashChange = (e) => {
+    onHashChange = e => {
         if (window.location.hash) {
-            const linkedComment = window.location.hash.substring(1);
+            const linkedComment = window.location.hash.substring(1)
             if (linkedComment[0] === "c") {
                 this.setState({
                     activeComment: linkedComment,
@@ -358,8 +381,8 @@ export class Comments extends React.Component {
         }
     }
 
-    componentWillUnmount(){
-        window.removeEventListener("hashchange", this.onHashChange);
+    componentWillUnmount() {
+        window.removeEventListener("hashchange", this.onHashChange)
     }
 
     render() {
@@ -432,7 +455,7 @@ class Comment extends React.Component {
 
         this.addReply = this.addReply.bind(this)
         this.cancelReply = this.cancelReply.bind(this)
-        this.commentItem = React.createRef();
+        this.commentItem = React.createRef()
     }
 
     addReply(event) {
@@ -442,13 +465,14 @@ class Comment extends React.Component {
         })
     }
 
-    componentDidMount(){
-        if(this.props.activeComment === `c${this.props.data.id}`){
-            const doc = document.documentElement;
-            const top = this.commentItem.current.getBoundingClientRect().top;
-            const windowTop = (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0);
-            if(windowTop >= top+40 || windowTop <= top-40){
-                window.scrollTo(0, top);
+    componentDidMount() {
+        if (this.props.activeComment === `c${this.props.data.id}`) {
+            const doc = document.documentElement
+            const top = this.commentItem.current.getBoundingClientRect().top
+            const windowTop =
+                (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0)
+            if (windowTop >= top + 40 || windowTop <= top - 40) {
+                window.scrollTo(0, top)
             }
         }
     }
