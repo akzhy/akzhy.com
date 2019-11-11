@@ -23,7 +23,7 @@ export default class Message extends React.Component {
 
     render() {
         return (
-            <p className={this.props.error ? "error" : "success"} ref={this.p} style={this.props.style || {}}>
+            <p className={this.props.error ? "error" : "success"} ref={this.p}>
                 {this.props.message}
             </p>
         )

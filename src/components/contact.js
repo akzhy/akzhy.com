@@ -3,6 +3,7 @@ import Title from "../components/title"
 import { RecaptchaContainer, Recaptcha } from "../components/recaptcha"
 import Textarea from "react-textarea-autosize"
 import { Paperplane } from "../components/icons"
+import Message from "../components/message"
 import Social from "../components/social"
 import config from "../../config"
 
@@ -157,9 +158,9 @@ class ContactForm extends React.Component {
                                 </label>
                             </div>
                             {this.state.error && (
-                                <p className="error" style={{ marginBottom: "12px"}}>{this.state.message}</p>
+                                <Message message={this.state.message} error={this.state.error}/>
                             )}
-                            <div>
+                            <div style={{ marginTop: "12px"}}>
                                 This site is protected by reCAPTCHA and the
                                 Google <a href="https://policies.google.com/privacy" target="_blank">Privacy Policy</a> and <a href="https://policies.google.com/terms" target="_blank"> Terms of Service</a> apply.
                             </div>
@@ -174,7 +175,7 @@ class ContactForm extends React.Component {
                                 </button>
                             </div>
                             {!this.state.error && this.state.message && (
-                                <p className="success">{this.state.message}</p>
+                                <Message error={this.state.error} message={this.state.message}/>
                             )}
                         </div>
                     </form>
