@@ -386,6 +386,42 @@ table {
     visibility: hidden;
 }
 
+.pagination {
+    margin-top: 24px;
+    text-align: center;
+    list-style: none;
+
+    li {
+        display: inline-block;
+        margin: 0 12px;
+
+        a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            text-align: center;
+            @include theme(){
+                border: 2px solid theme(primary);
+                color: theme(textPrimary);
+            }
+
+            &:hover, &:active, &:focus {
+                transform: scale(1.1);
+            }
+        }
+        
+
+        &.active a {
+            @include theme(){
+                border: 3px solid theme(secondary);
+            }
+        }
+    }
+}
+
 @media only screen and (max-width: 1290px){
     h1 {
         font-size: 64px;

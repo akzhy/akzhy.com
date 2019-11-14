@@ -78,3 +78,31 @@ export const ShelfCard = ({ title, date, description, image, link }) => {
         </div>
     )
 }
+
+
+export const Pagination = ({ pageContext, type }) => {
+
+    const title = type === "blog" ? "Blog" : "Shelf";
+
+    const Item = ({ active, to }) => (
+        <li className={active ? "active" : ""}>
+            <Link to={`${type}/${to}`} title={`${title} page ${to}`}>
+                {to}
+            </Link>
+        </li>
+    );
+
+    const items = [];
+
+    for(let i=1; i<= pageContext.numPages; i++){
+        items.push(
+            <Item key={`${type}pagination${i}`} to={i} number={i} active={pageContext.currentPage === i}/>
+        );
+    }
+
+    return (
+        <ul className="pagination">
+            {items}
+        </ul>
+    )
+}

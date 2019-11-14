@@ -1,7 +1,7 @@
 import React from "react"
 import Layout from "../components/layout"
 import Title from "../components/title"
-import { ShelfItem } from "../components/items"
+import { Pagination, ShelfItem } from "../components/items"
 import { graphql } from "gatsby"
 
 import "../styles/shelf.scss"
@@ -34,6 +34,11 @@ export default ({ data, pageContext }) => {
                             <div className="line"></div>
                         </div>
                         <div className="row">{shelfItems}</div>
+                    </div>
+                    <div className="row">
+                        {pageContext.numPages > 1 && 
+                            <Pagination pageContext={pageContext} type="shelf"/>
+                        }
                     </div>
                 </div>
             </div>

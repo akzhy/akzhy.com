@@ -1,8 +1,8 @@
 import React from "react"
 import Layout from "../components/layout"
 import Title from "../components/title"
-import { BlogItem } from "../components/items"
-import { graphql } from "gatsby"
+import { BlogItem, Pagination } from "../components/items"
+import { graphql, Link } from "gatsby"
 
 import "../styles/blog.scss"
 
@@ -32,6 +32,9 @@ export default ({ data, pageContext }) => {
                         <div className="row">
                             {blogItems}
                         </div>
+                        {pageContext.numPages > 1 && 
+                            <Pagination pageContext={pageContext} type="blog"/>
+                        }
                     </div>
                 </div>
             </div>

@@ -88,7 +88,7 @@ exports.createPages = async ({ graphql, actions }) => {
         })
     })
 
-    const itemsPerPage = 10
+    const itemsPerPage = 2
 
     // Shelf
 
