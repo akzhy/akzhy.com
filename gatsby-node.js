@@ -88,9 +88,7 @@ exports.createPages = async ({ graphql, actions }) => {
         })
     })
 
-    const itemsPerPage = 2
-
-    // Shelf
+    const itemsPerPage = 10;
 
     const numShelfItems = Math.ceil(shelf.edges.length / itemsPerPage);
     const numBlogItems = Math.ceil(blog.edges.length / itemsPerPage);
