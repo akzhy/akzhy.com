@@ -9,7 +9,8 @@ export default () => {
     const query = useStaticQuery(graphql`
         query {
             allWordpressPost(
-                filter: { categories: { elemMatch: { slug: { eq: "blog" } } } }
+                filter: { categories: { elemMatch: { slug: { eq: "blog" } } } },
+                sort: {fields: date, order: DESC}
             ) {
                 edges {
                     node {

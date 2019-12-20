@@ -1,6 +1,9 @@
 import React from "react"
 import { graphql } from "gatsby"
+import { Helmet } from "react-helmet"
 import Prism from "prismjs"
+import AdSense from 'react-adsense';
+
 
 import Title from "../components/title"
 import Layout from "../components/layout"
@@ -75,6 +78,9 @@ export default class Post extends React.Component {
 
         return (
             <Layout seo={seo}>
+                <Helmet>
+                    <script data-ad-client="ca-pub-8484156190843706" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                </Helmet>
                 <div className="section">
                     <div className="container">
                         <div className="meta">

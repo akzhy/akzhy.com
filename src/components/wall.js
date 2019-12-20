@@ -21,27 +21,7 @@ export default class Wall extends React.Component {
                 <div className="background">
                     <div
                         className="layer"
-                        style={{ background: "url(/images/l1.png)" }}
-                    ></div>
-                    <div
-                        className="layer"
-                        style={{ background: "url(/images/l2.png)" }}
-                    ></div>
-                    <div
-                        className="layer"
-                        style={{ background: "url(/images/l3.png)" }}
-                    ></div>
-                    <div
-                        className="layer"
-                        style={{ background: "url(/images/l4.png)" }}
-                    ></div>
-                    <div
-                        className="layer"
-                        style={{ background: "url(/images/l5.png)" }}
-                    ></div>
-                    <div
-                        className="layer"
-                        style={{ background: "url(/images/l6.png)" }}
+                        style={{ backgroundImage: "url(/images/wall.jpg)" }}
                     ></div>
                 </div>
             </div>
