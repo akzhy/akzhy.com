@@ -1,16 +1,14 @@
 import React from "react"
 import Textarea from "react-textarea-autosize"
-import { Recaptcha, RecaptchaContainer } from "./recaptcha"
+import Recaptcha from "./recaptcha"
 import Message from "./message";
 import config from "../../config.json"
 
 export const CommentForm = (props) => {
     return (
-        <RecaptchaContainer>
-            <Recaptcha>
-                <CommentFormLayout {...props}/>
-            </Recaptcha>
-        </RecaptchaContainer>
+        <Recaptcha>
+            <CommentFormLayout {...props}/>
+        </Recaptcha>
     )
 }
 class CommentFormLayout extends React.Component {

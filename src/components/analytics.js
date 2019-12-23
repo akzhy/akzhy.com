@@ -10,7 +10,6 @@ export default class ReCaptcha extends React.Component {
         this.state={
             scriptError: false,
             scriptLoaded: false,
-            token: false
         }
     }
 
@@ -22,25 +21,12 @@ export default class ReCaptcha extends React.Component {
         this.setState({ scriptLoaded: true })
     }
 
-    generate = () => {
-        const _g = window.grecaptcha;
-        if(this.state.token){
-            this.setState({
-                token: false
-            })
-        }
-        _g.ready(() => {
-            _g.execute(config.sitekey).then((t) => {
-                this.setState({
-                    token: t
-                })
-            })
-        })
-    }
-
     componentDidUpdate(){
-        if(this.state.scriptLoaded && !this.state.token){
-            this.generate();
+        if(this.state.scriptLoaded){
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){window.dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', config.analytics);
         }
     }
 
@@ -48,11 +34,10 @@ export default class ReCaptcha extends React.Component {
         return(
             <React.Fragment>
                 <Script
-                url={`https://www.google.com/recaptcha/api.js?render=${config.sitekey}`}
+                url={`https://www.googletagmanager.com/gtag/js?id=${config.analytics}`}
                 onError={this.handleScriptError.bind(this)}
                 onLoad={this.handleScriptLoad.bind(this)}
                 />
-                {React.cloneElement(this.props.children, {recaptchaToken: this.state.token, generateRecaptcha: this.generate})}
             </React.Fragment>
         )
     }

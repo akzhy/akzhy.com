@@ -1,6 +1,6 @@
 import React from "react"
 import Title from "../components/title"
-import { RecaptchaContainer, Recaptcha } from "../components/recaptcha"
+import Recaptcha from "../components/recaptcha"
 import Textarea from "react-textarea-autosize"
 import { Paperplane } from "../components/icons"
 import Message from "../components/message"
@@ -10,11 +10,9 @@ import config from "../../config"
 export default class Contact extends React.Component {
     render() {
         return (
-            <RecaptchaContainer>
-                <Recaptcha>
-                    <ContactForm />
-                </Recaptcha>
-            </RecaptchaContainer>
+            <Recaptcha>
+                <ContactForm />
+            </Recaptcha>
         )
     }
 }

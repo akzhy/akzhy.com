@@ -5,6 +5,7 @@ import { Helmet } from "react-helmet"
 import Seo from "./seo"
 import Header from "./header"
 import Footer from "../components/footer"
+import Analytics from "../components/analytics"
 
 import "../styles/theme.scss"
 
@@ -60,6 +61,7 @@ class Layout extends React.Component {
                 id="wrapper"
                 className={`theme-${this.themes[this.state.theme]}`}
             >
+                <Analytics />
                 <div id="main">
                     <Seo {...this.props.seo} />
                     <Helmet>

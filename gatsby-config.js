@@ -26,13 +26,7 @@ module.exports = {
         `gatsby-transformer-sharp`,
         `gatsby-plugin-sharp`,
         `gatsby-plugin-sass`,
-        `gatsby-plugin-sitemap`,
-        {
-            resolve: `gatsby-plugin-google-analytics`,
-            options: {
-                trackingId: "UA-128279284-1",
-            }
-        }
+        `gatsby-plugin-sitemap`
         // `gatsby-plugin-offline`,
     ],
 }
