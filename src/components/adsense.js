@@ -57,8 +57,9 @@ export class DisplayAd extends React.Component {
 
     componentDidUpdate(){
         if(this.state.scriptLoaded){
-            let adsbygoogle;
-            (adsbygoogle = window.adsbygoogle || []).push({});
+            document.addEventListener("DOMContentLoaded", function() {
+                (window.adsbygoogle = window.adsbygoogle || []).push({});
+            });
         }
     }
 
