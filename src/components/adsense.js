@@ -79,6 +79,7 @@ export class DisplayAd extends React.Component {
                 data-ad-client="ca-pub-8484156190843706"
                 data-ad-slot="6749903075"
                 data-ad-format="auto"
+                style={{ display: "block" }}
                 data-full-width-responsive="true"></ins>
             </React.Fragment>
         )
