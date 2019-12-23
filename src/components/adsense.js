@@ -57,7 +57,9 @@ export class DisplayAd extends React.Component {
 
     componentDidUpdate(){
         if(this.state.scriptLoaded){
-            document.addEventListener("DOMContentLoaded", function() {
+            
+            window.addEventListener(("load", function() {
+                console.log(true);
                 (window.adsbygoogle = window.adsbygoogle || []).push({});
             });
         }
@@ -79,7 +81,7 @@ export class DisplayAd extends React.Component {
                 data-ad-client="ca-pub-8484156190843706"
                 data-ad-slot="6749903075"
                 data-ad-format="auto"
-                style={{ display: "block" }}
+                style={{ display: "block", marginTop: "48px" }}
                 data-full-width-responsive="true"></ins>
             </React.Fragment>
         )
