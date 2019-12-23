@@ -2,7 +2,6 @@ import React from "react"
 import { graphql } from "gatsby"
 import { Helmet } from "react-helmet"
 import Prism from "prismjs"
-import AdSense from 'react-adsense';
 
 
 import Title from "../components/title"
