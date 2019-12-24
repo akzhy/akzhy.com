@@ -4,7 +4,7 @@ import Prism from "prismjs"
 
 import Title from "../components/title"
 import Layout from "../components/layout"
-import { DisplayAd } from "../components/adsense"
+import { AutoAd } from "../components/adsense"
 import { Calendar, Pencil } from "../components/icons"
 import { BlogItem, ShelfCard } from "../components/items"
 import { Comments, CommentForm } from "../components/comments"
@@ -76,6 +76,7 @@ export default class Post extends React.Component {
 
         return (
             <Layout seo={seo}>
+                <AutoAd />
                 <div className="section">
                     <div className="container">
                         <div className="meta">
@@ -93,7 +94,6 @@ export default class Post extends React.Component {
                                 {post.modified}
                             </p>
                         </div>
-                        <DisplayAd />
                         <div className="page">
                             <CodeHighlighter content={post.content} />
                         </div>
