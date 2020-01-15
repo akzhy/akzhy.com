@@ -4,6 +4,8 @@ import Recaptcha from "./recaptcha"
 import Message from "./message";
 import config from "../../config.json"
 
+import { Loader } from "./icons"
+
 export const CommentForm = (props) => {
     return (
         <Recaptcha>
@@ -21,6 +23,8 @@ class CommentFormLayout extends React.Component {
         this.form = React.createRef()
         this.subscribe = React.createRef()
         this.saveData = React.createRef()
+
+        this.errorCount = 0;
 
         this.state = {
             message: false,
@@ -62,6 +66,8 @@ class CommentFormLayout extends React.Component {
 
     formSubmit(event) {
         event.preventDefault()
+
+        this.errorCount++;
 
         if (!this.props.recaptchaToken) {
             this.setState({
@@ -125,26 +131,24 @@ class CommentFormLayout extends React.Component {
             })
             .then(obj => {
                 if (obj.code) {
-                    console.log(obj);
+                    const s = {}
                     switch (obj.code) {
                         case "rest_comment_author_data_required":
-                            this.setState({
-                                message:
-                                    "Please enter a valid name and email address",
-                            })
+                            s.message = "Please enter a valid name and email address";
                             break
                         case "rest_comment_content_invalid":
-                            this.setState({ message: "Please enter a comment" })
+                            s.message = "Please enter a comment";
                             break
                         case "invalid_recaptcha":
-                            this.setState({ message: "Failed to validate recaptcha, please try again later." })
+                            s.message ="Failed to validate recaptcha, please try again later.";
                             break
                         default:
-                            this.setState({
-                                message:
-                                    "An error occured while adding the comment",
-                            })
+                            s.message = "An error occured while adding the comment";
                     }
+                    this.setState({
+                        message: s.message,
+                        error: true
+                    })
                 } else {
                     this.setState({
                         message: "Comment added.",
@@ -243,7 +247,7 @@ class CommentFormLayout extends React.Component {
                     )}
                     {this.state.message && (
                         <div className="input-field">
-                            <Message error={this.state.error} message={this.state.message}/>
+                            <Message error={this.state.error} errorCount={this.errorCount} message={this.state.message}/>
                         </div>
                     )}
                     <div>
@@ -256,9 +260,15 @@ class CommentFormLayout extends React.Component {
                             className={`btn ${
                                 this.state.btnEnabled ? "" : "disabled"
                             }`}
+                            style={{
+                                display: "flex",
+                                alignItems: "center"
+                            }}
                             disabled={!this.state.btnEnabled}
                         >
-                            Comment
+                            Comment {!this.state.btnEnabled && 
+                                <Loader/>
+                            }
                         </button>
                     </div>
                 </form>

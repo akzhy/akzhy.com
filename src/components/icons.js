@@ -150,6 +150,12 @@ export const Moon = ({ className }) => {
     )
 }
 
+export const Loader = ({className}) => {
+    return (
+        <div className={`lds-ring ${className}`}><div></div><div></div><div></div><div></div></div>
+    )
+}
+
 export const Sun = ({ className }) => {
     className = className || ""
     return (

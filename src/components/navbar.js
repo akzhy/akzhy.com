@@ -156,27 +156,6 @@ export default class Navbar extends React.Component {
                     <SideBar open={this.state.sidebarOpen} onChange={this.setSidebarOpenState}>
                         <SidebarContents location={location} cycleTheme={this.props.cycleTheme} currentTheme={this.props.currentTheme}/>
                     </SideBar>
-                    {/*<Sidebar
-                        sidebar={<SidebarContents location={location} cycleTheme={this.props.cycleTheme} currentTheme={this.props.currentTheme} />}
-                        open={this.state.sidebarOpen}
-                        onSetOpen={this.setSidebarOpenState}
-                        sidebarClassName="sidebar-content"
-                        styles={{
-                            sidebar: {
-                                zIndex: 101,
-                                position: "fixed",
-                            },
-                            overlay: {
-                                zIndex: 100,
-                            },
-                            dragHandle: {
-                                position: "fixed",
-                                zIndex: "99999",
-                            },
-                        }}
-                    >
-                        <span></span>
-                    </Sidebar>*/}
                 </div>
                 <nav ref={this.navbar}>
                     <div className="container">
@@ -196,7 +175,7 @@ export default class Navbar extends React.Component {
                                     <div></div>
                                 </button>
                             </li>
-                            <li>
+                            <li className="has-image">
                                 <Link to="/">
                                     <Logo />
                                 </Link>

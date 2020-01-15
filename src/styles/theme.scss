@@ -105,7 +105,7 @@ a {
 
 .theme-dark {
     .logo-container {
-        img{
+        img {
             display: none;
         }
         img.light {
@@ -314,7 +314,7 @@ table {
             content: "";
             position: absolute;
             width: 50%;
-            height: .2em;
+            height: 0.2em;
             @include theme() {
                 background: theme(secondary);
             }
@@ -327,7 +327,7 @@ table {
             content: "";
             position: absolute;
             width: 100%;
-            height: .25em;
+            height: 0.25em;
             @include theme() {
                 background: theme(primary);
             }
@@ -382,12 +382,12 @@ table {
     }
 }
 
-
-.disabled, .btn:disabled {
+.disabled,
+.btn:disabled {
     opacity: 0.6;
 }
 
-.grecaptcha-badge { 
+.grecaptcha-badge {
     visibility: hidden;
 }
 
@@ -408,46 +408,96 @@ table {
             height: 48px;
             border-radius: 50%;
             text-align: center;
-            @include theme(){
+            @include theme() {
                 border: 2px solid theme(primary);
                 color: theme(textPrimary);
             }
 
-            &:hover, &:active, &:focus {
+            &:hover,
+            &:active,
+            &:focus {
                 transform: scale(1.1);
             }
         }
-        
 
         &.active a {
-            @include theme(){
+            @include theme() {
                 border: 3px solid theme(secondary);
             }
         }
     }
 }
 
-@media only screen and (max-width: 1290px){
+.lds-ring {
+    $size: 32px;
+    display: inline-block;
+    position: relative;
+    width: $size;
+    height: $size;
+    margin-left: 12px;
+
+    div {
+        box-sizing: border-box;
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border: 4px solid #fff;
+        border-radius: 50%;
+        animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+        @include theme(){
+            border-color: theme(primary) transparent transparent transparent;
+        }
+    }
+    div:nth-child(1) {
+        animation-delay: -0.45s;
+    }
+    div:nth-child(2) {
+        animation-delay: -0.3s;
+    }
+    div:nth-child(3) {
+        animation-delay: -0.15s;
+    }
+
+    &.small {
+        width: 18px;
+        height: 18px;
+        
+        div {
+            border-width: 3px;
+        }
+    }
+}
+
+@keyframes lds-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+@media only screen and (max-width: 1290px) {
     h1 {
         font-size: 64px;
     }
-    
+
     h2 {
         font-size: 48px;
     }
-    
+
     h3 {
         font-size: 32px;
     }
-    
+
     h4 {
         font-size: 24px;
     }
-    
+
     h5 {
         font-size: 20px;
     }
-    
+
     h6 {
         font-size: 18px;
     }
@@ -470,23 +520,23 @@ table {
     }
 }
 
-@media only screen and (max-width: 701px){
+@media only screen and (max-width: 701px) {
     h1 {
         font-size: 48px;
     }
-    
+
     h2 {
         font-size: 38px;
     }
-    
+
     h3 {
         font-size: 28px;
     }
-    
+
     h4 {
         font-size: 24px;
     }
-    
+
     h5 {
         font-size: 20px;
     }
@@ -506,10 +556,10 @@ table {
         width: 95%;
     }
 
-    .social-profiles{
+    .social-profiles {
         margin-top: 48px;
 
-        ul{
+        ul {
             li {
                 width: 64px;
                 height: 64px;
