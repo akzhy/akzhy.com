@@ -1,6 +1,5 @@
 import React from "react"
 import { Link } from "gatsby"
-import Sidebar from "react-sidebar"
 
 import SideBar from "./sidebar"
 import Logo from "./logo"
@@ -33,7 +32,7 @@ const SidebarContents = ({ location, cycleTheme, currentTheme }) => {
     ]
 
     if (location.pathname !== "/") {
-        navLinks.map(item => {
+        navLinks.forEach(item => {
             if (item.url.split("/")[1] === location.pathname.split("/")[1]) {
                 item.active = true
             }
@@ -132,7 +131,7 @@ export default class Navbar extends React.Component {
         ]
 
         if (location.pathname !== "/") {
-            navLinks.map(item => {
+            navLinks.forEach(item => {
                 if (
                     item.url.split("/")[1] === location.pathname.split("/")[1]
                 ) {

@@ -2,7 +2,7 @@ import React from "react"
 import Layout from "../components/layout"
 import Title from "../components/title"
 import { BlogItem, Pagination } from "../components/items"
-import { graphql, Link } from "gatsby"
+import { graphql } from "gatsby"
 
 import "../styles/blog.scss"
 

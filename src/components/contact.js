@@ -160,7 +160,7 @@ class ContactForm extends React.Component {
                             )}
                             <div style={{ marginTop: "12px"}}>
                                 This site is protected by reCAPTCHA and the
-                                Google <a href="https://policies.google.com/privacy" target="_blank">Privacy Policy</a> and <a href="https://policies.google.com/terms" target="_blank"> Terms of Service</a> apply.
+                                Google <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a> and <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer"> Terms of Service</a> apply.
                             </div>
                             <div className="input-field">
                                 <button

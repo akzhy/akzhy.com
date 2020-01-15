@@ -148,10 +148,17 @@ export default class SideBar extends React.Component{
         this.changeSidebarState("close");
     }
 
+    resizeWindow = () => {
+        this.setState({
+            screenWidth: window.screen.availWidth
+        })
+    }
+
     componentDidMount(){
         window.addEventListener("touchstart",this.touchStart);
         window.addEventListener("touchend",this.touchEnd);
         window.addEventListener("touchmove",this.touchMove);
+        window.addEventListener("resize", this.resizeWindow);
 
         this.setState({
             screenWidth: window.screen.availWidth
@@ -177,6 +184,7 @@ export default class SideBar extends React.Component{
         window.removeEventListener("touchstart",this.touchStart);
         window.removeEventListener("touchend",this.touchEnd);
         window.removeEventListener("touchmove",this.touchMove);
+        window.removeEventListener("resize",this.resizeWindow);
     }
 
     render(){
