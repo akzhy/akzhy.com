@@ -2,6 +2,7 @@ import React from "react"
 import { Link } from "gatsby"
 import Sidebar from "react-sidebar"
 
+import SideBar from "./sidebar"
 import Logo from "./logo"
 import SocialLinks from "./social"
 import { Sun, Moon } from "./icons"
@@ -52,15 +53,17 @@ const SidebarContents = ({ location, cycleTheme, currentTheme }) => {
     );
 
     return (
-        <div className="sidebar-contents">
-            <div className="logo">
-                <Link to="/">
-                    <Logo />
-                </Link>
-            </div>
-            <ul className="links text-secondary">{list}</ul>
-            <div className="social-links">
-                <SocialLinks />
+        <div className="sidebar-content">
+            <div className="sidebar-contents">
+                <div className="logo">
+                    <Link to="/">
+                        <Logo />
+                    </Link>
+                </div>
+                <ul className="links text-secondary">{list}</ul>
+                <div className="social-links">
+                    <SocialLinks />
+                </div>
             </div>
         </div>
     )
@@ -74,8 +77,7 @@ export default class Navbar extends React.Component {
             sidebarOpen: false,
         }
 
-        this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this)
-        this.menuOpen = this.menuOpen.bind(this)
+        this.setSidebarOpenState = this.setSidebarOpenState.bind(this)
 
         this.navbar = React.createRef()
     }
@@ -97,14 +99,10 @@ export default class Navbar extends React.Component {
         window.removeEventListener("scroll", this.windowOnScroll)
     }
 
-    onSetSidebarOpen(open) {
+    setSidebarOpenState(open) {
         this.setState({ sidebarOpen: open })
     }
 
-    menuOpen(event) {
-        event.preventDefault()
-        this.onSetSidebarOpen(true)
-    }
 
     render() {
         const location = this.props.location.location
@@ -156,10 +154,13 @@ export default class Navbar extends React.Component {
         return (
             <React.Fragment>
                 <div className="sidebar-container">
-                    <Sidebar
+                    <SideBar open={this.state.sidebarOpen} onChange={this.setSidebarOpenState}>
+                        <SidebarContents location={location} cycleTheme={this.props.cycleTheme} currentTheme={this.props.currentTheme}/>
+                    </SideBar>
+                    {/*<Sidebar
                         sidebar={<SidebarContents location={location} cycleTheme={this.props.cycleTheme} currentTheme={this.props.currentTheme} />}
                         open={this.state.sidebarOpen}
-                        onSetOpen={this.onSetSidebarOpen}
+                        onSetOpen={this.setSidebarOpenState}
                         sidebarClassName="sidebar-content"
                         styles={{
                             sidebar: {
@@ -176,7 +177,7 @@ export default class Navbar extends React.Component {
                         }}
                     >
                         <span></span>
-                    </Sidebar>
+                    </Sidebar>*/}
                 </div>
                 <nav ref={this.navbar}>
                     <div className="container">
@@ -184,7 +185,7 @@ export default class Navbar extends React.Component {
                         <ul className="mobile-nav">
                             <li
                                 className="menu-button"
-                                onClick={() => this.onSetSidebarOpen(true)}
+                                onClick={() => this.setSidebarOpenState(true)}
                             >
                                 <button
                                     className="hamburger"
