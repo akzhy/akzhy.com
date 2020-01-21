@@ -2,7 +2,7 @@ import React from "react"
 import Title from "../components/title"
 import Recaptcha from "../components/recaptcha"
 import Textarea from "react-textarea-autosize"
-import { Paperplane } from "../components/icons"
+import { Loader, Paperplane } from "../components/icons"
 import Message from "../components/message"
 import Social from "../components/social"
 import config from "../../config"
@@ -27,7 +27,7 @@ class ContactForm extends React.Component {
 
         this.state = {
             error: false,
-            btnDisbaled: false,
+            btnDisabled: false,
             message: false,
         }
 
@@ -64,7 +64,7 @@ class ContactForm extends React.Component {
             }
 
             this.setState({
-                btnDisbaled: true,
+                btnDisabled: true,
             })
 
             fetch(`${config.cms}/wp-json/restcontact/v1/add`, {
@@ -82,7 +82,7 @@ class ContactForm extends React.Component {
                 .then(res => res.json())
                 .then(body => {
                     this.setState({
-                        btnDisbaled: false,
+                        btnDisabled: false,
                     })
                     if (body.result === "success") {
                         this.setState({
@@ -98,6 +98,12 @@ class ContactForm extends React.Component {
                         })
                     }
                     this.props.generateRecaptcha();
+                }).catch(err => {
+                    this.setState({
+                        btnDisabled: false,
+                        error: true,
+                        message: "Unable to send mail, please try again later"
+                    })
                 })
         } else {
             this.setState({
@@ -166,10 +172,19 @@ class ContactForm extends React.Component {
                                 <button
                                     type="submit"
                                     className="btn color-primary"
-                                    disabled={this.state.btnDisbaled}
+                                    style={{
+                                        display: "flex",
+                                        alignItems: "center"
+                                    }}
+                                    disabled={this.state.btnDisabled}
                                 >
                                     Send{" "}
-                                    <Paperplane className="fill-text-primary" />
+                                    {!this.state.btnDisabled &&
+                                        <Paperplane className="fill-text-primary" />
+                                    }
+                                    {this.state.btnDisabled && 
+                                        <Loader/>
+                                    }
                                 </button>
                             </div>
                             {!this.state.error && this.state.message && (
