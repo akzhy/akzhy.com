@@ -319,6 +319,7 @@ export class Comments extends React.Component {
             .then(data => {
                 data.forEach(item => (comments[item.id] = item))
                 data.forEach(item => {
+                    console.log(item);
                     if (item.parent > 0) {
                         if (!("replies" in comments[item.parent]))
                             comments[item.parent]["replies"] = []
@@ -507,7 +508,7 @@ class Comment extends React.Component {
             hour: "numeric",
             minute: "numeric",
         }
-        let date = new Date(this.props.data.date)
+        let date = new Date(this.props.data.date_gmt)
         date = date.toLocaleDateString(undefined, options)
 
         return (
