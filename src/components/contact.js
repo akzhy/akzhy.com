@@ -31,11 +31,16 @@ class ContactForm extends React.Component {
             message: false,
         }
 
+        this.errorCount = 0;
+
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
     handleSubmit(event) {
-        event.preventDefault()
+        event.preventDefault();
+
+        console.log(this.errorCount);
+        this.errorCount+= 1;
 
         this.setState({
             message: false,
@@ -84,6 +89,8 @@ class ContactForm extends React.Component {
                     this.setState({
                         btnDisabled: false,
                     })
+
+
                     if (body.result === "success") {
                         this.setState({
                             error: false,
@@ -162,7 +169,7 @@ class ContactForm extends React.Component {
                                 </label>
                             </div>
                             {this.state.error && (
-                                <Message message={this.state.message} error={this.state.error}/>
+                                <Message message={this.state.message} errorCount={this.errorCount} error={this.state.error}/>
                             )}
                             <div style={{ marginTop: "12px"}}>
                                 This site is protected by reCAPTCHA and the

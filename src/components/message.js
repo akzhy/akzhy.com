@@ -23,10 +23,12 @@ export default class Message extends React.Component {
                 display: "block"
             })
             this.timeouts.push(
-                setTimeout(() => {this.setState({ opacity: 0})},18000)
+                setTimeout(() => {
+                    console.log(true);
+                    this.setState({ opacity: 0})},10800)
             );
             this.timeouts.push(
-                setTimeout(() => {this.setState({ display: "none"})},18400)
+                setTimeout(() => {this.setState({ display: "none"})},11200)
             );
 
             this.errorCount = this.props.errorCount
