@@ -508,7 +508,9 @@ class Comment extends React.Component {
             hour: "numeric",
             minute: "numeric",
         }
-        let date = new Date(this.props.data.date_gmt)
+        let date = Date.parse(this.props.data.date_gmt);
+        date = date-new Date().getTimezoneOffset()*60000;
+        date = new Date(date);
         date = date.toLocaleDateString(undefined, options)
 
         return (
