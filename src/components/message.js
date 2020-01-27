@@ -24,7 +24,6 @@ export default class Message extends React.Component {
             })
             this.timeouts.push(
                 setTimeout(() => {
-                    console.log(true);
                     this.setState({ opacity: 0})},10800)
             );
             this.timeouts.push(
