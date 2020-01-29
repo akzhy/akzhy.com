@@ -4,8 +4,9 @@ import { Helmet } from "react-helmet"
 
 import Seo from "./seo"
 import Header from "./header"
-import Footer from "../components/footer"
-import Analytics from "../components/analytics"
+import Footer from "./footer"
+import CookieBox from "./cookiebox"
+import Analytics from "./analytics"
 
 import "../styles/theme.scss"
 
@@ -77,6 +78,7 @@ class Layout extends React.Component {
                     <main>{this.props.children}</main>
                     <Footer />
                 </div>
+                <CookieBox />
             </div>
         )
     }
