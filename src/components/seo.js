@@ -2,9 +2,12 @@ import React from "react"
 import PropTypes from "prop-types"
 import Helmet from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
-import favicon from "../images/fav.png"
 
-function SEO({ description, lang, meta, title }) {
+import favicon from "../images/fav.png"
+import indexOg from "../images/indexog.jpg"
+
+
+function SEO({ description, lang, meta, title, image }) {
     const { site } = useStaticQuery(
         graphql`
             query {
@@ -20,6 +23,12 @@ function SEO({ description, lang, meta, title }) {
     )
 
     const metaDescription = description || site.siteMetadata.description
+
+    let ogImage = image || indexOg
+
+    if(ogImage.startsWith('/static')){
+        ogImage=`https://akzhy.com${ogImage}`
+    }
 
     lang = lang || `en`;
 
@@ -44,6 +53,10 @@ function SEO({ description, lang, meta, title }) {
                 {
                     property: `og:description`,
                     content: metaDescription,
+                },
+                {
+                    property: `og:image`,
+                    content: ogImage
                 },
                 {
                     property: `og:type`,
