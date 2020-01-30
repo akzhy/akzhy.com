@@ -38,8 +38,6 @@ class ContactForm extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-
-        console.log(this.errorCount);
         this.errorCount+= 1;
 
         this.setState({
