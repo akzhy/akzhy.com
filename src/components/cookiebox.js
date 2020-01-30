@@ -6,7 +6,7 @@ export default class CookieBox extends React.Component {
         super(props);
 
         this.state = {
-            cookieAccepted: false
+            cookieAccepted: true
         }
     }
 
@@ -22,6 +22,10 @@ export default class CookieBox extends React.Component {
             this.setState({
                 cookieAccepted: true
             })
+        }else {
+            this.setState({
+                cookieAccepted: false
+            })
         }
     }
 
@@ -30,7 +34,7 @@ export default class CookieBox extends React.Component {
             <React.Fragment>
                 {!this.state.cookieAccepted && 
                     <div className="cookie-box">
-                        <p>This website uses cookie to ensure you get the best experience on our website.</p>
+                        <p>This website uses cookies to ensure you get the best experience on our website.</p>
                         <div className="action-box">
                             <Link to="/privacy-policy">Privacy policy</Link>
                             <button className="btn" onClick={this.handleClick}>Accept</button>
