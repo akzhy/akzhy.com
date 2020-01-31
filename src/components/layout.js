@@ -28,6 +28,14 @@ class Layout extends React.Component {
             this.setState({
                 theme: theme,
             })
+        } else {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                localStorage.setItem("theme", 1);
+
+                this.setState({
+                    theme: 1
+                })
+            }
         }
     }
 
@@ -51,7 +59,7 @@ class Layout extends React.Component {
             this.state.theme === this.themes.length - 1
                 ? 0
                 : this.state.theme + 1
-
+        console.log(this.state.theme,this.themes,nextTheme);
         const currentTheme = {
             index: this.state.theme,
             theme: this.themes[this.state.theme],
