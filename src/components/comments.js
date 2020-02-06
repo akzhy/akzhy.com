@@ -204,6 +204,7 @@ class CommentFormLayout extends React.Component {
                     <div className="input-field">
                         <label>
                             <p>Comment</p>
+                            <div><p><i>Supports markdown</i></p></div>
                             <div className="field">
                                 <Textarea
                                     className="input"

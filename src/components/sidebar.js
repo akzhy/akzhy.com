@@ -76,7 +76,7 @@ export default class SideBar extends React.Component{
                     this.sidebarParent.current.style.transitionDuration = "0s"
                     this.sidebarOverlay.current.style.transitionDuration = "0s"
 
-                    let progress = 100 - Math.min(100, diff/2);
+                    let progress = 100 - Math.min(100, diff/10);
 
                     this.changeSidebarState(progress === 100 ? "open" : progress === 0 ? "close" : "",{
                         progress: progress,
@@ -189,8 +189,8 @@ export default class SideBar extends React.Component{
 
     render(){
         return(
-            <div className="r-sidebarswipe-container">
-                <div className="r-sidebarswipe-sidebar" ref={this.sidebarParent} style={{
+            <div className="r-swipe-sidebar-container">
+                <div className="r-swipe-sidebar" ref={this.sidebarParent} style={{
                     position: "fixed",
                     left: `${this.state.progress-100}%`,
                     width: this.settings.sidebarWidth,
@@ -205,7 +205,7 @@ export default class SideBar extends React.Component{
                     {this.props.children}
                 </div>
                 <div 
-                    className="r-sidebarswipe-overlay"
+                    className="r-swipe-sidebar-overlay"
                     ref={this.sidebarOverlay}
                     style={{
                         position: "fixed",

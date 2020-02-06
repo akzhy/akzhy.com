@@ -1,0 +1,4 @@
+This is a Brave Rewards publisher verification file.
+
+Domain: akzhy.com
+Token: 9b093bfd0209f167fbf1e0d0e36e94032276a58482d9c8a3822a205cd441dc6d
