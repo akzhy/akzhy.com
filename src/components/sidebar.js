@@ -76,7 +76,7 @@ export default class SideBar extends React.Component{
                     this.sidebarParent.current.style.transitionDuration = "0s"
                     this.sidebarOverlay.current.style.transitionDuration = "0s"
 
-                    let progress = 100 - Math.min(100, diff/10);
+                    let progress = 100 - Math.min(100, diff/2);
 
                     this.changeSidebarState(progress === 100 ? "open" : progress === 0 ? "close" : "",{
                         progress: progress,
