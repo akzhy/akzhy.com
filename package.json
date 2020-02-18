@@ -5,6 +5,8 @@
   "version": "0.1.0",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
+    "babel-plugin-prismjs": "^2.0.1",
+    "babel-preset-gatsby": "^0.2.29",
     "dotenv": "^8.1.0",
     "gatsby": "^2.15.29",
     "gatsby-image": "^2.2.24",
@@ -19,7 +21,7 @@
     "gatsby-source-wordpress": "^3.1.39",
     "gatsby-transformer-sharp": "^2.2.20",
     "node-sass": "^4.13.0",
-    "prismjs": "^1.17.1",
+    "prismjs": "^1.19.0",
     "prop-types": "^15.7.2",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
