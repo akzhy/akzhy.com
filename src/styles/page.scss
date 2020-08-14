@@ -205,6 +205,10 @@
 
             .comment {
                 padding-top: 12px;
+                
+                img {
+                   max-width: 100%;   
+                }
             }
 
             .comment-actions {
