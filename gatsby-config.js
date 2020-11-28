@@ -7,11 +7,9 @@ module.exports = {
     },
     plugins: [
         {
-            resolve: `gatsby-source-wordpress`,
+            resolve: `gatsby-source-wordpress-experimental`,
             options: {
-                baseUrl: `cms.akzhy.com`,
-                protocol: `http`,
-                hostingWPCOM: false,
+                url: `http://akzhy.local/graphql`,
                 useACF: true,
             },
         },
@@ -23,10 +21,23 @@ module.exports = {
                 path: `${__dirname}/src/images`,
             },
         },
-        `gatsby-transformer-sharp`,
-        `gatsby-plugin-sharp`,
-        `gatsby-plugin-sass`,
-        `gatsby-plugin-sitemap`
+        {
+            resolve: `gatsby-plugin-typegen`,
+            options: {
+                outputPath: `src/__generated__/gatsby-types.d.ts`,
+                emitSchema: {
+                  'src/__generated__/gatsby-introspection.json': true,
+                },
+                emitPluginDocuments: {
+                  'src/__generated__/gatsby-plugin-documents.graphql': true,
+                },
+            },
+        },
+    `gatsby-plugin-postcss`,
+    `gatsby-transformer-sharp`,
+    `gatsby-plugin-sharp`,
+    `gatsby-plugin-sass`,
+    `gatsby-plugin-sitemap`
         // `gatsby-plugin-offline`,
     ],
 }

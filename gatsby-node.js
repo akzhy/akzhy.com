@@ -1,73 +1,70 @@
 const path = require(`path`)
 const slash = require(`slash`)
+const fs = require("fs")
+
+exports.createSchemaCustomization = ({ actions }) => {   
+    const { createTypes } = actions
+    const typeDefs = `#graphql
+        type WpPost implements Node {
+            title: String!
+            content: String!
+            slug: String!
+            date: Date!
+            featuredImage: WpNodeWithFeaturedImageToMediaItemConnectionEdge!
+        }
+    `
+    createTypes(typeDefs)
+}
 
 exports.createPages = async ({ graphql, actions }) => {
+    console.log("pages")
     const { createPage } = actions
 
-    const result = await graphql(`
+    const result = await graphql(`#graphql
         {
-            allWordpressPage {
+            allWpPage {
                 edges {
                     node {
                         id
-                        path
+                        slug
                         status
                     }
                 }
             }
-            allWordpressPost {
+            shelf: allWpShelf {
                 edges {
                     node {
                         id
-                        path
-                        status
-                        categories {
-                            name
-                        }
-                    }
-                }
-            }
-            shelf: allWordpressPost(
-                filter: { categories: { elemMatch: { name: { eq: "shelf" } } } }
-            ) {
-                edges {
-                    node {
-                        id
-                        path
+                        slug
                         status
                     }
                 }
             }
-            blog: allWordpressPost(
-                filter: { categories: { elemMatch: { name: { eq: "blog" } } } }
-            ) {
+            blog: allWpPost {
                 edges {
                     node {
                         id
-                        path
+                        slug
                         status
                     }
                 }
             }
         }
-    `)
+    `);
 
     if (result.errors) {
         throw new Error(result.errors)
     }
 
-    const {
-        allWordpressPage,
-        allWordpressPost,
-        shelf,
-        blog,
-    } = result.data
+    const { allWpPage, shelf, blog } = result.data
 
-    const pageTemplate = path.resolve(`./src/templates/page.js`)
+    const pageTemplate = path.resolve(`./src/templates/page.tsx`)
 
-    allWordpressPage.edges.forEach(edge => {
+    console.log("Creating pages")
+
+    allWpPage.edges.forEach((edge) => {
         createPage({
-            path: edge.node.path,
+            path: `pages/${edge.node.slug}`,
             component: slash(pageTemplate),
             context: {
                 id: edge.node.id,
@@ -75,34 +72,41 @@ exports.createPages = async ({ graphql, actions }) => {
         })
     })
 
-    const postTemplate = path.resolve(`./src/templates/post.js`)
+    const postTemplate = path.resolve(`./src/templates/post.tsx`)
 
-    allWordpressPost.edges.forEach(edge => {
+    blog.edges.forEach((edge) => {
         createPage({
-            path: edge.node.path,
+            path: `blog/${edge.node.slug}`,
             component: slash(postTemplate),
             context: {
                 id: edge.node.id,
-                category: edge.node.categories[0].name
             },
         })
     })
 
-    const itemsPerPage = 10;
+    shelf.edges.forEach((edge) => {
+        createPage({
+            path: `shelf/${edge.node.slug}`,
+            component: slash(postTemplate),
+            context: {
+                id: edge.node.id,
+            },
+        })
+    })
 
-    const numShelfItems = Math.ceil(shelf.edges.length / itemsPerPage);
-    const numBlogItems = Math.ceil(blog.edges.length / itemsPerPage);
+    const itemsPerPage = 10
 
-    paginate("shelf", numShelfItems, itemsPerPage);
-    paginate("blog", numBlogItems, itemsPerPage);
+    const numShelfItems = Math.ceil(shelf.edges.length / itemsPerPage)
+    const numBlogItems = Math.ceil(blog.edges.length / itemsPerPage)
 
-    function paginate(type, total, itemsPerPage){
+    paginate("shelf", numShelfItems, itemsPerPage)
+    paginate("blog", numBlogItems, itemsPerPage)
+
+    function paginate(type, total, itemsPerPage) {
         Array.from({ length: total }).forEach((_, i) => {
             createPage({
                 path: `/${type}/${i + 1}`,
-                component: path.resolve(
-                    `./src/templates/${type}-list.js`
-                ),
+                component: path.resolve(`./src/templates/${type}-list.tsx`),
                 context: {
                     limit: itemsPerPage,
                     skip: i * itemsPerPage,
@@ -113,9 +117,7 @@ exports.createPages = async ({ graphql, actions }) => {
             if (i === 0) {
                 createPage({
                     path: `/${type}/`,
-                    component: path.resolve(
-                        `./src/templates/${type}-list.js`
-                    ),
+                    component: path.resolve(`./src/templates/${type}-list.tsx`),
                     context: {
                         limit: itemsPerPage,
                         skip: i * itemsPerPage,
@@ -127,4 +129,3 @@ exports.createPages = async ({ graphql, actions }) => {
         })
     }
 }
-
