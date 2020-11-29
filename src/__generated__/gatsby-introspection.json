@@ -3566,6 +3566,16 @@
             "description": null,
             "args": [
               {
+                "name": "acf",
+                "description": "",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "WpPage_AcfFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
                 "name": "ancestors",
                 "description": "",
                 "type": {
@@ -4035,6 +4045,16 @@
             "name": "wpPost",
             "description": null,
             "args": [
+              {
+                "name": "acf",
+                "description": "",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "WpPost_AcfFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
               {
                 "name": "author",
                 "description": "",
@@ -5895,6 +5915,16 @@
             "name": "wpShelf",
             "description": null,
             "args": [
+              {
+                "name": "acf",
+                "description": "",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "WpShelf_AcfFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
               {
                 "name": "content",
                 "description": "",
@@ -8557,6 +8587,16 @@
         "fields": null,
         "inputFields": [
           {
+            "name": "acf",
+            "description": "",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "WpPage_AcfFilterInput",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
             "name": "ancestors",
             "description": "",
             "type": {
@@ -8952,6 +8992,57 @@
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "InternalFilterInput",
+              "ofType": null
+            },
+            "defaultValue": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "WpPage_AcfFilterInput",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "description",
+            "description": "",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "StringQueryOperatorInput",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "excerpt",
+            "description": "",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "StringQueryOperatorInput",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "fieldGroupName",
+            "description": "",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "StringQueryOperatorInput",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "metaDescription",
+            "description": "",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "StringQueryOperatorInput",
               "ofType": null
             },
             "defaultValue": null
@@ -12269,6 +12360,16 @@
         "fields": null,
         "inputFields": [
           {
+            "name": "acf",
+            "description": "",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "WpPost_AcfFilterInput",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
             "name": "author",
             "description": "",
             "type": {
@@ -12674,6 +12775,57 @@
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "InternalFilterInput",
+              "ofType": null
+            },
+            "defaultValue": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "WpPost_AcfFilterInput",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "description",
+            "description": "",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "StringQueryOperatorInput",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "fieldGroupName",
+            "description": "",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "StringQueryOperatorInput",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "metaDescription",
+            "description": "",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "StringQueryOperatorInput",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "metaKeywords",
+            "description": "",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "StringQueryOperatorInput",
               "ofType": null
             },
             "defaultValue": null
@@ -16131,6 +16283,18 @@
         "name": "WpPage",
         "description": "The page type",
         "fields": [
+          {
+            "name": "acf",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "WpPage_Acf",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "ancestors",
             "description": "Returns ancestors of the node. Default ordered as lowest (closest to the child) to highest (closest to the root).",
@@ -23595,6 +23759,65 @@
       },
       {
         "kind": "OBJECT",
+        "name": "WpPage_Acf",
+        "description": "Field Group",
+        "fields": [
+          {
+            "name": "description",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "excerpt",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "fieldGroupName",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "metaDescription",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
         "name": "WpPageToCommentConnection",
         "description": "Connection between the page type and the Comment type",
         "fields": [
@@ -23675,6 +23898,22 @@
         "name": "WpPost",
         "description": "The post type",
         "fields": [
+          {
+            "name": "acf",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "WpPost_Acf",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "author",
             "description": "Connection between the NodeWithAuthor type and the User type",
@@ -24562,6 +24801,65 @@
             "ofType": null
           }
         ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "WpPost_Acf",
+        "description": "Field Group",
+        "fields": [
+          {
+            "name": "description",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "fieldGroupName",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "metaDescription",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "metaKeywords",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
       },
       {
         "kind": "OBJECT",
@@ -37065,6 +37363,30 @@
             "deprecationReason": null
           },
           {
+            "name": "pages___nodes___acf___description",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "pages___nodes___acf___excerpt",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "pages___nodes___acf___fieldGroupName",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "pages___nodes___acf___metaDescription",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "pages___nodes___ancestors___nodes",
             "description": null,
             "isDeprecated": false,
@@ -37336,6 +37658,30 @@
           },
           {
             "name": "posts___nodes",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "posts___nodes___acf___description",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "posts___nodes___acf___fieldGroupName",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "posts___nodes___acf___metaDescription",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "posts___nodes___acf___metaKeywords",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -47486,6 +47832,30 @@
         "interfaces": null,
         "enumValues": [
           {
+            "name": "acf___description",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "acf___excerpt",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "acf___fieldGroupName",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "acf___metaDescription",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "ancestors___nodes",
             "description": null,
             "isDeprecated": false,
@@ -50744,6 +51114,30 @@
         "inputFields": null,
         "interfaces": null,
         "enumValues": [
+          {
+            "name": "acf___description",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "acf___fieldGroupName",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "acf___metaDescription",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "acf___metaKeywords",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "author___node___avatar___default",
             "description": null,
@@ -55006,6 +55400,30 @@
             "deprecationReason": null
           },
           {
+            "name": "posts___nodes___acf___description",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "posts___nodes___acf___fieldGroupName",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "posts___nodes___acf___metaDescription",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "posts___nodes___acf___metaKeywords",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "posts___nodes___authorDatabaseId",
             "description": null,
             "isDeprecated": false,
@@ -56579,6 +56997,30 @@
             "deprecationReason": null
           },
           {
+            "name": "posts___nodes___acf___description",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "posts___nodes___acf___fieldGroupName",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "posts___nodes___acf___metaDescription",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "posts___nodes___acf___metaKeywords",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "posts___nodes___authorDatabaseId",
             "description": null,
             "isDeprecated": false,
@@ -58147,6 +58589,30 @@
           },
           {
             "name": "posts___nodes",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "posts___nodes___acf___description",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "posts___nodes___acf___fieldGroupName",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "posts___nodes___acf___metaDescription",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "posts___nodes___acf___metaKeywords",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -64130,6 +64596,57 @@
       },
       {
         "kind": "INPUT_OBJECT",
+        "name": "WpShelf_AcfFilterInput",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "description",
+            "description": "",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "StringQueryOperatorInput",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "fieldGroupName",
+            "description": "",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "StringQueryOperatorInput",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "metaDescription",
+            "description": "",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "StringQueryOperatorInput",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "metaKeywords",
+            "description": "",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "StringQueryOperatorInput",
+              "ofType": null
+            },
+            "defaultValue": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
         "name": "WpShelfToContentTypeConnectionEdgeFilterInput",
         "description": null,
         "fields": null,
@@ -64155,13 +64672,33 @@
         "description": "The shelf type",
         "fields": [
           {
-            "name": "content",
-            "description": "The content of the post.",
+            "name": "acf",
+            "description": null,
             "args": [],
             "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "WpShelf_Acf",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "content",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -64196,7 +64733,7 @@
           },
           {
             "name": "date",
-            "description": "Post publishing date.",
+            "description": null,
             "args": [
               {
                 "name": "formatString",
@@ -64240,9 +64777,13 @@
               }
             ],
             "type": {
-              "kind": "SCALAR",
-              "name": "Date",
-              "ofType": null
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Date",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -64326,12 +64867,16 @@
           },
           {
             "name": "featuredImage",
-            "description": "Connection between the NodeWithFeaturedImage type and the MediaItem type",
+            "description": null,
             "args": [],
             "type": {
-              "kind": "OBJECT",
-              "name": "WpNodeWithFeaturedImageToMediaItemConnectionEdge",
-              "ofType": null
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "WpNodeWithFeaturedImageToMediaItemConnectionEdge",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -64520,12 +65065,16 @@
           },
           {
             "name": "slug",
-            "description": "The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table.",
+            "description": null,
             "args": [],
             "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -64556,12 +65105,16 @@
           },
           {
             "name": "title",
-            "description": "The title of the post. This is currently just the raw title. An amendment to support rendered title needs to be made.",
+            "description": null,
             "args": [],
             "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -64705,6 +65258,65 @@
       },
       {
         "kind": "OBJECT",
+        "name": "WpShelf_Acf",
+        "description": "Field Group",
+        "fields": [
+          {
+            "name": "description",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "fieldGroupName",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "metaDescription",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "metaKeywords",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
         "name": "WpShelfToContentTypeConnectionEdge",
         "description": "Connection between the shelf type and the ContentType type",
         "fields": [
@@ -64732,6 +65344,16 @@
         "description": null,
         "fields": null,
         "inputFields": [
+          {
+            "name": "acf",
+            "description": "",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "WpShelf_AcfFilterInput",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
           {
             "name": "content",
             "description": "",
@@ -65034,6 +65656,30 @@
         "inputFields": null,
         "interfaces": null,
         "enumValues": [
+          {
+            "name": "acf___description",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "acf___fieldGroupName",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "acf___metaDescription",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "acf___metaKeywords",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "content",
             "description": null,

@@ -15,26 +15,18 @@ module.exports = {
         colors: {
             transparent: 'transparent',
             current: 'currentColor',
+            white: '#fff',
+            black: '#000',
             primary: '#9c27b0',
             secondary: '#f44336',
             bg: {
-                primary: '#000',
-                secondary: '#222',
+                primary: '#171414',
+                secondary: '#1b1b1b',
             },
             fg: {
-                primary: '#fff'
+                primary: '#fff',
+                light: '#eee' 
             },
-
-            black: colors.black,
-            white: colors.white,
-            gray: colors.coolGray,
-            red: colors.red,
-            yellow: colors.amber,
-            green: colors.emerald,
-            blue: colors.blue,
-            indigo: colors.indigo,
-            purple: colors.violet,
-            pink: colors.pink,
         },
         spacing: {
             px: '1px',

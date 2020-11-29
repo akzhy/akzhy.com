@@ -1885,6 +1885,7 @@ type Query_allWpTaxonomyArgs = {
 
 
 type Query_wpPageArgs = {
+  acf: Maybe<WpPage_AcfFilterInput>;
   ancestors: Maybe<WpHierarchicalContentNodeToContentNodeAncestorsConnectionFilterInput>;
   author: Maybe<WpNodeWithAuthorToUserConnectionEdgeFilterInput>;
   authorDatabaseId: Maybe<IntQueryOperatorInput>;
@@ -1937,6 +1938,7 @@ type Query_allWpPageArgs = {
 
 
 type Query_wpPostArgs = {
+  acf: Maybe<WpPost_AcfFilterInput>;
   author: Maybe<WpNodeWithAuthorToUserConnectionEdgeFilterInput>;
   authorDatabaseId: Maybe<IntQueryOperatorInput>;
   authorId: Maybe<IDQueryOperatorInput>;
@@ -2158,6 +2160,7 @@ type Query_allWpMenuItemArgs = {
 
 
 type Query_wpShelfArgs = {
+  acf: Maybe<WpShelf_AcfFilterInput>;
   content: Maybe<StringQueryOperatorInput>;
   contentType: Maybe<WpShelfToContentTypeConnectionEdgeFilterInput>;
   databaseId: Maybe<IntQueryOperatorInput>;
@@ -3531,6 +3534,10 @@ enum WpCategoryFieldsEnum {
   parentDatabaseId = 'parentDatabaseId',
   parentId = 'parentId',
   posts___nodes = 'posts.nodes',
+  posts___nodes___acf___description = 'posts.nodes.acf.description',
+  posts___nodes___acf___fieldGroupName = 'posts.nodes.acf.fieldGroupName',
+  posts___nodes___acf___metaDescription = 'posts.nodes.acf.metaDescription',
+  posts___nodes___acf___metaKeywords = 'posts.nodes.acf.metaKeywords',
   posts___nodes___authorDatabaseId = 'posts.nodes.authorDatabaseId',
   posts___nodes___authorId = 'posts.nodes.authorId',
   posts___nodes___categories___nodes = 'posts.nodes.categories.nodes',
@@ -6713,6 +6720,7 @@ type WpNodeWithTrackbacks = {
 
 /** The page type */
 type WpPage = Node & WpNode & WpContentNode & WpDatabaseIdentifier & WpNodeWithTemplate & WpUniformResourceIdentifiable & WpNodeWithTitle & WpNodeWithContentEditor & WpNodeWithAuthor & WpNodeWithFeaturedImage & WpNodeWithComments & WpNodeWithRevisions & WpNodeWithPageAttributes & WpHierarchicalContentNode & WpMenuItemLinkable & {
+  readonly acf: Maybe<WpPage_Acf>;
   /** Returns ancestors of the node. Default ordered as lowest (closest to the child) to highest (closest to the root). */
   readonly ancestors: Maybe<WpHierarchicalContentNodeToContentNodeAncestorsConnection>;
   /** Connection between the NodeWithAuthor type and the User type */
@@ -6846,6 +6854,21 @@ type WpPage_modifiedGmtArgs = {
   locale: Maybe<Scalars['String']>;
 };
 
+/** Field Group */
+type WpPage_Acf = {
+  readonly description: Maybe<Scalars['String']>;
+  readonly excerpt: Maybe<Scalars['String']>;
+  readonly fieldGroupName: Maybe<Scalars['String']>;
+  readonly metaDescription: Maybe<Scalars['String']>;
+};
+
+type WpPage_AcfFilterInput = {
+  readonly description: Maybe<StringQueryOperatorInput>;
+  readonly excerpt: Maybe<StringQueryOperatorInput>;
+  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
+  readonly metaDescription: Maybe<StringQueryOperatorInput>;
+};
+
 type WpPageConnection = {
   readonly totalCount: Scalars['Int'];
   readonly edges: ReadonlyArray<WpPageEdge>;
@@ -6874,6 +6897,10 @@ type WpPageEdge = {
 };
 
 enum WpPageFieldsEnum {
+  acf___description = 'acf.description',
+  acf___excerpt = 'acf.excerpt',
+  acf___fieldGroupName = 'acf.fieldGroupName',
+  acf___metaDescription = 'acf.metaDescription',
   ancestors___nodes = 'ancestors.nodes',
   ancestors___nodes___databaseId = 'ancestors.nodes.databaseId',
   ancestors___nodes___date = 'ancestors.nodes.date',
@@ -7352,6 +7379,7 @@ enum WpPageFieldsEnum {
 }
 
 type WpPageFilterInput = {
+  readonly acf: Maybe<WpPage_AcfFilterInput>;
   readonly ancestors: Maybe<WpHierarchicalContentNodeToContentNodeAncestorsConnectionFilterInput>;
   readonly author: Maybe<WpNodeWithAuthorToUserConnectionEdgeFilterInput>;
   readonly authorDatabaseId: Maybe<IntQueryOperatorInput>;
@@ -7434,6 +7462,7 @@ type WpPageToContentTypeConnectionEdgeFilterInput = {
 
 /** The post type */
 type WpPost = Node & WpNode & WpContentNode & WpDatabaseIdentifier & WpNodeWithTemplate & WpUniformResourceIdentifiable & WpNodeWithTitle & WpNodeWithContentEditor & WpNodeWithAuthor & WpNodeWithFeaturedImage & WpNodeWithExcerpt & WpNodeWithComments & WpNodeWithTrackbacks & WpNodeWithRevisions & WpMenuItemLinkable & {
+  readonly acf: WpPost_Acf;
   /** Connection between the NodeWithAuthor type and the User type */
   readonly author: Maybe<WpNodeWithAuthorToUserConnectionEdge>;
   /** The database identifier of the author of the node */
@@ -7557,6 +7586,21 @@ type WpPost_modifiedGmtArgs = {
   locale: Maybe<Scalars['String']>;
 };
 
+/** Field Group */
+type WpPost_Acf = {
+  readonly description: Maybe<Scalars['String']>;
+  readonly fieldGroupName: Maybe<Scalars['String']>;
+  readonly metaDescription: Maybe<Scalars['String']>;
+  readonly metaKeywords: Maybe<Scalars['String']>;
+};
+
+type WpPost_AcfFilterInput = {
+  readonly description: Maybe<StringQueryOperatorInput>;
+  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
+  readonly metaDescription: Maybe<StringQueryOperatorInput>;
+  readonly metaKeywords: Maybe<StringQueryOperatorInput>;
+};
+
 type WpPostConnection = {
   readonly totalCount: Scalars['Int'];
   readonly edges: ReadonlyArray<WpPostEdge>;
@@ -7585,6 +7629,10 @@ type WpPostEdge = {
 };
 
 enum WpPostFieldsEnum {
+  acf___description = 'acf.description',
+  acf___fieldGroupName = 'acf.fieldGroupName',
+  acf___metaDescription = 'acf.metaDescription',
+  acf___metaKeywords = 'acf.metaKeywords',
   author___node___avatar___default = 'author.node.avatar.default',
   author___node___avatar___extraAttr = 'author.node.avatar.extraAttr',
   author___node___avatar___forceDefault = 'author.node.avatar.forceDefault',
@@ -8113,6 +8161,7 @@ enum WpPostFieldsEnum {
 }
 
 type WpPostFilterInput = {
+  readonly acf: Maybe<WpPost_AcfFilterInput>;
   readonly author: Maybe<WpNodeWithAuthorToUserConnectionEdgeFilterInput>;
   readonly authorDatabaseId: Maybe<IntQueryOperatorInput>;
   readonly authorId: Maybe<IDQueryOperatorInput>;
@@ -8244,6 +8293,10 @@ enum WpPostFormatFieldsEnum {
   link = 'link',
   name = 'name',
   posts___nodes = 'posts.nodes',
+  posts___nodes___acf___description = 'posts.nodes.acf.description',
+  posts___nodes___acf___fieldGroupName = 'posts.nodes.acf.fieldGroupName',
+  posts___nodes___acf___metaDescription = 'posts.nodes.acf.metaDescription',
+  posts___nodes___acf___metaKeywords = 'posts.nodes.acf.metaKeywords',
   posts___nodes___authorDatabaseId = 'posts.nodes.authorDatabaseId',
   posts___nodes___authorId = 'posts.nodes.authorId',
   posts___nodes___categories___nodes = 'posts.nodes.categories.nodes',
@@ -8705,22 +8758,20 @@ type WpSettingsFilterInput = {
 
 /** The shelf type */
 type WpShelf = Node & WpNode & WpContentNode & WpDatabaseIdentifier & WpNodeWithTemplate & WpUniformResourceIdentifiable & WpNodeWithTitle & WpNodeWithContentEditor & WpNodeWithFeaturedImage & WpMenuItemLinkable & {
-  /** The content of the post. */
-  readonly content: Maybe<Scalars['String']>;
+  readonly acf: WpShelf_Acf;
+  readonly content: Scalars['String'];
   /** Connection between the shelf type and the ContentType type */
   readonly contentType: Maybe<WpShelfToContentTypeConnectionEdge>;
   /** The ID of the node in the database. */
   readonly databaseId: Scalars['Int'];
-  /** Post publishing date. */
-  readonly date: Maybe<Scalars['Date']>;
+  readonly date: Scalars['Date'];
   /** The publishing date set in GMT. */
   readonly dateGmt: Maybe<Scalars['Date']>;
   /** The desired slug of the post */
   readonly desiredSlug: Maybe<Scalars['String']>;
   /** The RSS enclosure for the object */
   readonly enclosure: Maybe<Scalars['String']>;
-  /** Connection between the NodeWithFeaturedImage type and the MediaItem type */
-  readonly featuredImage: Maybe<WpNodeWithFeaturedImageToMediaItemConnectionEdge>;
+  readonly featuredImage: WpNodeWithFeaturedImageToMediaItemConnectionEdge;
   /** The database identifier for the featured image node assigned to the content node */
   readonly featuredImageDatabaseId: Maybe<Scalars['Int']>;
   /** Globally unique ID of the featured image assigned to the node */
@@ -8746,18 +8797,12 @@ type WpShelf = Node & WpNode & WpContentNode & WpDatabaseIdentifier & WpNodeWith
    * field will change to match the corresponding time in GMT.
    */
   readonly modifiedGmt: Maybe<Scalars['Date']>;
-  /**
-   * The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name
-   * field and the post_name column in the database for the
-   * &quot;post_objects&quot; table.
-   */
-  readonly slug: Maybe<Scalars['String']>;
+  readonly slug: Scalars['String'];
   /** The current status of the object */
   readonly status: Maybe<Scalars['String']>;
   /** The template assigned to a node of content */
   readonly template: Maybe<WpContentTemplate>;
-  /** The title of the post. This is currently just the raw title. An amendment to support rendered title needs to be made. */
-  readonly title: Maybe<Scalars['String']>;
+  readonly title: Scalars['String'];
   /** URI path for the resource */
   readonly uri: Scalars['String'];
   readonly nodeType: Maybe<Scalars['String']>;
@@ -8802,6 +8847,21 @@ type WpShelf_modifiedGmtArgs = {
   locale: Maybe<Scalars['String']>;
 };
 
+/** Field Group */
+type WpShelf_Acf = {
+  readonly description: Maybe<Scalars['String']>;
+  readonly fieldGroupName: Maybe<Scalars['String']>;
+  readonly metaDescription: Maybe<Scalars['String']>;
+  readonly metaKeywords: Maybe<Scalars['String']>;
+};
+
+type WpShelf_AcfFilterInput = {
+  readonly description: Maybe<StringQueryOperatorInput>;
+  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
+  readonly metaDescription: Maybe<StringQueryOperatorInput>;
+  readonly metaKeywords: Maybe<StringQueryOperatorInput>;
+};
+
 type WpShelfConnection = {
   readonly totalCount: Scalars['Int'];
   readonly edges: ReadonlyArray<WpShelfEdge>;
@@ -8830,6 +8890,10 @@ type WpShelfEdge = {
 };
 
 enum WpShelfFieldsEnum {
+  acf___description = 'acf.description',
+  acf___fieldGroupName = 'acf.fieldGroupName',
+  acf___metaDescription = 'acf.metaDescription',
+  acf___metaKeywords = 'acf.metaKeywords',
   content = 'content',
   contentType___node___archivePath = 'contentType.node.archivePath',
   contentType___node___canExport = 'contentType.node.canExport',
@@ -9177,6 +9241,7 @@ enum WpShelfFieldsEnum {
 }
 
 type WpShelfFilterInput = {
+  readonly acf: Maybe<WpShelf_AcfFilterInput>;
   readonly content: Maybe<StringQueryOperatorInput>;
   readonly contentType: Maybe<WpShelfToContentTypeConnectionEdgeFilterInput>;
   readonly databaseId: Maybe<IntQueryOperatorInput>;
@@ -9317,6 +9382,10 @@ enum WpTagFieldsEnum {
   link = 'link',
   name = 'name',
   posts___nodes = 'posts.nodes',
+  posts___nodes___acf___description = 'posts.nodes.acf.description',
+  posts___nodes___acf___fieldGroupName = 'posts.nodes.acf.fieldGroupName',
+  posts___nodes___acf___metaDescription = 'posts.nodes.acf.metaDescription',
+  posts___nodes___acf___metaKeywords = 'posts.nodes.acf.metaKeywords',
   posts___nodes___authorDatabaseId = 'posts.nodes.authorDatabaseId',
   posts___nodes___authorId = 'posts.nodes.authorId',
   posts___nodes___categories___nodes = 'posts.nodes.categories.nodes',
@@ -10104,6 +10173,10 @@ enum WpUserFieldsEnum {
   nicename = 'nicename',
   nickname = 'nickname',
   pages___nodes = 'pages.nodes',
+  pages___nodes___acf___description = 'pages.nodes.acf.description',
+  pages___nodes___acf___excerpt = 'pages.nodes.acf.excerpt',
+  pages___nodes___acf___fieldGroupName = 'pages.nodes.acf.fieldGroupName',
+  pages___nodes___acf___metaDescription = 'pages.nodes.acf.metaDescription',
   pages___nodes___ancestors___nodes = 'pages.nodes.ancestors.nodes',
   pages___nodes___authorDatabaseId = 'pages.nodes.authorDatabaseId',
   pages___nodes___authorId = 'pages.nodes.authorId',
@@ -10150,6 +10223,10 @@ enum WpUserFieldsEnum {
   pages___nodes___internal___owner = 'pages.nodes.internal.owner',
   pages___nodes___internal___type = 'pages.nodes.internal.type',
   posts___nodes = 'posts.nodes',
+  posts___nodes___acf___description = 'posts.nodes.acf.description',
+  posts___nodes___acf___fieldGroupName = 'posts.nodes.acf.fieldGroupName',
+  posts___nodes___acf___metaDescription = 'posts.nodes.acf.metaDescription',
+  posts___nodes___acf___metaKeywords = 'posts.nodes.acf.metaKeywords',
   posts___nodes___authorDatabaseId = 'posts.nodes.authorDatabaseId',
   posts___nodes___authorId = 'posts.nodes.authorId',
   posts___nodes___categories___nodes = 'posts.nodes.categories.nodes',
@@ -10595,7 +10672,13 @@ type IndexMainQueryVariables = Exact<{ [key: string]: never; }>;
 
 type IndexMainQuery = { readonly blog: { readonly edges: ReadonlyArray<{ readonly node: (
         Pick<WpPost, 'id' | 'slug' | 'title' | 'date'>
-        & { readonly featuredImage: { readonly node: Maybe<{ readonly localFile: Maybe<{ readonly childImageSharp: Maybe<{ readonly fluid: Maybe<(
+        & { readonly acf: Pick<WpPost_Acf, 'description'>, readonly featuredImage: { readonly node: Maybe<{ readonly localFile: Maybe<{ readonly childImageSharp: Maybe<{ readonly fluid: Maybe<(
+                  Pick<ImageSharpFluid, 'src'>
+                  & GatsbyImageSharpFluidFragment
+                )> }> }> }> } }
+      ) }> }, readonly shelf: { readonly edges: ReadonlyArray<{ readonly node: (
+        Pick<WpShelf, 'id' | 'slug' | 'title' | 'date'>
+        & { readonly acf: Pick<WpShelf_Acf, 'description'>, readonly featuredImage: { readonly node: Maybe<{ readonly localFile: Maybe<{ readonly childImageSharp: Maybe<{ readonly fluid: Maybe<(
                   Pick<ImageSharpFluid, 'src'>
                   & GatsbyImageSharpFluidFragment
                 )> }> }> }> } }

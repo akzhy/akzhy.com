@@ -112,3 +112,53 @@ body {
     position: relative;
     z-index: 3;
 }
+
+.shelf-item:nth-child(odd) {
+    @apply pr-14;
+}
+
+.shelf-item:nth-child(even) {
+    @apply pl-14;
+}
+
+.shelf-item:nth-child(even) .connector{
+    left: 0;
+}
+
+.shelf-item .connector:after, .shelf-item .connector::before {
+    content: "";
+    background: #efebe9;
+    @apply absolute w-6 h-6 rounded-full bottom-0;
+}
+
+.shelf-item .connector:after {
+    @apply -top-6 -right-3;
+}
+
+.shelf-item:nth-child(even) .connector::before {
+    @apply right-0;
+}
+
+.shelf-item:nth-child(even) .connector:after {
+    @apply right-auto -left-3;
+}
+
+
+.shelf-item:nth-child(even) {
+    @apply mt-28;
+}
+
+.shelf-item:nth-child(even) .date{
+    right: auto;
+    left: 0;
+    transform: translate(-50%, 0);
+}
+
+.shelf-item .date {
+    transform: translate(50%, 0);
+}
+
+.connector .line {
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Ccircle cx='10' cy='5' fill='%23efebe9' r='5'/%3E%3C/svg%3E");
+    background-repeat: space;
+}

@@ -11,13 +11,21 @@ exports.createSchemaCustomization = ({ actions }) => {
             slug: String!
             date: Date!
             featuredImage: WpNodeWithFeaturedImageToMediaItemConnectionEdge!
+            acf: WpPost_Acf!
+        }
+        type WpShelf implements Node {
+            title: String!
+            content: String!
+            slug: String!
+            date: Date!
+            featuredImage: WpNodeWithFeaturedImageToMediaItemConnectionEdge!
+            acf: WpShelf_Acf!
         }
     `
     createTypes(typeDefs)
 }
 
 exports.createPages = async ({ graphql, actions }) => {
-    console.log("pages")
     const { createPage } = actions
 
     const result = await graphql(`#graphql
@@ -59,8 +67,6 @@ exports.createPages = async ({ graphql, actions }) => {
     const { allWpPage, shelf, blog } = result.data
 
     const pageTemplate = path.resolve(`./src/templates/page.tsx`)
-
-    console.log("Creating pages")
 
     allWpPage.edges.forEach((edge) => {
         createPage({

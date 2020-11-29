@@ -3,14 +3,13 @@ import { graphql } from 'gatsby';
 import BlogItem from '../components/item-blog'
 import Layout from '../components/layout'
 import { Section } from '../components/ui'
+import { ShelfContainer } from '../components/item-portfolio';
 
 export default function Index({ data }: {
     data: GatsbyTypes.IndexMainQuery
 }) {
     
-    const blogItems = data.blog.edges.map(i => (<BlogItem {...i.node} featured_image={i.node.featuredImage.node?.localFile?.childImageSharp as GatsbyTypes.ImageSharp}/>));
-
-    console.log(data.blog.edges[0].node);
+    const blogItems = data.blog.edges.map(i => (<BlogItem {...i.node} featured_image={i.node.featuredImage.node?.localFile?.childImageSharp as GatsbyTypes.ImageSharp} description={i.node.acf.description || ""}/>));
 
     return (
         <Layout>
@@ -29,6 +28,13 @@ I am a web developer who is very passionate about web development and related fi
 I’ve been into web designing since i was 15 and thats when i discovered my passion for it.<br />
 I am also into a bit of graphic designing, though i am no pro at it.</p>
             </Section>
+            <Section title="Shelf">
+                <ShelfContainer data={data.shelf.edges.map(({node}) => ({
+                    ...node,
+                    description: node.acf.description || "",
+                    featured_image: node.featuredImage.node?.localFile?.childImageSharp as GatsbyTypes.ImageSharp
+                }))}/>
+            </Section>
             <Section title="Blog">
                 {blogItems}
             </Section>
@@ -44,7 +50,35 @@ export const query = graphql`
                     id
                     slug
                     title
-                    date
+                    acf {
+                        description
+                    }
+                    date(formatString: "DD MMM YYYY")
+                    featuredImage {
+                        node {
+                            localFile {
+                                childImageSharp {
+                                    fluid {
+                                        src
+                                        ...GatsbyImageSharpFluid
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        shelf: allWpShelf {
+            edges {
+                node {
+                    id
+                    slug
+                    title
+                    acf {
+                        description
+                    }
+                    date(formatString: "DD MMM YYYY")
                     featuredImage {
                         node {
                             localFile {
