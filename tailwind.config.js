@@ -22,6 +22,7 @@ module.exports = {
             bg: {
                 primary: '#171414',
                 secondary: '#1b1b1b',
+                accent: '#2f283d'
             },
             fg: {
                 primary: '#fff',

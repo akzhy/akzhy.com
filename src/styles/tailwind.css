@@ -3,36 +3,38 @@
 @tailwind utilities;
 
 body {
-    font-family: 'Poppins',sans-serif;
+    font-family: "Poppins", sans-serif;
 }
 
 .nav-item {
     min-width: 8rem;
 }
 
-.nav-item a{
+.nav-item a {
     @apply relative px-3;
 }
 
-.nav-item a:after,.nav-item a:before{
+.nav-item a::after,
+.nav-item a::before {
     content: "";
     position: absolute;
     height: 4px;
     width: 0%;
     bottom: 0;
     left: 0;
-    @apply bg-primary;
     transition: width 0.3s;
+    @apply bg-primary;
 }
 
-.nav-item a:after {
+.nav-item a::after {
     left: auto;
     right: 0;
     margin-bottom: -4px;
     @apply bg-secondary;
 }
 
-.nav-item.has-image a:before, .nav-item.has-image a:after {
+.nav-item.has-image a::before,
+.nav-item.has-image a::after {
     display: none;
 }
 
@@ -40,11 +42,17 @@ body {
     outline: 0;
 }
 
-.nav-item a:hover img, .nav-item a:focus img{
+.nav-item a:hover img,
+.nav-item a:focus img {
     filter: brightness(0.7) sepia(0.5) saturate(8) hue-rotate(277deg);
 }
 
-.nav-item a:hover:after, .nav-item a:hover:before,.nav-item a:focus:after, .nav-item a:focus:before, .nav-item.active a:after, .nav-item.active a:before {
+.nav-item a:hover::after,
+.nav-item a:hover::before,
+.nav-item a:focus::after,
+.nav-item a:focus::before,
+.nav-item.active a::after,
+.nav-item.active a::before {
     width: 95%;
 }
 
@@ -57,7 +65,8 @@ body {
     vertical-align: bottom;
 }
 
-.wall .sep:after, .wall .sep:before {
+.wall .sep::after,
+.wall .sep::before {
     content: "";
     position: absolute;
     width: 50%;
@@ -68,7 +77,7 @@ body {
     border-radius: 24px;
 }
 
-.wall .sep:after {
+.wall .sep::after {
     top: auto;
     bottom: -2px;
     left: auto;
@@ -84,28 +93,28 @@ body {
     display: none;
 }
 
-
-.title:after, .title:before{
+.title::after,
+.title::before {
     content: "";
     position: absolute;
     width: 100%;
     max-width: 400px;
-    height: 1rem;
+    height: 0.8rem;
     @apply bg-primary;
     bottom: 0;
     left: 50%;
-    transform: translate(-50%,0);
+    transform: translate(-50%, 0);
     margin-right: -1rem;
     margin-bottom: 0.4rem;
 }
 
-.title:before {
+.title::before {
     @apply bg-secondary;
     margin-bottom: -0.4rem;
     width: 50%;
     max-width: 200px;
     transform: none;
-    transform: translate(4px,0);
+    transform: translate(4px, 0);
 }
 
 .title span {
@@ -118,20 +127,21 @@ body {
 }
 
 .shelf-item:nth-child(even) {
-    @apply pl-14;
+    @apply pl-14 mt-28;
 }
 
-.shelf-item:nth-child(even) .connector{
+.shelf-item:nth-child(even) .connector {
     left: 0;
 }
 
-.shelf-item .connector:after, .shelf-item .connector::before {
+.shelf-item .connector::after,
+.shelf-item .connector::before {
     content: "";
     background: #efebe9;
     @apply absolute w-6 h-6 rounded-full bottom-0;
 }
 
-.shelf-item .connector:after {
+.shelf-item .connector::after {
     @apply -top-6 -right-3;
 }
 
@@ -139,16 +149,11 @@ body {
     @apply right-0;
 }
 
-.shelf-item:nth-child(even) .connector:after {
+.shelf-item:nth-child(even) .connector::after {
     @apply right-auto -left-3;
 }
 
-
-.shelf-item:nth-child(even) {
-    @apply mt-28;
-}
-
-.shelf-item:nth-child(even) .date{
+.shelf-item:nth-child(even) .date {
     right: auto;
     left: 0;
     transform: translate(-50%, 0);
@@ -161,4 +166,50 @@ body {
 .connector .line {
     background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Ccircle cx='10' cy='5' fill='%23efebe9' r='5'/%3E%3C/svg%3E");
     background-repeat: space;
+}
+
+.shelf-item .content .title::before,
+.shelf-item .content .title::after {
+    height: 0.4rem;
+    transition: width 0.25s;
+}
+
+.shelf-item .content .title {
+    transform: translate(0, -3rem);
+    opacity: 0.3;
+    transition: transform 0.25s, opacity 0.25s;
+}
+
+.shelf-item .content p {
+    transform: translate(0, 3rem);
+    opacity: 0.3;
+    transition: transform 0.25s, opacity 0.25s;
+}
+
+.shelf-item .content .title::after {
+    margin-bottom: 0.1rem;
+    width: 0%;
+}
+
+.shelf-item .content .title::before {
+    margin-bottom: -0.2rem;
+    width: 0%;
+}
+
+.shelf-item a:hover .content .title,
+.shelf-item a:focus .content .title,
+.shelf-item a:hover .content p,
+.shelf-item a:focus .content p {
+    transform: translate(0, 0);
+    opacity: 1;
+}
+
+.shelf-item a:hover .content .title::after,
+.shelf-item a:focus .content .title::after {
+    width: 100%;
+}
+
+.shelf-item a:hover .content .title::before,
+.shelf-item a:focus .content .title::before {
+    width: 50%;
 }
