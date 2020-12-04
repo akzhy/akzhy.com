@@ -204,6 +204,10 @@ body {
     opacity: 1;
 }
 
+.shelf-item a:focus .content {
+    opacity: 1;
+}
+
 .shelf-item a:hover .content .title::after,
 .shelf-item a:focus .content .title::after {
     width: 100%;
@@ -212,4 +216,9 @@ body {
 .shelf-item a:hover .content .title::before,
 .shelf-item a:focus .content .title::before {
     width: 50%;
+}
+
+.text-input input:focus + span,
+.text-input textarea:focus + span {
+    opacity: 1;
 }

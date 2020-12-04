@@ -4,6 +4,7 @@ import BlogItem from '../components/item-blog'
 import Layout from '../components/layout'
 import { Section } from '../components/ui'
 import { ShelfContainer } from '../components/item-portfolio';
+import Contact from '../components/contact';
 
 export default function Index({ data }: {
     data: GatsbyTypes.IndexMainQuery
@@ -37,6 +38,9 @@ I am also into a bit of graphic designing, though i am no pro at it.</p>
             </Section>
             <Section title="Blog">
                 {blogItems}
+            </Section>
+            <Section title="Contact">
+                <Contact />
             </Section>
         </Layout>
     )
