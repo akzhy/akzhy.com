@@ -37,8 +37,8 @@ const NavItem = ({ href, title, isImg = false }: { href: string; title: string; 
                 {!isImg ?
                     <React.Fragment>{title.toUpperCase()}</React.Fragment> :
                     <div className="logo-container w-32">
-                        <img src="/images/logo-black.png" className="logo-dark" />
-                        <img src="/images/logo-white.png" className="logo-light" />
+                        <img src="/images/logo-black.png" className="logo-dark" alt="Logo" />
+                        <img src="/images/logo-white.png" className="logo-light" alt="Logo" />
                     </div>}
             </Link>
         </li>
