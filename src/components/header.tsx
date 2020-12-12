@@ -8,7 +8,7 @@ export default function Header() {
     }, {
         title: "Shelf",
         href: "/shelf"
-    }, , {
+    }, {
         title: "Home",
         href: "/"
     }, {

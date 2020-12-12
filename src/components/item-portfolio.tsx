@@ -26,7 +26,7 @@ export function ShelfItem({id,title,featured_image,date,slug, description}:Props
                     <p className="mt-4">{description}</p>
                 </div>
             </a>
-            <p className="text-fg-light items-center absolute right-0 top-0 date text-sm -mt-12">{date}</p>
+            <p className="text-fg-light items-center absolute right-0 top-0 date text-sm -mt-12" aria-label={`Published on ${date}`}>{date}</p>
         </div>
     )
 }

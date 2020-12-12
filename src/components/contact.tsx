@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { Loader, Send } from 'react-feather'
+import SocialMedia from './social';
 import { Button, TextArea, TextInput } from './ui'
 
 interface DataState {
@@ -158,6 +159,9 @@ export default function Contact() {
                         {loading ? <React.Fragment>Sending... <Loader className="animate-spin ml-3" /></React.Fragment> : <React.Fragment>Send <Send className="ml-3" /></React.Fragment>}
                     </div>
                 </Button>
+            </div>
+            <div className="social my-14">
+                <SocialMedia />
             </div>
         </div>
     )

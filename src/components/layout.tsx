@@ -21,7 +21,7 @@ export default function Layout({ children }:Props) {
                     />
                 </Helmet>
                 <Header />
-                <main>{children}</main>
+                <div>{children}</div>
                 <Footer />
             </div>
         </div>
