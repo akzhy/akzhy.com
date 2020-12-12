@@ -2,12 +2,18 @@ import React,{ ReactNode } from "react"
 import {Helmet} from "react-helmet"
 import Footer from "./footer"
 import Header from "./header"
+import { SEO } from './seo'
 
 interface Props {
     children: ReactNode;
+    seo: {
+        title: string;
+        description: string;
+        image?: string;
+    }
 }
 
-export default function Layout({ children }:Props) {
+export default function Layout({ children, seo }:Props) {
     return (
         <div
             id="wrapper"
@@ -20,6 +26,7 @@ export default function Layout({ children }:Props) {
                         rel="stylesheet"
                     />
                 </Helmet>
+                <SEO {...seo}/>
                 <Header />
                 <div>{children}</div>
                 <Footer />
