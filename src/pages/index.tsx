@@ -15,6 +15,7 @@ export default function Index({ data }: { data: GatsbyTypes.IndexMainQuery }) {
                     ?.childImageSharp as GatsbyTypes.ImageSharp
             }
             description={i.node.acf.description || ''}
+            key={`home-blog-${i.node.id}`}
         />
     ))
 
