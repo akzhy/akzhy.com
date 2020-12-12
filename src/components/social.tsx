@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react"
+import React, { ReactNode } from 'react'
 
 export default function SocialMedia() {
     return (
@@ -19,14 +19,27 @@ export default function SocialMedia() {
     )
 }
 
-const Item = ({ children, url, title }: { children: ReactNode; url: string; title: string; }) => {
+const Item = ({
+    children,
+    url,
+    title,
+}: {
+    children: ReactNode
+    url: string
+    title: string
+}) => {
     return (
         <li>
-            <a className="w-32 h-32 p-4 border-2 border-transparent focus:border-primary focus:outline-none mx-4 relative block" href={url} title={title}>{children}</a>
+            <a
+                className="w-32 h-32 p-4 border-2 border-transparent focus:border-primary focus:outline-none mx-4 relative block"
+                href={url}
+                title={title}
+            >
+                {children}
+            </a>
         </li>
     )
 }
-
 
 const Twitter = () => {
     return (
@@ -65,9 +78,11 @@ const Codepen = () => {
             <g>
                 <path
                     d="M60,0C26.863,0,0,26.863,0,60c0,33.138,26.863,60,60,60c33.137,0,60-26.861,60-60C120,26.863,93.138,0,60,0z M60,110.146
-                C32.35,110.146,9.854,87.65,9.854,60S32.35,9.854,60,9.854c27.65,0,50.145,22.496,50.145,50.146S87.65,110.146,60,110.146z" className="cplogo"
+                C32.35,110.146,9.854,87.65,9.854,60S32.35,9.854,60,9.854c27.65,0,50.145,22.496,50.145,50.146S87.65,110.146,60,110.146z"
+                    className="cplogo"
                 ></path>
-                <path className="cplogo"
+                <path
+                    className="cplogo"
                     d="M97.071,48.281c-0.007-0.047-0.019-0.092-0.026-0.139c-0.016-0.09-0.032-0.18-0.056-0.267
                 c-0.014-0.053-0.033-0.104-0.05-0.154c-0.025-0.078-0.051-0.156-0.082-0.232c-0.021-0.053-0.047-0.105-0.071-0.156
                 c-0.033-0.072-0.068-0.142-0.108-0.21c-0.029-0.051-0.061-0.1-0.091-0.148c-0.043-0.066-0.087-0.131-0.135-0.193
@@ -132,4 +147,3 @@ const GitHub = () => {
         </svg>
     )
 }
-

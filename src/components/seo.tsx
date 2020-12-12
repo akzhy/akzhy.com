@@ -1,16 +1,15 @@
-import React from "react"
-import { Helmet } from "react-helmet"
+import React from 'react'
+import { Helmet } from 'react-helmet'
 
 interface Props {
-    title: string;
-    description: string;
-    image?: string;
+    title: string
+    description: string
+    image?: string
 }
 
-export function SEO ({ description, title, image }: Props) {
-
-    const seoTitle = title !== "akzhy" ? `${title} | akzhy` : `akzhy` 
-    const metaDescription = description || ""
+export function SEO({ description, title, image }: Props) {
+    const seoTitle = title !== 'akzhy' ? `${title} | akzhy` : `akzhy`
+    const metaDescription = description || ''
 
     return (
         <Helmet
@@ -37,7 +36,7 @@ export function SEO ({ description, title, image }: Props) {
                 },
                 {
                     property: `og:image`,
-                    content: image ? image : ''
+                    content: image ? image : '',
                 },
                 {
                     name: `twitter:card`,
@@ -45,7 +44,7 @@ export function SEO ({ description, title, image }: Props) {
                 },
                 {
                     name: `twitter:creator`,
-                    content: `_akzhy`
+                    content: `_akzhy`,
                 },
                 {
                     name: `twitter:title`,

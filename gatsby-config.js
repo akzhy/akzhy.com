@@ -26,18 +26,18 @@ module.exports = {
             options: {
                 outputPath: `src/__generated__/gatsby-types.d.ts`,
                 emitSchema: {
-                  'src/__generated__/gatsby-introspection.json': true,
+                    'src/__generated__/gatsby-introspection.json': true,
                 },
                 emitPluginDocuments: {
-                  'src/__generated__/gatsby-plugin-documents.graphql': true,
+                    'src/__generated__/gatsby-plugin-documents.graphql': true,
                 },
             },
         },
-    `gatsby-plugin-postcss`,
-    `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
-    `gatsby-plugin-sass`,
-    `gatsby-plugin-sitemap`
+        `gatsby-plugin-postcss`,
+        `gatsby-transformer-sharp`,
+        `gatsby-plugin-sharp`,
+        `gatsby-plugin-sass`,
+        `gatsby-plugin-sitemap`,
         // `gatsby-plugin-offline`,
     ],
 }

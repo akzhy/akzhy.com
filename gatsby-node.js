@@ -1,8 +1,8 @@
 const path = require(`path`)
 const slash = require(`slash`)
-const fs = require("fs")
+const fs = require('fs')
 
-exports.createSchemaCustomization = ({ actions }) => {   
+exports.createSchemaCustomization = ({ actions }) => {
     const { createTypes } = actions
     const typeDefs = `#graphql
         type WpPost implements Node {
@@ -28,6 +28,7 @@ exports.createSchemaCustomization = ({ actions }) => {
 exports.createPages = async ({ graphql, actions }) => {
     const { createPage } = actions
 
+    // prettier-ignore
     const result = await graphql(`#graphql
         {
             allWpPage {
@@ -105,8 +106,8 @@ exports.createPages = async ({ graphql, actions }) => {
     const numShelfItems = Math.ceil(shelf.edges.length / itemsPerPage)
     const numBlogItems = Math.ceil(blog.edges.length / itemsPerPage)
 
-    paginate("shelf", numShelfItems, itemsPerPage)
-    paginate("blog", numBlogItems, itemsPerPage)
+    paginate('shelf', numShelfItems, itemsPerPage)
+    paginate('blog', numBlogItems, itemsPerPage)
 
     function paginate(type, total, itemsPerPage) {
         Array.from({ length: total }).forEach((_, i) => {

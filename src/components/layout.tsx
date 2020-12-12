@@ -1,24 +1,21 @@
-import React,{ ReactNode } from "react"
-import {Helmet} from "react-helmet"
-import Footer from "./footer"
-import Header from "./header"
+import React, { ReactNode } from 'react'
+import { Helmet } from 'react-helmet'
+import Footer from './footer'
+import Header from './header'
 import { SEO } from './seo'
 
 interface Props {
-    children: ReactNode;
+    children: ReactNode
     seo: {
-        title: string;
-        description: string;
-        image?: string;
+        title: string
+        description: string
+        image?: string
     }
 }
 
-export default function Layout({ children, seo }:Props) {
+export default function Layout({ children, seo }: Props) {
     return (
-        <div
-            id="wrapper"
-            className=""
-        >
+        <div id="wrapper" className="">
             <div id="main" className="bg-bg-primary theme-dark">
                 <Helmet>
                     <link
@@ -26,7 +23,7 @@ export default function Layout({ children, seo }:Props) {
                         rel="stylesheet"
                     />
                 </Helmet>
-                <SEO {...seo}/>
+                <SEO {...seo} />
                 <Header />
                 <div>{children}</div>
                 <Footer />
