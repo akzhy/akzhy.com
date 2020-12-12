@@ -13,9 +13,12 @@ export default function Index({ data }: {
     const blogItems = data.blog.edges.map(i => (<BlogItem {...i.node} featured_image={i.node.featuredImage.node?.localFile?.childImageSharp as GatsbyTypes.ImageSharp} description={i.node.acf.description || ""}/>));
 
     return (
-        <Layout>
+        <Layout seo={{
+            title: 'akzhy',
+            description: 'seo description'
+        }}>
             <div className="wall mt-4 rounded-xl w-11/12 m-auto overflow-hidden relative">
-                <img src="/images/wall.jpg" className="w-full" />
+                <img src="/images/wall.jpg" className="w-full" alt=""/>
                 <div className="absolute w-full h-full top-0 left-0 flex justify-center items-center">
                     <div>
                         <h1 className="text-7xl font-black text-white text-center">akzhy</h1>

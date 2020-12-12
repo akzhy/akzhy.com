@@ -24,8 +24,8 @@ export default function Footer(){
         <footer className="py-8 bg-bg-secondary">
             <Container>
                 <a className="logo-container w-32 block mx-auto" href="/" title="Home">
-                    <img src="/images/logo-black.png" className="logo-dark" />
-                    <img src="/images/logo-white.png" className="logo-light" />
+                    <img src="/images/logo-black.png" className="logo-dark" alt="Logo"/>
+                    <img src="/images/logo-white.png" className="logo-light" alt="Logo"/>
                 </a>
                 <ul className="text-center mt-8">
                     {items.map((item, i) => <Item {...item} key={`footer-${item.href}-${i}`}/>)}
