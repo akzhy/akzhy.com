@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'gatsby'
+import { useLocation } from "@reach/router"
 
 export default function Header() {
     const items = [
@@ -25,12 +26,15 @@ export default function Header() {
         },
     ]
 
+    const location = useLocation();
+
     const navItems = items.map((i) => (
         <NavItem
             href={i.href}
             title={i.title}
             key={`navitem-${i.title}-${i.href}`}
             isImg={i.href === '/'}
+            active={location.pathname.split("/")[1] === i.href.split("/")[1]}
         />
     ))
 
@@ -45,14 +49,16 @@ const NavItem = ({
     href,
     title,
     isImg = false,
+    active = false
 }: {
     href: string
     title: string
     isImg?: boolean
+    active?: boolean
 }) => {
     return (
         <li
-            className={`text-fg-primary mx-5 font-black tracking-widest text-base nav-item text-center ${
+            className={`text-fg-primary mx-5 font-black tracking-widest text-base nav-item text-center${active ? ' active': ''} ${
                 !isImg ? 'pt-2' : 'has-image'
             }`}
         >
