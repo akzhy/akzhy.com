@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'gatsby'
-import { useLocation } from "@reach/router"
+import { useLocation } from '@reach/router'
 
 export default function Header() {
     const items = [
@@ -26,7 +26,7 @@ export default function Header() {
         },
     ]
 
-    const location = useLocation();
+    const location = useLocation()
 
     const navItems = items.map((i) => (
         <NavItem
@@ -34,7 +34,7 @@ export default function Header() {
             title={i.title}
             key={`navitem-${i.title}-${i.href}`}
             isImg={i.href === '/'}
-            active={location.pathname.split("/")[1] === i.href.split("/")[1]}
+            active={location.pathname.split('/')[1] === i.href.split('/')[1]}
         />
     ))
 
@@ -49,7 +49,7 @@ const NavItem = ({
     href,
     title,
     isImg = false,
-    active = false
+    active = false,
 }: {
     href: string
     title: string
@@ -58,9 +58,9 @@ const NavItem = ({
 }) => {
     return (
         <li
-            className={`text-fg-primary mx-5 font-black tracking-widest text-base nav-item text-center${active ? ' active': ''} ${
-                !isImg ? 'pt-2' : 'has-image'
-            }`}
+            className={`text-fg-primary mx-5 font-black tracking-widest text-base nav-item text-center${
+                active ? ' active' : ''
+            } ${!isImg ? 'pt-2' : 'has-image'}`}
         >
             <Link to={href} title={title.toUpperCase()}>
                 {!isImg ? (
