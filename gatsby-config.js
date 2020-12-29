@@ -1,3 +1,5 @@
+const path = require("path");
+
 module.exports = {
     siteMetadata: {
         title: `akzhy`,
@@ -32,6 +34,15 @@ module.exports = {
                     'src/__generated__/gatsby-plugin-documents.graphql': true,
                 },
             },
+        },
+        {
+            resolve: 'gatsby-plugin-root-import',
+            options: {
+                components: path.join(__dirname, 'src/components'),
+                utils: path.join(__dirname, 'src/utils'),
+                pages: path.join(__dirname, 'src/pages'),
+                templates: path.join(__dirname, 'src/templates'),
+            }
         },
         `gatsby-plugin-postcss`,
         `gatsby-transformer-sharp`,
