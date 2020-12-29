@@ -1,14 +1,20 @@
 import { graphql } from 'gatsby'
 import React from 'react'
-import BlogItem from '../components/item-blog'
-import Layout from '../components/layout'
-import { Section } from '../components/ui'
+import BlogItem from 'components/item-blog'
+import Layout from 'components/layout'
+import { Section } from 'components/ui'
+import Pagination from 'components/pagination'
 
 export default function TemplateBlogList({
     data,
+    pageContext
 }: {
-    data: GatsbyTypes.BlogPageQuery
+    data: GatsbyTypes.BlogPageQuery,
+    pageContext: TemplateContext
 }) {
+
+    console.log(pageContext);
+    
     const blogItems = data.blog.edges.map((i) => (
         <BlogItem
             {...i.node}
@@ -27,7 +33,12 @@ export default function TemplateBlogList({
                 description: '',
             }}
         >
-            <Section title="Blog">{blogItems}</Section>
+            <Section title="Blog">
+                <div>
+                    {blogItems}
+                </div>
+                <Pagination totalPages={pageContext.numPages} type="blog" currentPage={pageContext.currentPage}/>
+            </Section>
         </Layout>
     )
 }

@@ -1,10 +1,10 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import BlogItem from '../components/item-blog'
-import Layout from '../components/layout'
-import { Section } from '../components/ui'
-import { ShelfContainer } from '../components/item-portfolio'
-import Contact from '../components/contact'
+import BlogItem from 'components/item-blog'
+import Layout from 'components/layout'
+import { Section } from 'components/ui'
+import { ShelfContainer } from 'components/item-portfolio'
+import Contact from 'components/contact'
 
 export default function Index({ data }: { data: GatsbyTypes.IndexMainQuery }) {
     const blogItems = data.blog.edges.map((i) => (

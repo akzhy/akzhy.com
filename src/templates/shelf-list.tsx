@@ -1,13 +1,16 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import { ShelfContainer } from '../components/item-portfolio'
-import { Section } from '../components/ui'
-import Layout from '../components/layout'
+import { ShelfContainer } from 'components/item-portfolio'
+import { Section } from 'components/ui'
+import Layout from 'components/layout'
+import Pagination from 'components/pagination'
 
 export default function TemplateShelfList({
     data,
+    pageContext
 }: {
-    data: GatsbyTypes.ShelfPageQuery
+    data: GatsbyTypes.ShelfPageQuery;
+    pageContext: TemplateContext
 }) {
     return (
         <Layout
@@ -25,14 +28,15 @@ export default function TemplateShelfList({
                             ?.childImageSharp as GatsbyTypes.ImageSharp,
                     }))}
                 />
+                <Pagination type="shelf" totalPages={pageContext.numPages} currentPage={pageContext.currentPage}/>
             </Section>
         </Layout>
     )
 }
 
 export const query = graphql`
-    query ShelfPage {
-        shelf: allWpShelf {
+    query ShelfPage($skip: Int!, $limit: Int!) {
+        shelf: allWpShelf(skip: $skip, limit: $limit) {
             edges {
                 node {
                     id

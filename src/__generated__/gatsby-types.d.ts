@@ -2813,6 +2813,10 @@ enum SitePageFieldsEnum {
   pluginCreator___pluginOptions___outputPath = 'pluginCreator.pluginOptions.outputPath',
   pluginCreator___pluginOptions___emitSchema___src___generated___gatsby_introspection_json = 'pluginCreator.pluginOptions.emitSchema.src___generated___gatsby_introspection_json',
   pluginCreator___pluginOptions___emitPluginDocuments___src___generated___gatsby_plugin_documents_graphql = 'pluginCreator.pluginOptions.emitPluginDocuments.src___generated___gatsby_plugin_documents_graphql',
+  pluginCreator___pluginOptions___components = 'pluginCreator.pluginOptions.components',
+  pluginCreator___pluginOptions___utils = 'pluginCreator.pluginOptions.utils',
+  pluginCreator___pluginOptions___pages = 'pluginCreator.pluginOptions.pages',
+  pluginCreator___pluginOptions___templates = 'pluginCreator.pluginOptions.templates',
   pluginCreator___pluginOptions___base64Width = 'pluginCreator.pluginOptions.base64Width',
   pluginCreator___pluginOptions___stripMetadata = 'pluginCreator.pluginOptions.stripMetadata',
   pluginCreator___pluginOptions___defaultQuality = 'pluginCreator.pluginOptions.defaultQuality',
@@ -3026,6 +3030,10 @@ enum SitePluginFieldsEnum {
   pluginOptions___outputPath = 'pluginOptions.outputPath',
   pluginOptions___emitSchema___src___generated___gatsby_introspection_json = 'pluginOptions.emitSchema.src___generated___gatsby_introspection_json',
   pluginOptions___emitPluginDocuments___src___generated___gatsby_plugin_documents_graphql = 'pluginOptions.emitPluginDocuments.src___generated___gatsby_plugin_documents_graphql',
+  pluginOptions___components = 'pluginOptions.components',
+  pluginOptions___utils = 'pluginOptions.utils',
+  pluginOptions___pages = 'pluginOptions.pages',
+  pluginOptions___templates = 'pluginOptions.templates',
   pluginOptions___base64Width = 'pluginOptions.base64Width',
   pluginOptions___stripMetadata = 'pluginOptions.stripMetadata',
   pluginOptions___defaultQuality = 'pluginOptions.defaultQuality',
@@ -3165,6 +3173,10 @@ type SitePluginPluginOptions = {
   readonly outputPath: Maybe<Scalars['String']>;
   readonly emitSchema: Maybe<SitePluginPluginOptionsEmitSchema>;
   readonly emitPluginDocuments: Maybe<SitePluginPluginOptionsEmitPluginDocuments>;
+  readonly components: Maybe<Scalars['String']>;
+  readonly utils: Maybe<Scalars['String']>;
+  readonly pages: Maybe<Scalars['String']>;
+  readonly templates: Maybe<Scalars['String']>;
   readonly base64Width: Maybe<Scalars['Int']>;
   readonly stripMetadata: Maybe<Scalars['Boolean']>;
   readonly defaultQuality: Maybe<Scalars['Int']>;
@@ -3210,6 +3222,10 @@ type SitePluginPluginOptionsFilterInput = {
   readonly outputPath: Maybe<StringQueryOperatorInput>;
   readonly emitSchema: Maybe<SitePluginPluginOptionsEmitSchemaFilterInput>;
   readonly emitPluginDocuments: Maybe<SitePluginPluginOptionsEmitPluginDocumentsFilterInput>;
+  readonly components: Maybe<StringQueryOperatorInput>;
+  readonly utils: Maybe<StringQueryOperatorInput>;
+  readonly pages: Maybe<StringQueryOperatorInput>;
+  readonly templates: Maybe<StringQueryOperatorInput>;
   readonly base64Width: Maybe<IntQueryOperatorInput>;
   readonly stripMetadata: Maybe<BooleanQueryOperatorInput>;
   readonly defaultQuality: Maybe<IntQueryOperatorInput>;
@@ -10662,7 +10678,10 @@ type WpWritingSettingsFilterInput = {
 
 type GatsbyImageSharpFluidFragment = Pick<ImageSharpFluid, 'base64' | 'aspectRatio' | 'src' | 'srcSet' | 'sizes'>;
 
-type ShelfPageQueryVariables = Exact<{ [key: string]: never; }>;
+type ShelfPageQueryVariables = Exact<{
+  skip: Scalars['Int'];
+  limit: Scalars['Int'];
+}>;
 
 
 type ShelfPageQuery = { readonly shelf: { readonly edges: ReadonlyArray<{ readonly node: (
