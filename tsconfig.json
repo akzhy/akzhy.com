@@ -22,8 +22,8 @@
             "components/*": ["./src/components/*"],
             "utils/*": ["./src/utils/*"],
             "pages/*": ["./src/pages/*"],
-            "templates/*": ["./src/templates/*"],
-        }  
+            "templates/*": ["./src/templates/*"]
+        }
     },
     "include": ["./src/**/*", "./test/**/*"]
 }

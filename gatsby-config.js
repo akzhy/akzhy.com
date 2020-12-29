@@ -1,4 +1,4 @@
-const path = require("path");
+const path = require('path')
 
 module.exports = {
     siteMetadata: {
@@ -42,7 +42,7 @@ module.exports = {
                 utils: path.join(__dirname, 'src/utils'),
                 pages: path.join(__dirname, 'src/pages'),
                 templates: path.join(__dirname, 'src/templates'),
-            }
+            },
         },
         `gatsby-plugin-postcss`,
         `gatsby-transformer-sharp`,

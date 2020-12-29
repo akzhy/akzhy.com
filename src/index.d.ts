@@ -3,8 +3,8 @@ type PartialRecord<K extends keyof any, T> = {
 }
 
 type TemplateContext = {
-    limit: number;
-    skip: number;
-    numPages: number;
-    currentPage: number;
+    limit: number
+    skip: number
+    numPages: number
+    currentPage: number
 }

@@ -7,9 +7,9 @@ import Pagination from 'components/pagination'
 
 export default function TemplateShelfList({
     data,
-    pageContext
+    pageContext,
 }: {
-    data: GatsbyTypes.ShelfPageQuery;
+    data: GatsbyTypes.ShelfPageQuery
     pageContext: TemplateContext
 }) {
     return (
@@ -28,7 +28,11 @@ export default function TemplateShelfList({
                             ?.childImageSharp as GatsbyTypes.ImageSharp,
                     }))}
                 />
-                <Pagination type="shelf" totalPages={pageContext.numPages} currentPage={pageContext.currentPage}/>
+                <Pagination
+                    type="shelf"
+                    totalPages={pageContext.numPages}
+                    currentPage={pageContext.currentPage}
+                />
             </Section>
         </Layout>
     )

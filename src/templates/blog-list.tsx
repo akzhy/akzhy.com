@@ -7,14 +7,13 @@ import Pagination from 'components/pagination'
 
 export default function TemplateBlogList({
     data,
-    pageContext
+    pageContext,
 }: {
-    data: GatsbyTypes.BlogPageQuery,
+    data: GatsbyTypes.BlogPageQuery
     pageContext: TemplateContext
 }) {
+    console.log(pageContext)
 
-    console.log(pageContext);
-    
     const blogItems = data.blog.edges.map((i) => (
         <BlogItem
             {...i.node}
@@ -34,10 +33,12 @@ export default function TemplateBlogList({
             }}
         >
             <Section title="Blog">
-                <div>
-                    {blogItems}
-                </div>
-                <Pagination totalPages={pageContext.numPages} type="blog" currentPage={pageContext.currentPage}/>
+                <div>{blogItems}</div>
+                <Pagination
+                    totalPages={pageContext.numPages}
+                    type="blog"
+                    currentPage={pageContext.currentPage}
+                />
             </Section>
         </Layout>
     )
