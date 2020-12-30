@@ -79,12 +79,10 @@ exports.createPages = async ({ graphql, actions }) => {
         })
     })
 
-    const postTemplate = path.resolve(`./src/templates/post.tsx`)
-
     blog.edges.forEach((edge) => {
         createPage({
             path: `blog/${edge.node.slug}`,
-            component: slash(postTemplate),
+            component: slash(path.resolve(`./src/templates/blog.tsx`)),
             context: {
                 id: edge.node.id,
             },
@@ -94,7 +92,7 @@ exports.createPages = async ({ graphql, actions }) => {
     shelf.edges.forEach((edge) => {
         createPage({
             path: `shelf/${edge.node.slug}`,
-            component: slash(postTemplate),
+            component: slash(path.resolve(`./src/templates/shelf.tsx`)),
             context: {
                 id: edge.node.id,
             },
