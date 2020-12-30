@@ -27,7 +27,7 @@ export function ShelfItem({
             <a
                 className="bg-bg-secondary block text-fg-primary rounded overflow-hidden border-4 border-transparent focus:border-primary focus:outline-none duration-300 transition-all hover:border-secondary group"
                 title={title}
-                href={`/blog/${slug}`}
+                href={`/shelf/${slug}`}
             >
                 <article className="flex flex-wrap relative">
                     <div className="w-full relative flex-shrink-0">
