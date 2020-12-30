@@ -222,3 +222,98 @@ body {
 .text-input textarea:focus + span {
     opacity: 1;
 }
+
+.single-page > * {
+    max-width: 100%;
+}
+
+.single-page p {
+    margin: 1rem auto;
+    width: 85%;
+}
+
+.single-page h1 {
+    font-size: 3rem;
+}
+
+.single-page h2 {
+    font-size: 2.3rem;
+}
+
+.single-page h3 {
+    font-size: 1.9rem;
+}
+
+.single-page h4 {
+    font-size: 1.5rem;
+}
+
+.single-page h5 {
+    font-size: 1.3rem;
+}
+
+.single-page h6 {
+    font-size: 1.1rem;
+}
+
+.single-page h1,
+.single-page h2,
+.single-page h3,
+.single-page h4,
+.single-page h5,
+.single-page h6 {
+    font-weight: bold;
+    margin: 2rem auto;
+    width: 85%;
+}
+
+.single-page ul {
+    width: 85%;
+    margin: 1rem auto;
+}
+
+.single-page ul li {
+    margin: 1rem 0;
+}
+
+.single-page pre {
+    width: 90%;
+    margin: 2rem auto !important;
+}
+
+.single-page blockquote {
+    width: 85%;
+    margin: 1rem auto;
+}
+
+.single-page a,
+.link {
+    @apply text-fg-link;
+    position: relative;
+}
+
+.single-page a::before,
+.link::before {
+    position: absolute;
+    content: "";
+    width: 0%;
+    height: 2px;
+    transition: width 0.3s;
+    bottom: 0;
+    left: 0;
+    @apply bg-primary;
+}
+
+.single-page a:focus::before,
+.link:focus::before {
+    @apply bg-secondary;
+}
+
+.single-page a:hover::before,
+.link:hover::before,
+.single-page a:focus::before,
+.link:focus::before,
+.single-page a:active::before,
+.link:active::before {
+    width: 100%;
+}

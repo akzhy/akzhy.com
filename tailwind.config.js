@@ -29,6 +29,7 @@ module.exports = {
                 light: '#eee',
                 error: 'red',
                 success: 'green',
+                link: '#5bb3ff',
             },
         },
         spacing: {
