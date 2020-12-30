@@ -10678,6 +10678,32 @@ type WpWritingSettingsFilterInput = {
 
 type GatsbyImageSharpFluidFragment = Pick<ImageSharpFluid, 'base64' | 'aspectRatio' | 'src' | 'srcSet' | 'sizes'>;
 
+type BlogSingleQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+type BlogSingleQuery = { readonly query: Maybe<(
+    Pick<WpPost, 'title' | 'content' | 'date' | 'modified'>
+    & { readonly acf: Pick<WpPost_Acf, 'description' | 'metaDescription' | 'metaKeywords'>, readonly featuredImage: { readonly node: Maybe<{ readonly localFile: Maybe<{ readonly childImageSharp: Maybe<{ readonly fluid: Maybe<(
+              Pick<ImageSharpFluid, 'base64'>
+              & GatsbyImageSharpFluidFragment
+            )> }> }> }> } }
+  )> };
+
+type ShelfSingleQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+type ShelfSingleQuery = { readonly query: Maybe<(
+    Pick<WpShelf, 'title' | 'content' | 'date' | 'modified'>
+    & { readonly acf: Pick<WpShelf_Acf, 'description' | 'metaDescription' | 'metaKeywords'>, readonly featuredImage: { readonly node: Maybe<{ readonly localFile: Maybe<{ readonly childImageSharp: Maybe<{ readonly fluid: Maybe<(
+              Pick<ImageSharpFluid, 'base64'>
+              & GatsbyImageSharpFluidFragment
+            )> }> }> }> } }
+  )> };
+
 type ShelfPageQueryVariables = Exact<{
   skip: Scalars['Int'];
   limit: Scalars['Int'];
