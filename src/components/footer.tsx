@@ -61,7 +61,7 @@ export default function Footer() {
 const Item = ({ title, href }: { title: string; href: string }) => {
     return (
         <li className="inline-block mx-4">
-            <a href={href} className="text-fg-primary link">
+            <a href={href} className="footer-link link">
                 {title}
             </a>
         </li>
