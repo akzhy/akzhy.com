@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-    font-family: "Poppins", sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 .nav-item {
@@ -16,7 +16,7 @@ body {
 
 .nav-item a::after,
 .nav-item a::before {
-    content: "";
+    content: '';
     position: absolute;
     height: 4px;
     width: 0%;
@@ -67,7 +67,7 @@ body {
 
 .wall .sep::after,
 .wall .sep::before {
-    content: "";
+    content: '';
     position: absolute;
     width: 50%;
     height: 100%;
@@ -95,7 +95,7 @@ body {
 
 .title::after,
 .title::before {
-    content: "";
+    content: '';
     position: absolute;
     width: 100%;
     max-width: 400px;
@@ -136,7 +136,7 @@ body {
 
 .shelf-item .connector::after,
 .shelf-item .connector::before {
-    content: "";
+    content: '';
     background: #efebe9;
     @apply absolute w-6 h-6 rounded-full bottom-0;
 }
@@ -287,15 +287,17 @@ body {
 }
 
 .single-page a,
-.link {
+.link,
+.comment a {
     @apply text-fg-link;
     position: relative;
 }
 
 .single-page a::before,
-.link::before {
+.link::before,
+.comment a::before {
     position: absolute;
-    content: "";
+    content: '';
     width: 0%;
     height: 2px;
     transition: width 0.3s;
@@ -305,15 +307,55 @@ body {
 }
 
 .single-page a:focus::before,
-.link:focus::before {
+.link:focus::before,
+.comment a:focus::before {
     @apply bg-secondary;
 }
 
 .single-page a:hover::before,
 .link:hover::before,
+.comment a:hover::before,
 .single-page a:focus::before,
 .link:focus::before,
 .single-page a:active::before,
+.comment a:active::before,
 .link:active::before {
     width: 100%;
+}
+
+.footer-link {
+    @apply text-fg-primary;
+}
+
+.skeleton {
+    position: relative;
+    overflow: hidden;
+}
+
+.skeleton::before {
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    animation: skeletonMove 2s infinite;
+}
+@keyframes skeletonMove {
+
+    0% {
+        left: -100%;
+    }
+
+    100% {
+        left: 100%;
+    }
+}
+
+.comment * {
+    max-width: 100%;
 }
