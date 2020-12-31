@@ -2,7 +2,8 @@ import Layout from 'components/layout'
 import { Container, Title } from 'components/ui'
 import React, { useEffect } from 'react'
 import Prism from 'prismjs'
-import 'prismjs/themes/prism-okaidia.css'
+import 'prism-themes/themes/prism-atom-dark.css'
+import Comments from 'components/comments'
 
 type PostTypes = 'blog' | 'shelf'
 
@@ -46,6 +47,7 @@ export default function TemplateSinglePage<T extends PostTypes>({
                             }}
                         ></div>
                     </main>
+                    <Comments postId={query.databaseId} />
                 </Container>
             </Layout>
         )

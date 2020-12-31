@@ -18,6 +18,7 @@ export const query = graphql`
                 metaDescription
                 metaKeywords
             }
+            databaseId
             title
             content
             date(formatString: "DD MMM YYYY")
