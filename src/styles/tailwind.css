@@ -359,3 +359,19 @@ body {
 .comment * {
     max-width: 100%;
 }
+
+.checkbox div svg {
+    display: none;
+}
+
+.checkbox input:focus + div {
+    @apply border-secondary;
+}
+
+.checkbox input:checked + div svg {
+    display: block;
+}
+
+.grecaptcha-badge { 
+    visibility: hidden;
+}

@@ -37,7 +37,8 @@
     "react-helmet": "^6.1.0",
     "react-load-script": "^0.0.6",
     "react-sidebar": "^3.0.2",
-    "react-textarea-autosize": "^8.3.0"
+    "react-textarea-autosize": "^8.3.0",
+    "vegemite": "^1.0.0"
   },
   "devDependencies": {
     "@types/date-fns": "^2.6.0",

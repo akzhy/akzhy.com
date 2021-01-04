@@ -4,6 +4,8 @@ import React, { useEffect } from 'react'
 import Prism from 'prismjs'
 import 'prism-themes/themes/prism-atom-dark.css'
 import Comments from 'components/comments'
+import { Helmet } from 'react-helmet'
+import siteStore from 'utils/sitestore'
 
 type PostTypes = 'blog' | 'shelf'
 
@@ -35,6 +37,28 @@ export default function TemplateSinglePage<T extends PostTypes>({
                             ?.fluid?.src,
                 }}
             >
+                <Helmet
+                    onChangeClientState={(_, addedTags) => {
+                        addedTags.scriptTags?.forEach((script) => {
+                            if (
+                                script.dataset &&
+                                script.dataset.scriptName === 'recaptcha'
+                            ) {
+                                script.addEventListener('load', () => {
+                                    siteStore.dispatch(
+                                        'com:recaptcha-ready',
+                                        true
+                                    )
+                                })
+                            }
+                        })
+                    }}
+                >
+                    <script
+                        src={`https://www.google.com/recaptcha/api.js?render=${process.env.RECAPTCHA_KEY}`}
+                        data-script-name="recaptcha"
+                    ></script>
+                </Helmet>
                 <Container>
                     <main className="my-24">
                         <div className="text-center">

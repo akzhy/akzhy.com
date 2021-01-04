@@ -16,6 +16,7 @@ type CommentItem = {
     content: string
     parent_id: string
     avatar: string
+    children: CommentItem[]
 }
 
 type MetaState = {
@@ -38,4 +39,26 @@ type FetchRequests = {
                   data: CommentItem[]
               }
     }
+    'restcomments/v1/add': {
+        request: {
+            name: string
+            email: string
+            parent: string
+            post: number
+            comment: string
+        }
+        response:
+            | {
+                  result: true
+                  data: CommentItem
+              }
+            | {
+                  result: false
+                  error: 'name' | 'email' | 'comment' | 'captcha' | 'other'
+              }
+    }
+}
+
+interface Window {
+    grecaptcha: any
 }

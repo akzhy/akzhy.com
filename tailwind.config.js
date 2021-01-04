@@ -27,8 +27,8 @@ module.exports = {
             fg: {
                 primary: '#fff',
                 light: '#eee',
-                error: 'red',
-                success: 'green',
+                error: '#ff8080',
+                success: '#8BF189',
                 link: '#5bb3ff',
             },
         },

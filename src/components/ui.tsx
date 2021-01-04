@@ -1,4 +1,5 @@
 import React, { ReactNode, useEffect, useRef } from 'react'
+import { Check } from 'react-feather'
 
 export function Container({ children }: { children: ReactNode }) {
     return <div className="w-11/12 max-w-screen-lg mx-auto">{children}</div>
@@ -100,10 +101,6 @@ export function TextArea({
 
     const resizeTextArea = (e: KeyboardEvent) => {
         if (textArea.current) {
-            console.log(
-                textArea.current.getBoundingClientRect().height <
-                    textArea.current.scrollHeight
-            )
             if (
                 textArea.current.getBoundingClientRect().height <
                 textArea.current.scrollHeight
@@ -177,5 +174,27 @@ export function Button({
         >
             {children}
         </button>
+    )
+}
+
+export function CheckBox({
+    label,
+    inputProps,
+}: {
+    label: string
+    inputProps?: React.InputHTMLAttributes<HTMLInputElement>
+}) {
+    return (
+        <label className="relative checkbox group cursor-pointer flex items-center">
+            <input
+                type="checkbox"
+                className="absolute top-0 left-0 opacity-0 z-0"
+                {...inputProps}
+            />
+            <div className="w-7 h-7 rounded border-2 border-primary group-hover:border-secondary text-fg-primary flex items-center justify-center">
+                <Check />
+            </div>
+            <p className="ml-4 text-fg-primary">{label}</p>
+        </label>
     )
 }
