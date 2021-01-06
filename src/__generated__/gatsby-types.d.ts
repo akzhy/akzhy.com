@@ -6736,7 +6736,7 @@ type WpNodeWithTrackbacks = {
 
 /** The page type */
 type WpPage = Node & WpNode & WpContentNode & WpDatabaseIdentifier & WpNodeWithTemplate & WpUniformResourceIdentifiable & WpNodeWithTitle & WpNodeWithContentEditor & WpNodeWithAuthor & WpNodeWithFeaturedImage & WpNodeWithComments & WpNodeWithRevisions & WpNodeWithPageAttributes & WpHierarchicalContentNode & WpMenuItemLinkable & {
-  readonly acf: Maybe<WpPage_Acf>;
+  readonly acf: WpPage_Acf;
   /** Returns ancestors of the node. Default ordered as lowest (closest to the child) to highest (closest to the root). */
   readonly ancestors: Maybe<WpHierarchicalContentNodeToContentNodeAncestorsConnection>;
   /** Connection between the NodeWithAuthor type and the User type */
@@ -6756,14 +6756,12 @@ type WpPage = Node & WpNode & WpContentNode & WpDatabaseIdentifier & WpNodeWithT
   readonly commentStatus: Maybe<Scalars['String']>;
   /** Connection between the page type and the Comment type */
   readonly comments: Maybe<WpPageToCommentConnection>;
-  /** The content of the post. */
-  readonly content: Maybe<Scalars['String']>;
+  readonly content: Scalars['String'];
   /** Connection between the page type and the ContentType type */
   readonly contentType: Maybe<WpPageToContentTypeConnectionEdge>;
   /** The ID of the node in the database. */
   readonly databaseId: Scalars['Int'];
-  /** Post publishing date. */
-  readonly date: Maybe<Scalars['Date']>;
+  readonly date: Scalars['Date'];
   /** The publishing date set in GMT. */
   readonly dateGmt: Maybe<Scalars['Date']>;
   /** The desired slug of the post */
@@ -6814,18 +6812,12 @@ type WpPage = Node & WpNode & WpContentNode & WpDatabaseIdentifier & WpNodeWithT
   readonly parentDatabaseId: Maybe<Scalars['Int']>;
   /** The globally unique identifier of the parent node. */
   readonly parentId: Maybe<Scalars['ID']>;
-  /**
-   * The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name
-   * field and the post_name column in the database for the
-   * &quot;post_objects&quot; table.
-   */
-  readonly slug: Maybe<Scalars['String']>;
+  readonly slug: Scalars['String'];
   /** The current status of the object */
   readonly status: Maybe<Scalars['String']>;
   /** The template assigned to a node of content */
   readonly template: Maybe<WpContentTemplate>;
-  /** The title of the post. This is currently just the raw title. An amendment to support rendered title needs to be made. */
-  readonly title: Maybe<Scalars['String']>;
+  readonly title: Scalars['String'];
   /** URI path for the resource */
   readonly uri: Scalars['String'];
   readonly nodeType: Maybe<Scalars['String']>;
@@ -10677,6 +10669,19 @@ type WpWritingSettingsFilterInput = {
 };
 
 type GatsbyImageSharpFluidFragment = Pick<ImageSharpFluid, 'base64' | 'aspectRatio' | 'src' | 'srcSet' | 'sizes'>;
+
+type PageSingleQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+type PageSingleQuery = { readonly query: Maybe<(
+    Pick<WpPage, 'databaseId' | 'title' | 'content' | 'date' | 'modified'>
+    & { readonly acf: Pick<WpPage_Acf, 'description' | 'metaDescription'>, readonly featuredImage: Maybe<{ readonly node: Maybe<{ readonly localFile: Maybe<{ readonly childImageSharp: Maybe<{ readonly fluid: Maybe<(
+              Pick<ImageSharpFluid, 'base64'>
+              & GatsbyImageSharpFluidFragment
+            )> }> }> }> }> }
+  )> };
 
 type BlogSingleQueryVariables = Exact<{
   id: Scalars['String'];
