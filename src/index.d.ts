@@ -57,6 +57,43 @@ type FetchRequests = {
                   error: 'name' | 'email' | 'comment' | 'captcha' | 'other'
               }
     }
+    'restcomments/v1/unsubscribe': {
+        request: {
+            key: string
+        }
+        response: {
+            result: boolean
+        }
+    }
+    'restcomments/v1/request-subscriptions-management': {
+        request: {
+            email: string
+        }
+        response:
+            | {
+                  result: true
+              }
+            | {
+                  result: false
+                  error: 'mail' | 'no-sub'
+              }
+    }
+    'restcontact/v1/add': {
+        request: {
+            name: string
+            email: string
+            message: string
+            captcha: string
+        }
+        response:
+            | {
+                  result: true
+              }
+            | {
+                  result: false
+                  error: string
+              }
+    }
 }
 
 interface Window {
