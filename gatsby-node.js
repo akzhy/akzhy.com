@@ -21,6 +21,13 @@ exports.createSchemaCustomization = ({ actions }) => {
             featuredImage: WpNodeWithFeaturedImageToMediaItemConnectionEdge!
             acf: WpShelf_Acf!
         }
+        type WpPage implements Node {
+            title: String!
+            content: String!
+            slug: String!
+            date: Date!
+            acf: WpPage_Acf!
+        }
     `
     createTypes(typeDefs)
 }
@@ -71,7 +78,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
     allWpPage.edges.forEach((edge) => {
         createPage({
-            path: `pages/${edge.node.slug}`,
+            path: `${edge.node.slug}`,
             component: slash(pageTemplate),
             context: {
                 id: edge.node.id,
