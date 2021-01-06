@@ -4,14 +4,14 @@ import React, { useEffect } from 'react'
 import Prism from 'prismjs'
 import 'prism-themes/themes/prism-atom-dark.css'
 import Comments from 'components/comments'
-import { Helmet } from 'react-helmet'
-import siteStore from 'utils/sitestore'
+import Captcha from 'components/captcha'
 
-type PostTypes = 'blog' | 'shelf'
+type PostTypes = 'blog' | 'shelf' | 'page'
 
 type Data = {
     shelf: GatsbyTypes.ShelfSingleQuery
     blog: GatsbyTypes.BlogSingleQuery
+    page: GatsbyTypes.PageSingleQuery
 }
 
 export default function TemplateSinglePage<T extends PostTypes>({
@@ -33,32 +33,11 @@ export default function TemplateSinglePage<T extends PostTypes>({
                     title: query.title,
                     description: query.acf.description as string,
                     image:
-                        query.featuredImage.node?.localFile?.childImageSharp
+                        query.featuredImage?.node?.localFile?.childImageSharp
                             ?.fluid?.src,
                 }}
             >
-                <Helmet
-                    onChangeClientState={(_, addedTags) => {
-                        addedTags.scriptTags?.forEach((script) => {
-                            if (
-                                script.dataset &&
-                                script.dataset.scriptName === 'recaptcha'
-                            ) {
-                                script.addEventListener('load', () => {
-                                    siteStore.dispatch(
-                                        'com:recaptcha-ready',
-                                        true
-                                    )
-                                })
-                            }
-                        })
-                    }}
-                >
-                    <script
-                        src={`https://www.google.com/recaptcha/api.js?render=${process.env.RECAPTCHA_KEY}`}
-                        data-script-name="recaptcha"
-                    ></script>
-                </Helmet>
+                <Captcha />
                 <Container>
                     <main className="my-24">
                         <div className="text-center">
@@ -71,7 +50,7 @@ export default function TemplateSinglePage<T extends PostTypes>({
                             }}
                         ></div>
                     </main>
-                    <Comments postId={query.databaseId} />
+                    {type !== 'page' && <Comments postId={query.databaseId} />}
                 </Container>
             </Layout>
         )
