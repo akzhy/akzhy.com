@@ -1,5 +1,5 @@
 import React, { ReactNode, useEffect, useRef } from 'react'
-import { Check } from 'react-feather'
+import { AlertTriangle, Check } from 'react-feather'
 
 export function Container({ children }: { children: ReactNode }) {
     return <div className="w-11/12 max-w-screen-lg mx-auto">{children}</div>
@@ -197,4 +197,29 @@ export function CheckBox({
             <p className="ml-4 text-fg-primary">{label}</p>
         </label>
     )
+}
+
+export function ErrorLabel({
+    error,
+    children,
+}: {
+    error?: {
+        error: boolean
+        message: string
+    }
+    children?: ReactNode
+}) {
+    if (error?.error) {
+        return (
+            <div className="p-3 text-fg-error bg-bg-secondary rounded mt-3">
+                <div className="flex items-center">
+                    <AlertTriangle />
+                    <p className="ml-2">{error.message}</p>
+                </div>
+                {children}
+            </div>
+        )
+    } else {
+        return null
+    }
 }
