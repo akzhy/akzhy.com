@@ -267,9 +267,14 @@ body {
     width: 85%;
 }
 
+.single-page hr {
+    width: 70%;
+    margin: 1rem auto;
+}
+
 .single-page ul {
     width: 85%;
-    margin: 1rem auto;
+    margin: 2rem auto;
 }
 
 .single-page ul li {

@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Loader, Send } from 'react-feather'
+import rest from 'utils/rest'
+import siteStore from 'utils/sitestore'
+import Captcha from './captcha'
 import SocialMedia from './social'
-import { Button, TextArea, TextInput } from './ui'
+import { Button, ErrorLabel, TextArea, TextInput } from './ui'
 
 interface DataState {
     name: string
@@ -11,12 +14,23 @@ interface DataState {
 }
 
 type ErrorState = PartialRecord<
-    keyof (DataState & { other: string }),
+    keyof DataState,
     {
         error: boolean
         message: string
     }
->
+> & {
+    captcha?: {
+        error: boolean
+        message: string
+        loaded?: boolean
+        loading?: boolean
+    }
+    other?: {
+        error: boolean
+        message: string
+    }
+}
 
 export default function Contact() {
     const [data, setData] = useState<DataState>({
@@ -27,7 +41,7 @@ export default function Contact() {
     })
 
     const [loading, setLoading] = useState(false)
-
+    const [messageSent, setMessageSent] = useState(false)
     const [errors, setErrors] = useState<ErrorState>({})
 
     const updateData = (v: Partial<DataState>) =>
@@ -36,8 +50,166 @@ export default function Contact() {
     const updateErrors = (v: Partial<ErrorState>) =>
         setErrors((p) => ({ ...p, ...v }))
 
+    const clearErrors = () => {
+        let errs = errors
+        for (let err in errs) {
+            if (errs.hasOwnProperty(err)) {
+                errs[err as keyof ErrorState] = {
+                    error: false,
+                    message: '',
+                }
+            }
+        }
+        updateErrors(errs)
+    }
+
+    useEffect(() => {
+        if (siteStore.state.captchaReady) {
+            generateCaptcha()
+        } else {
+            siteStore.listen('com:recaptcha-ready', () => {
+                if (window.grecaptcha) {
+                    window.grecaptcha.ready(function () {
+                        generateCaptcha()
+                    })
+                }
+            })
+        }
+    }, [])
+
+    useEffect(() => {
+        let timeOut: NodeJS.Timeout
+        if (messageSent) {
+            timeOut = setTimeout(() => {
+                setMessageSent(false)
+            }, 8000)
+        }
+
+        return () => {
+            clearTimeout(timeOut)
+        }
+    }, [messageSent])
+
+    const onSubmit = () => {
+        const errs: ErrorState = {}
+        if (data.name.length < 1) {
+            errs.name = {
+                error: true,
+                message: 'Enter your name',
+            }
+        }
+
+        if (!data.email.match(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/)) {
+            errs.email = {
+                error: true,
+                message: 'Enter a valid email address',
+            }
+        }
+
+        if (data.message.length < 10) {
+            errs.message = {
+                error: true,
+                message: 'Enter a message with atleast 10 characters',
+            }
+        }
+
+        updateErrors(errs)
+
+        if (Object.keys(errs).length > 0) {
+            return
+        }
+
+        setLoading(true)
+
+        rest('restcontact/v1/add', data)
+            .then((res) => {
+                console.log(res)
+                if (res.result) {
+                    updateData({
+                        captcha: '',
+                        message: '',
+                    })
+
+                    setMessageSent(true)
+                    clearErrors()
+
+                    let textArea = document.querySelector(
+                        '.contact-form textarea'
+                    )
+                    ;(textArea as any).value = ''
+                } else {
+                    if (res.error === 'captcha') {
+                        updateErrors({
+                            captcha: {
+                                error: true,
+                                message: 'Error validating captcha',
+                            },
+                        })
+                    } else {
+                        updateErrors({
+                            other: {
+                                error: true,
+                                message:
+                                    'An error occured while sending your message. Please try again',
+                            },
+                        })
+                    }
+                }
+            })
+            .catch(() => {
+                updateErrors({
+                    other: {
+                        error: true,
+                        message:
+                            'An error occured while sending your message. Please try again',
+                    },
+                })
+            })
+            .finally(() => {
+                setLoading(false)
+                generateCaptcha()
+            })
+    }
+
+    const generateCaptcha = () => {
+        updateErrors({
+            captcha: {
+                error: true,
+                message: '',
+                loaded: false,
+                loading: true,
+            },
+        })
+        window.grecaptcha
+            .execute(process.env.RECAPTCHA_KEY)
+            .then((token: string) => {
+                updateData({
+                    captcha: token,
+                })
+                updateErrors({
+                    captcha: {
+                        error: false,
+                        message: '',
+                        loaded: true,
+                        loading: false,
+                    },
+                })
+            })
+            .catch(() => {
+                updateErrors({
+                    captcha: {
+                        error: true,
+                        message: 'An error occured while generating recaptcha',
+                        loaded: true,
+                        loading: false,
+                    },
+                })
+            })
+    }
+
     return (
-        <div>
+        <div className="contact-form">
+            <Captcha />
             <TextInput
                 name="name"
                 label="Name"
@@ -56,28 +228,8 @@ export default function Contact() {
                             })
                         }
                     },
-                    onBlur: (e) => {
-                        if (data.name.length !== 0 && data.name.length < 2) {
-                            if (!errors.name?.error) {
-                                updateErrors({
-                                    name: {
-                                        error: true,
-                                        message: 'Please enter a name',
-                                    },
-                                })
-                            }
-                        }
-                    },
                 }}
-                footer={
-                    <React.Fragment>
-                        {errors.name?.error && (
-                            <p className="my-2 text-fg-error">
-                                {errors.name.message}
-                            </p>
-                        )}
-                    </React.Fragment>
-                }
+                footer={<ErrorLabel error={errors.name} />}
             />
             <TextInput
                 name="email"
@@ -125,15 +277,7 @@ export default function Contact() {
                         }
                     },
                 }}
-                footer={
-                    <React.Fragment>
-                        {errors.email?.error && (
-                            <p className="my-2 text-fg-error">
-                                {errors.email.message}
-                            </p>
-                        )}
-                    </React.Fragment>
-                }
+                footer={<ErrorLabel error={errors.email} />}
             />
             <TextArea
                 name="message"
@@ -170,23 +314,59 @@ export default function Contact() {
                         }
                     },
                 }}
-                footer={
-                    <React.Fragment>
-                        {errors.message?.error && (
-                            <p className="my-2 text-fg-error">
-                                {errors.message.message}
-                            </p>
-                        )}
-                    </React.Fragment>
-                }
+                footer={<ErrorLabel error={errors.message} />}
             />
             <div className="px-6 py-4">
+                <p className="mb-6 text-fg-primary">
+                    This site is protected by reCAPTCHA and the Google{' '}
+                    <a
+                        href="https://policies.google.com/privacy"
+                        className="link"
+                    >
+                        Privacy Policy
+                    </a>{' '}
+                    and{' '}
+                    <a
+                        href="https://policies.google.com/terms"
+                        className="link"
+                    >
+                        Terms of Service
+                    </a>{' '}
+                    apply.
+                </p>
+                {errors.other?.error && (
+                    <div className="mb-4">
+                        <ErrorLabel error={errors.other} />
+                    </div>
+                )}
+                {errors.captcha?.error && errors.captcha.message !== '' && (
+                    <div className="mb-4">
+                        <ErrorLabel error={errors.captcha}>
+                            {errors.captcha.loaded && (
+                                <button
+                                    className={`text-fg-light ml-4 mt-3`}
+                                    disabled={errors.captcha.loading}
+                                    onClick={() => {
+                                        generateCaptcha()
+                                    }}
+                                >
+                                    {errors.captcha.loading
+                                        ? 'Retrying...'
+                                        : 'Retry'}
+                                </button>
+                            )}
+                        </ErrorLabel>
+                    </div>
+                )}
+                {messageSent && (
+                    <div className="p-4 my-4 border-fg-success border-2 rounded text-fg-primary">
+                        Message has been sent
+                    </div>
+                )}
                 <Button
                     title={loading ? 'Sending Message' : 'Send Message'}
                     state={loading ? 'disabled' : 'default'}
-                    onClick={() => {
-                        setLoading(true)
-                    }}
+                    onClick={onSubmit}
                     btnProps={{
                         'aria-disabled': loading,
                         disabled: loading,

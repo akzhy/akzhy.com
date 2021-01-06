@@ -1,8 +1,8 @@
-import React, { ReactNode, useEffect, useState } from 'react'
-import { AlertTriangle, Loader, Send } from 'react-feather'
+import React, { useEffect, useState } from 'react'
+import { Loader, Send } from 'react-feather'
 import rest from 'utils/rest'
 import siteStore from 'utils/sitestore'
-import { Button, CheckBox, TextArea, TextInput } from './ui'
+import { Button, CheckBox, ErrorLabel, TextArea, TextInput } from './ui'
 
 interface CommentFormState {
     name: string
@@ -114,7 +114,6 @@ export default function CommentForm({
         }))
 
     useEffect(() => {
-        console.log(parent)
         if (siteStore.state.captchaReady) {
             generateCaptcha()
         } else {
@@ -205,7 +204,7 @@ export default function CommentForm({
             }
         }
         if (!data.captchaToken) {
-            if (!errors.captcha?.loaded) {
+            if (!errors.captcha?.loaded || errors.captcha.loading) {
                 errors.captcha = {
                     error: true,
                     message: 'Please wait until captcha is generated',
@@ -365,7 +364,7 @@ export default function CommentForm({
                         }
                     },
                 }}
-                footer={<CommentErrorLabel error={meta.errors.name} />}
+                footer={<ErrorLabel error={meta.errors.name} />}
             />
             <TextInput
                 label="Email"
@@ -391,7 +390,7 @@ export default function CommentForm({
                         }
                     },
                 }}
-                footer={<CommentErrorLabel error={meta.errors.email} />}
+                footer={<ErrorLabel error={meta.errors.email} />}
             />
             <TextArea
                 label="Comment"
@@ -414,7 +413,7 @@ export default function CommentForm({
                         }
                     },
                 }}
-                footer={<CommentErrorLabel error={meta.errors.comment} />}
+                footer={<ErrorLabel error={meta.errors.comment} />}
             />
             <div className="px-6 py-3">
                 <div className="py-4">
@@ -446,12 +445,12 @@ export default function CommentForm({
             </div>
             {meta.errors.other.error && (
                 <div className="px-6 py-3">
-                    <CommentErrorLabel error={meta.errors.other} />
+                    <ErrorLabel error={meta.errors.other} />
                 </div>
             )}
             {meta.errors.captcha.error && meta.errors.captcha.message !== '' && (
                 <div className="px-6">
-                    <CommentErrorLabel error={meta.errors.captcha}>
+                    <ErrorLabel error={meta.errors.captcha}>
                         {meta.errors.captcha.loaded && (
                             <button
                                 className={`text-fg-light ml-4 mt-3`}
@@ -465,7 +464,7 @@ export default function CommentForm({
                                     : 'Retry'}
                             </button>
                         )}
-                    </CommentErrorLabel>
+                    </ErrorLabel>
                 </div>
             )}
             <div className="px-6 py-2">
@@ -515,26 +514,4 @@ export default function CommentForm({
             </div>
         </div>
     )
-}
-
-function CommentErrorLabel({
-    error,
-    children,
-}: {
-    error: CommentFormError
-    children?: ReactNode
-}) {
-    if (error.error) {
-        return (
-            <div className="p-3 text-fg-error bg-bg-secondary rounded mt-3">
-                <div className="flex items-center">
-                    <AlertTriangle />
-                    <p className="ml-2">{error.message}</p>
-                </div>
-                {children}
-            </div>
-        )
-    } else {
-        return null
-    }
 }
