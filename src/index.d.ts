@@ -19,6 +19,13 @@ type CommentItem = {
     children: CommentItem[]
 }
 
+type SubscriptionItem = {
+    comment_id: string
+    comment: string
+    post_url: string
+    post_title: string
+}
+
 type MetaState = {
     mainLoading: boolean
     subLoading: boolean
@@ -57,15 +64,21 @@ type FetchRequests = {
                   error: 'name' | 'email' | 'comment' | 'captcha' | 'other'
               }
     }
-    'restcomments/v1/unsubscribe': {
+    'restcomments/v1/subscriptions/unsubscribe': {
         request: {
             key: string
+            unsub?: number[]
         }
-        response: {
-            result: boolean
-        }
+        response:
+            | {
+                  result: true
+              }
+            | {
+                  result: false
+                  error?: 'key_expired'
+              }
     }
-    'restcomments/v1/request-subscriptions-management': {
+    'restcomments/v1/subscriptions/request-management': {
         request: {
             email: string
         }
@@ -77,6 +90,17 @@ type FetchRequests = {
                   result: false
                   error: 'mail' | 'no-sub'
               }
+    }
+    'restcomments/v1/subscriptions/list': {
+        request: {
+            key: string
+        }
+        response:
+            | {
+                  result: true
+                  data: SubscriptionItem[]
+              }
+            | { result: false }
     }
     'restcontact/v1/add': {
         request: {
