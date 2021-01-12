@@ -16,7 +16,6 @@ module.exports = {
             resolve: `gatsby-source-wordpress-experimental`,
             options: {
                 url: `http://akzhy.local/graphql`,
-                useACF: true,
             },
         },
         `gatsby-plugin-react-helmet`,
