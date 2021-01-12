@@ -66,6 +66,7 @@ export default function Header() {
 
     const [sidebarOpen, setSidebarOpen] = useState(false)
     const [fixedHeaderShown, setFixedHeaderShown] = useState(true)
+    const fixedHeaderRef = useRef(true);
 
     const prevScroll = useRef(0)
 
@@ -81,14 +82,14 @@ export default function Header() {
             window.pageYOffset > 300 &&
             window.pageYOffset < prevScroll.current
         ) {
-            console.log('okay', fixedHeaderShown)
-            if (!fixedHeaderShown) {
-                setFixedHeaderShown(true)
+            if (!fixedHeaderRef.current) {
+                fixedHeaderRef.current = true;
+                setFixedHeaderShown(true);
             }
         } else {
-            console.log('yeah', fixedHeaderShown)
-            if (fixedHeaderShown) {
-                setFixedHeaderShown(false)
+            if (fixedHeaderRef.current && window.pageYOffset > 300) {
+                fixedHeaderRef.current = false;
+                setFixedHeaderShown(false);
             }
         }
         prevScroll.current = window.pageYOffset
