@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react'
 
 export default function SocialMedia() {
     return (
-        <ul className="flex items-center justify-center">
+        <ul className="flex flex-wrap items-center justify-center">
             <Item url="" title="Twitter">
                 <Twitter />
             </Item>

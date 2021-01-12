@@ -25,7 +25,7 @@ export default function Layout({ children, seo }: Props) {
                 </Helmet>
                 <SEO {...seo} />
                 <Header />
-                <div>{children}</div>
+                <div className="pt-24 lg:pt-0">{children}</div>
                 <Footer />
             </div>
         </div>

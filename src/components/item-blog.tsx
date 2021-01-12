@@ -21,12 +21,12 @@ export default function BlogItem({
 }: Props) {
     return (
         <a
-            className="bg-bg-secondary block text-fg-primary my-8 rounded overflow-hidden border-4 border-transparent focus:border-primary focus:outline-none duration-300 transition-all hover:border-secondary"
+            className="bg-bg-secondary block text-fg-primary my-8 rounded overflow-hidden border-4 border-transparent focus:border-primary focus:outline-none duration-300 transition-all hover:border-secondary blog-item"
             title={title}
             href={`/blog/${slug}`}
         >
             <article className="flex">
-                <div className="max-w-full w-96 relative flex-shrink-0">
+                <div className="max-w-full w-96 relative flex-shrink-0 image-container">
                     {featured_image && featured_image.fluid && (
                         <Image fluid={featured_image.fluid} />
                     )}
