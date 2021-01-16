@@ -162,7 +162,6 @@ export default function Management({ unsubKey }: { unsubKey: string }) {
                             }
                             onClick={() => {
                                 setSaveState('loading')
-                                console.log(data.filter((i) => i.selected))
                                 rest(
                                     'restcomments/v1/subscriptions/unsubscribe',
                                     {

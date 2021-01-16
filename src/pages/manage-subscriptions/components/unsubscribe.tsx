@@ -13,7 +13,6 @@ export default function Unsubscribe({ unsubKey }: { unsubKey: string }) {
 
     const unsub = () => {
         if (state !== 'loading') setState('loading')
-        console.log(unsubKey)
         rest('restcomments/v1/subscriptions/unsubscribe', {
             key: unsubKey,
         })

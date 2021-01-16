@@ -43,7 +43,7 @@ function PaginationItem({
         <li className="inline-block mx-2">
             <Link
                 to={link}
-                className={`flex items-center justify-center w-10 h-10 rounded-full border-2 hover:border-primary transition-all duration-300 focus:bg-bg-accent text-fg-primary ${
+                className={`flex items-center justify-center w-10 h-10 rounded-full border-2 hover:border-primary transition-all duration-300 focus:bg-bg-accent text-white ${
                     active ? 'bg-primary border-primary' : 'border-secondary'
                 }`}
             >

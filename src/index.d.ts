@@ -2,6 +2,8 @@ type PartialRecord<K extends keyof any, T> = {
     [P in K]?: T
 }
 
+type Themes = "theme-light" | "theme-dark";
+
 type TemplateContext = {
     limit: number
     skip: number

@@ -1,5 +1,6 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode, useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
+import siteStore from 'utils/sitestore'
 import Footer from './footer'
 import Header from './header'
 import { SEO } from './seo'
@@ -14,9 +15,23 @@ interface Props {
 }
 
 export default function Layout({ children, seo }: Props) {
+
+    const themes = siteStore.state.themes;
+    const [theme, setTheme] = useState(siteStore.state.currentTheme);
+
+    useEffect(() => {
+        const savedTheme = localStorage.getItem('theme');
+
+        if(savedTheme) {
+            siteStore.dispatch('com:toggle-theme', Number(savedTheme));
+        }
+
+        siteStore.listen('com:toggle-theme', (s) => setTheme(s.currentTheme));
+    }, []);
+
     return (
-        <div id="wrapper" className="">
-            <div id="main" className="bg-bg-primary theme-dark">
+        <div id="wrapper" className={themes[theme]}>
+            <div id="main" className="bg-bg-primary">
                 <Helmet>
                     <link
                         href="https://fonts.googleapis.com/css?family=Poppins:400,900"

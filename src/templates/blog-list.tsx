@@ -12,7 +12,6 @@ export default function TemplateBlogList({
     data: GatsbyTypes.BlogPageQuery
     pageContext: TemplateContext
 }) {
-    console.log(pageContext)
 
     const blogItems = data.blog.edges.map((i) => (
         <BlogItem

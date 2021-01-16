@@ -123,7 +123,6 @@ export default function Contact() {
 
         rest('restcontact/v1/add', data)
             .then((res) => {
-                console.log(res)
                 if (res.result) {
                     updateData({
                         captcha: '',

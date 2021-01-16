@@ -3,7 +3,6 @@ body {
 }
 
 @media only screen and (max-width: 600px) {
-
     body {
         font-size: 15px;
     }
@@ -154,7 +153,6 @@ body {
 }
 
 @media only screen and (max-width: 1024px) {
-
     .shelf-item {
         padding: 1rem !important;
     }
@@ -171,7 +169,6 @@ body {
 }
 
 @media only screen and (max-width: 600px) {
-
     .shelf-item {
         padding: 1rem 0 !important;
     }
@@ -284,7 +281,6 @@ body {
 }
 
 @media only screen and (max-width: 800px) {
-
     .blog-item article {
         display: block;
     }
@@ -367,6 +363,22 @@ body {
     margin: 1rem auto;
 }
 
+@media only screen and (max-width: 600px) {
+
+    .single-page p,
+    .single-page h1,
+    .single-page h2,
+    .single-page h3,
+    .single-page h4,
+    .single-page h5,
+    .single-page h6,
+    .single-page blockquote,
+    .single-page pre,
+    .single-page ul {
+        width: 100%;
+    }
+}
+
 .single-page a,
 .link,
 .comment a {
@@ -427,7 +439,6 @@ body {
     animation: skeletonMove 2s infinite;
 }
 @keyframes skeletonMove {
-
     0% {
         left: -100%;
     }

@@ -43,6 +43,8 @@ export default function Sidebar({
         opening: false,
     })
 
+    const stateRef = useRef<State>(state);
+
     const updateState = (v: Partial<State>) => setState((p) => ({ ...p, ...v }))
 
     const useSettings: Settings = {
@@ -87,6 +89,10 @@ export default function Sidebar({
         }
     }, [open])
 
+    useEffect(() => {
+        stateRef.current = state;
+    }, [state]);
+
     const onTouchStart = (e: TouchEvent) => {
         let s: Partial<State> &
             Pick<State, 'touchX' | 'lastTouch' | 'touchTime'> = {
@@ -94,11 +100,12 @@ export default function Sidebar({
             lastTouch: e.touches[0].pageX,
             touchTime: new Date().getTime(),
         }
-        console.log('touch start', s.touchX, useSettings.sensitivity)
-        if (!state.sidebarOpen && s.touchX < useSettings.sensitivity) {
+        let stateData = stateRef.current;
+        
+        if (!stateData.sidebarOpen && s.touchX < useSettings.sensitivity) {
             s.opening = true
             s.touchDown = true
-        } else if (state.sidebarOpen) {
+        } else if (stateData.sidebarOpen) {
             s.opening = false
             s.touchDown = true
         }
@@ -107,9 +114,10 @@ export default function Sidebar({
     }
 
     const onTouchMove = (e: TouchEvent) => {
-        console.log('touch move')
-        if (state.touchDown) {
-            if (state.opening) {
+        let stateData = stateRef.current;
+
+        if (stateData.touchDown) {
+            if (stateData.opening) {
                 if (sidebarParent.current) {
                     sidebarParent.current.style.transitionDuration = '0s'
                 }
@@ -119,7 +127,7 @@ export default function Sidebar({
                 }
 
                 let progress =
-                    (e.touches[0].pageX / (state.screenWidth * 0.7)) * 100
+                    (e.touches[0].pageX / (stateData.screenWidth * 0.7)) * 100
                 progress = Math.min(100, progress)
 
                 changeSidebarState(
@@ -130,7 +138,7 @@ export default function Sidebar({
                     }
                 )
             } else {
-                let diff = state.touchX - e.touches[0].pageX
+                let diff = stateData.touchX - e.touches[0].pageX
                 if (diff > 0) {
                     if (sidebarParent.current) {
                         sidebarParent.current.style.transitionDuration = '0s'
@@ -159,8 +167,10 @@ export default function Sidebar({
     }
 
     const onTouchEnd = (e: TouchEvent) => {
-        if (state.touchDown) {
-            if (state.progress > 80) {
+        let stateData = stateRef.current;
+
+        if (stateData.touchDown) {
+            if (stateData.progress > 80) {
                 openSidebar()
             } else {
                 closeSidebar()
@@ -170,9 +180,9 @@ export default function Sidebar({
             })
         }
 
-        if (state.lastTouch > state.touchX) {
-            let time = new Date().getTime() - state.touchTime
-            let distance = state.lastTouch - state.touchX
+        if (stateData.lastTouch > stateData.touchX) {
+            let time = new Date().getTime() - stateData.touchTime
+            let distance = stateData.lastTouch - stateData.touchX
             let vel = distance / time
             if (vel > 0.6) {
                 openSidebar()
@@ -247,7 +257,7 @@ export default function Sidebar({
     }
 
     return (
-        <div className="r-swipe-sidebar-container">
+        <div className="r-swipe-sidebar-container" id='sidebar' role='menu' aria-labelledby='sidebar-menu-button'>
             <div
                 className="r-swipe-sidebar"
                 ref={sidebarParent}

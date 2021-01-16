@@ -4,6 +4,7 @@ import { useLocation } from '@reach/router'
 import { Menu } from 'react-feather'
 import Sidebar from './sidebar'
 import { useState } from 'react'
+import ThemeSwitcher from './themeswitcher'
 
 export default function Header() {
     const items = [
@@ -90,6 +91,9 @@ export default function Header() {
             if (fixedHeaderRef.current && window.pageYOffset > 300) {
                 fixedHeaderRef.current = false;
                 setFixedHeaderShown(false);
+            } else if(!fixedHeaderRef.current && window.pageYOffset < 300) {
+                fixedHeaderRef.current = true;
+                setFixedHeaderShown(true);
             }
         }
         prevScroll.current = window.pageYOffset
@@ -108,15 +112,23 @@ export default function Header() {
                 <ul className="hidden lg:flex items-center justify-center">
                     {navItems}
                 </ul>
+                <div className="hidden lg:block absolute right-16 top-1/2" style={{ transform: 'translate(0%, -50%)'}}>
+                    <ThemeSwitcher />
+                </div>
                 <div className="lg:hidden flex items-center justify-center relative">
                     <button
                         className="absolute left-8 top-0 w-10 h-10 text-fg-primary flex items-center justify-center pt-3"
                         onClick={() => setSidebarOpen(true)}
+                        title='Open Sidebar'
+                        aria-haspopup={true}
+                        aria-expanded={sidebarOpen}
+                        aria-controls='sidebar'
+                        id='sidebar-menu-button'
                     >
                         <Menu size={34} />
                     </button>
                     <div>
-                        <div className="logo-container w-32">
+                        <Link className="logo-container w-32 block" to='/' title='Home'>
                             <img
                                 src="/images/logo-black.png"
                                 className="logo-dark"
@@ -127,7 +139,7 @@ export default function Header() {
                                 className="logo-light"
                                 alt="Logo"
                             />
-                        </div>
+                        </Link>
                     </div>
                 </div>
             </nav>

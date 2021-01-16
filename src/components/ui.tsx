@@ -67,7 +67,7 @@ export function TextInput({
 }: TextInputProps) {
     return (
         <div className="relative text-input">
-            <label className="w-full block p-4 pb-7 px-6">
+            <label className="w-full block p-4 pb-7 px-3 md:px-6">
                 <p className="text-fg-primary mb-3 ml-1 relative z-10">
                     {label}
                 </p>
@@ -123,7 +123,7 @@ export function TextArea({
 
     return (
         <div className="relative text-input">
-            <label className="w-full block p-4 pb-7 px-6">
+            <label className="w-full block p-4 pb-7 px-3 md:px-6">
                 <p className="text-fg-primary mb-3 ml-1 relative z-10">
                     {label}
                 </p>
@@ -162,7 +162,7 @@ export function Button({
             if (state === 'disabled') {
                 return 'bg-bg-accent border-bg-accent text-fg-light cursor-wait'
             }
-            return 'border-primary text-fg-primary hover:bg-primary focus:bg-primary focus:outline-none focus:border-secondary'
+            return 'border-primary text-fg-primary hover:bg-primary focus:bg-primary focus:outline-none focus:border-secondary hover:text-white'
         },
     }
     return (

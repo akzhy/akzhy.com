@@ -280,7 +280,6 @@ export default function CommentForm({
                         success: true,
                     })
                 } else {
-                    console.log('error', res)
                     updateData({
                         captchaToken: false,
                     })

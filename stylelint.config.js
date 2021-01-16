@@ -21,5 +21,6 @@ module.exports = {
         'no-descending-specificity': null,
         'declaration-colon-newline-after': null,
         'at-rule-empty-line-before': null,
+        'rule-empty-line-before': null
     },
 }
