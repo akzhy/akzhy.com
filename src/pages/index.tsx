@@ -23,7 +23,8 @@ export default function Index({ data }: { data: GatsbyTypes.IndexMainQuery }) {
         <Layout
             seo={{
                 title: 'akzhy',
-                description: 'seo description',
+                description: `Hi, I am Akshay, I am a web developer from Kerala, India who loves to experiment with JavaScript. This is my personal webpage where I show case some of my works and write about some of the stuff that I've learned`,
+                image: data.maincardimage?.childImageSharp?.original?.src
             }}
         >
             <div className="wall mt-4 rounded-xl w-11/12 m-auto overflow-hidden relative">
@@ -77,6 +78,13 @@ export default function Index({ data }: { data: GatsbyTypes.IndexMainQuery }) {
 
 export const query = graphql`
     query IndexMain {
+        maincardimage: file(name: {eq: "main"}, sourceInstanceName: {eq: "cardimages"}) {
+            childImageSharp {
+                original {
+                    src
+                }
+            }
+        }
         blog: allWpPost {
             edges {
                 node {

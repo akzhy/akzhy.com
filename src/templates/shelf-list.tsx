@@ -16,7 +16,8 @@ export default function TemplateShelfList({
         <Layout
             seo={{
                 title: 'Shelf',
-                description: 'Shelf Items',
+                description: `Shelf is the showcase for all the things that I've created.`,
+                image: data.cardimage?.childImageSharp?.original?.src
             }}
         >
             <Section title="Shelf">
@@ -40,6 +41,13 @@ export default function TemplateShelfList({
 
 export const query = graphql`
     query ShelfPage($skip: Int!, $limit: Int!) {
+        cardimage: file(name: {eq: "shelf"}, sourceInstanceName: {eq: "cardimages"}) {
+            childImageSharp {
+                original {
+                    src
+                }
+            }
+        }
         shelf: allWpShelf(skip: $skip, limit: $limit) {
             edges {
                 node {

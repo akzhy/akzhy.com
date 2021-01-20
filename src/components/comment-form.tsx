@@ -46,18 +46,10 @@ export default function CommentForm({
     updateComments: (c: CommentItem[], m: Partial<MetaState>) => void
     closeReply?: () => void
 }) {
-    let savedDataString = localStorage.getItem('comment_user_data')
-    let savedData = {
-        name: '',
-        email: '',
-    }
-
-    if (savedDataString) {
-        savedData = JSON.parse(savedDataString)
-    }
 
     const [data, setData] = useState<CommentFormState>({
-        ...savedData,
+        name: '',
+        email: '',
         comment: '',
         parent: parent,
         captchaToken: false,
@@ -114,16 +106,28 @@ export default function CommentForm({
         }))
 
     useEffect(() => {
+        let listener: any;
+
+        const savedDataString = localStorage.getItem('comment_user_data')
+        if(savedDataString) {
+            const savedData = JSON.parse(savedDataString) as {name: string; email: string};
+            updateData(savedData);
+        }
         if (siteStore.state.captchaReady) {
             generateCaptcha()
         } else {
-            siteStore.listen('com:recaptcha-ready', () => {
+            listener = siteStore.listen('com:recaptcha-ready', () => {
                 if (window.grecaptcha) {
                     window.grecaptcha.ready(function () {
                         generateCaptcha()
                     })
                 }
             })
+        }
+
+        return () => {
+            if (listener)
+                listener();
         }
     }, [])
 
@@ -245,7 +249,7 @@ export default function CommentForm({
                 if (res.result) {
                     let textArea = document.querySelector('.form textarea')
                     if (textArea) {
-                        ;(textArea as any).value = ''
+                        ; (textArea as any).value = ''
                     }
                     updateComments([], {
                         mainLoading: true,
@@ -348,7 +352,7 @@ export default function CommentForm({
                 label="Name"
                 name="name"
                 inputProps={{
-                    defaultValue: savedData.name,
+                    defaultValue: data.name,
                     onChange: (e) => {
                         updateData({
                             name: e.currentTarget.value,
@@ -369,7 +373,7 @@ export default function CommentForm({
                 label="Email"
                 name="email"
                 inputProps={{
-                    defaultValue: savedData.email,
+                    defaultValue: data.email,
                     onChange: (e) => {
                         updateData({
                             email: e.currentTarget.value,
@@ -504,10 +508,10 @@ export default function CommentForm({
                                 <Loader className="animate-spin ml-3" />
                             </React.Fragment>
                         ) : (
-                            <React.Fragment>
-                                Comment <Send className="ml-3" />
-                            </React.Fragment>
-                        )}
+                                <React.Fragment>
+                                    Comment <Send className="ml-3" />
+                                </React.Fragment>
+                            )}
                     </div>
                 </Button>
             </div>

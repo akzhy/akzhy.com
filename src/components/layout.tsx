@@ -26,7 +26,11 @@ export default function Layout({ children, seo }: Props) {
             siteStore.dispatch('com:toggle-theme', Number(savedTheme));
         }
 
-        siteStore.listen('com:toggle-theme', (s) => setTheme(s.currentTheme));
+        const removeListener = siteStore.listen('com:toggle-theme', (s) => setTheme(s.currentTheme));
+
+        return () => {
+            removeListener();
+        }
     }, []);
 
     return (
@@ -37,6 +41,7 @@ export default function Layout({ children, seo }: Props) {
                         href="https://fonts.googleapis.com/css?family=Poppins:400,900"
                         rel="stylesheet"
                     />
+                    <link rel="icon" type="image/png" href="/images/fav.png" />
                 </Helmet>
                 <SEO {...seo} />
                 <Header />

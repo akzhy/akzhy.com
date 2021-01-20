@@ -6,10 +6,14 @@ export default function ThemeSwitcher() {
     const [currentTheme, setCurrentTheme] = useState(siteStore.state.currentTheme);
 
     useEffect(() => {
-        siteStore.listen("com:toggle-theme", (state) => {
+        const removeListener = siteStore.listen("com:toggle-theme", (state) => {
             localStorage.setItem('theme', `${state.currentTheme}`);
             setCurrentTheme(state.currentTheme)
         });
+
+        return () => {
+            removeListener();
+        }
     }, [])
 
     return (

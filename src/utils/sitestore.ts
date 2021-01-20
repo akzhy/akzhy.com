@@ -22,7 +22,7 @@ siteStore.on('com:recaptcha-ready', (state) => {
 })
 
 siteStore.on('com:toggle-theme', (state, action) => {
-    if (!action) {
+    if (action === false) {
         if (state.currentTheme + 1 >= state.themes.length) {
             state.currentTheme = 0
         } else {

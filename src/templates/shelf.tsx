@@ -22,7 +22,7 @@ export const query = graphql`
             title
             content
             date(formatString: "DD MMM YYYY")
-            modified
+            modified(formatString: "DD MMM YYYY")
             featuredImage {
                 node {
                     localFile {

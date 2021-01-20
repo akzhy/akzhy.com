@@ -2,7 +2,7 @@ const _ = require("lodash");
 const plugin = require('tailwindcss/plugin')
 
 module.exports = {
-    purge: [],
+    purge: ['./src/**/*.{js,jsx,ts,tsx}'],
     darkMode: false, // or 'media' or 'class'
     theme: {
         themes: {

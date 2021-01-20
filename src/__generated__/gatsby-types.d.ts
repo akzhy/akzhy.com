@@ -10715,7 +10715,7 @@ type ShelfPageQueryVariables = Exact<{
 }>;
 
 
-type ShelfPageQuery = { readonly shelf: { readonly edges: ReadonlyArray<{ readonly node: (
+type ShelfPageQuery = { readonly cardimage: Maybe<{ readonly childImageSharp: Maybe<{ readonly original: Maybe<Pick<ImageSharpOriginal, 'src'>> }> }>, readonly shelf: { readonly edges: ReadonlyArray<{ readonly node: (
         Pick<WpShelf, 'id' | 'slug' | 'title' | 'date'>
         & { readonly acf: Pick<WpShelf_Acf, 'description'>, readonly featuredImage: { readonly node: Maybe<{ readonly localFile: Maybe<{ readonly childImageSharp: Maybe<{ readonly fluid: Maybe<(
                   Pick<ImageSharpFluid, 'src'>
@@ -10729,7 +10729,7 @@ type BlogPageQueryVariables = Exact<{
 }>;
 
 
-type BlogPageQuery = { readonly blog: { readonly edges: ReadonlyArray<{ readonly node: (
+type BlogPageQuery = { readonly cardimage: Maybe<{ readonly childImageSharp: Maybe<{ readonly original: Maybe<Pick<ImageSharpOriginal, 'src'>> }> }>, readonly blog: { readonly edges: ReadonlyArray<{ readonly node: (
         Pick<WpPost, 'id' | 'slug' | 'title' | 'date'>
         & { readonly acf: Pick<WpPost_Acf, 'description'>, readonly featuredImage: { readonly node: Maybe<{ readonly localFile: Maybe<{ readonly childImageSharp: Maybe<{ readonly fluid: Maybe<(
                   Pick<ImageSharpFluid, 'src'>
@@ -10742,10 +10742,15 @@ type PagesQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 type PagesQueryQuery = { readonly allSitePage: { readonly nodes: ReadonlyArray<Pick<SitePage, 'path'>> } };
 
+type ContactCardImageQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type ContactCardImageQuery = { readonly file: Maybe<{ readonly childImageSharp: Maybe<{ readonly original: Maybe<Pick<ImageSharpOriginal, 'src'>> }> }> };
+
 type IndexMainQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type IndexMainQuery = { readonly blog: { readonly edges: ReadonlyArray<{ readonly node: (
+type IndexMainQuery = { readonly maincardimage: Maybe<{ readonly childImageSharp: Maybe<{ readonly original: Maybe<Pick<ImageSharpOriginal, 'src'>> }> }>, readonly blog: { readonly edges: ReadonlyArray<{ readonly node: (
         Pick<WpPost, 'id' | 'slug' | 'title' | 'date'>
         & { readonly acf: Pick<WpPost_Acf, 'description'>, readonly featuredImage: { readonly node: Maybe<{ readonly localFile: Maybe<{ readonly childImageSharp: Maybe<{ readonly fluid: Maybe<(
                   Pick<ImageSharpFluid, 'src'>
@@ -10758,5 +10763,10 @@ type IndexMainQuery = { readonly blog: { readonly edges: ReadonlyArray<{ readonl
                   & GatsbyImageSharpFluidFragment
                 )> }> }> }> } }
       ) }> } };
+
+type ManageSubscriptionsCardImageQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type ManageSubscriptionsCardImageQuery = { readonly file: Maybe<{ readonly childImageSharp: Maybe<{ readonly original: Maybe<Pick<ImageSharpOriginal, 'src'>> }> }> };
 
 }

@@ -67,7 +67,8 @@ export default function Sidebar({
         updateState({
             screenWidth: window.screen.availWidth,
         })
-        ;() => {
+        
+        return () => {
             window.removeEventListener('touchstart', onTouchStart)
             window.removeEventListener('touchend', onTouchEnd)
             window.removeEventListener('touchmove', onTouchMove)

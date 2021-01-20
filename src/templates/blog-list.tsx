@@ -21,6 +21,7 @@ export default function TemplateBlogList({
                     ?.childImageSharp as GatsbyTypes.ImageSharp
             }
             description={i.node.acf.description || ''}
+            key={i.node.id}
         />
     ))
 
@@ -28,7 +29,8 @@ export default function TemplateBlogList({
         <Layout
             seo={{
                 title: 'Blog',
-                description: '',
+                description: `My blog where I write about some of the things that I've learned over the years. Mostly related to JavaScript and WordPress.`,
+                image: data.cardimage?.childImageSharp?.original?.src
             }}
         >
             <Section title="Blog">
@@ -45,6 +47,13 @@ export default function TemplateBlogList({
 
 export const query = graphql`
     query BlogPage($skip: Int!, $limit: Int!) {
+        cardimage: file(name: {eq: "blog"}, sourceInstanceName: {eq: "cardimages"}) {
+            childImageSharp {
+                original {
+                    src
+                }
+            }
+        }
         blog: allWpPost(skip: $skip, limit: $limit) {
             edges {
                 node {

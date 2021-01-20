@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Loader, Send } from 'react-feather'
 import rest from 'utils/rest'
 import siteStore from 'utils/sitestore'
@@ -44,6 +44,8 @@ export default function Contact() {
     const [messageSent, setMessageSent] = useState(false)
     const [errors, setErrors] = useState<ErrorState>({})
 
+    const mounted = useRef(true);
+
     const updateData = (v: Partial<DataState>) =>
         setData((p) => ({ ...p, ...v }))
 
@@ -64,16 +66,25 @@ export default function Contact() {
     }
 
     useEffect(() => {
+        mounted.current = true;
+        let listener:any;
         if (siteStore.state.captchaReady) {
             generateCaptcha()
         } else {
-            siteStore.listen('com:recaptcha-ready', () => {
+            listener = siteStore.listen('com:recaptcha-ready', () => {
                 if (window.grecaptcha) {
                     window.grecaptcha.ready(function () {
-                        generateCaptcha()
+                        if(mounted.current)
+                            generateCaptcha()
                     })
                 }
             })
+        }
+
+        return () => {
+            mounted.current = false;
+            if(listener)
+                listener();
         }
     }, [])
 

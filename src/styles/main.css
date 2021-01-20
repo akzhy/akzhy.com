@@ -49,6 +49,11 @@ body {
     filter: brightness(0.7) sepia(0.5) saturate(8) hue-rotate(277deg);
 }
 
+.nav-item a:hover img.logo-dark,
+.nav-item a:focus img.logo-dark {
+    filter: invert(100%) brightness(0.7) sepia(0.5) saturate(111) hue-rotate(170deg)
+}
+
 .nav-item a:hover::after,
 .nav-item a:hover::before,
 .nav-item a:focus::after,

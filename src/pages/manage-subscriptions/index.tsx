@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react'
 import Layout from 'components/layout'
 import { Section } from 'components/ui'
 import { useLocation } from '@reach/router'
-import RequestManagement from './components/request'
-import Unsubscribe from './components/unsubscribe'
-import Management from './components/management'
+import RequestManagement from './components/_request'
+import Unsubscribe from './components/_unsubscribe'
+import Management from './components/_management'
+import { graphql } from 'gatsby'
 
 interface State {
     type: 'unsub' | 'manage' | 'request'
@@ -13,7 +14,9 @@ interface State {
     subs: string[]
 }
 
-export default function ManageSubscriptionsPage() {
+export default function ManageSubscriptionsPage({ data:queryData}: {
+    data: GatsbyTypes.ManageSubscriptionsCardImageQuery
+}) {
     const location = useLocation()
 
     const [data, setData] = useState<State>({
@@ -52,6 +55,7 @@ export default function ManageSubscriptionsPage() {
             seo={{
                 title: 'Manage Subscriptions',
                 description: 'Manage Subscriptions',
+                image: queryData.file?.childImageSharp?.original?.src
             }}
         >
             <Section title="Manage Subscriptions">
@@ -62,3 +66,15 @@ export default function ManageSubscriptionsPage() {
         </Layout>
     )
 }
+
+export const query = graphql`
+    query ManageSubscriptionsCardImage {
+        file(name: {eq: "managesubscription"}, sourceInstanceName: {eq: "cardimages"}) {
+            childImageSharp {
+                original {
+                    src
+                }
+            }
+        }
+    }
+`
