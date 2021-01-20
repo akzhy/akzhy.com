@@ -156,7 +156,7 @@ export default function CommentForm({
             },
         })
         window.grecaptcha
-            .execute(process.env.RECAPTCHA_KEY)
+            .execute(process.env.GATSBY_RECAPTCHA_KEY)
             .then((token: string) => {
                 updateData({
                     captchaToken: token,

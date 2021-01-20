@@ -7,7 +7,7 @@ export default async function rest<T extends keyof FetchRequests>(
         const signal = controller.signal
         const timeoutId = setTimeout(() => controller.abort(), 10000)
 
-        const res = await fetch(`${process.env.REST_API}/${url}`, {
+        const res = await fetch(`${process.env.GATSBY_REST_API}/${url}`, {
             method: 'POST',
             cache: 'no-cache',
             headers: {

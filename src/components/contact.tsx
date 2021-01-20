@@ -191,7 +191,7 @@ export default function Contact() {
             },
         })
         window.grecaptcha
-            .execute(process.env.RECAPTCHA_KEY)
+            .execute(process.env.GATSBY_RECAPTCHA_KEY)
             .then((token: string) => {
                 updateData({
                     captcha: token,

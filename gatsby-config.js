@@ -15,7 +15,7 @@ module.exports = {
         {
             resolve: `gatsby-source-wordpress-experimental`,
             options: {
-                url: process.env.GRAPHQL,
+                url: process.env.GATSBY_GRAPHQL,
             },
         },
         `gatsby-plugin-react-helmet`,

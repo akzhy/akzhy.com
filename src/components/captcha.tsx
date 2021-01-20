@@ -19,7 +19,7 @@ export default function Captcha() {
             }}
         >
             <script
-                src={`https://www.google.com/recaptcha/api.js?render=${process.env.RECAPTCHA_KEY}`}
+                src={`https://www.google.com/recaptcha/api.js?render=${process.env.GATSBY_RECAPTCHA_KEY}`}
                 data-script-name="recaptcha"
             ></script>
         </Helmet>
