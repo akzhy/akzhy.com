@@ -23,7 +23,7 @@ export function Title({
     return (
         <h2
             className={`title relative inline-block font-black ${
-                className ? className : 'text-6xl text-fg-primary'
+                className ? className : 'text-4xl md:text-6xl text-fg-primary'
             }`}
         >
             <span>{children}</span>

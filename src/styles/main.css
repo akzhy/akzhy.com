@@ -94,8 +94,8 @@ body {
 
 .wall img {
     max-width: initial;
-    height: 30rem;
-    margin-left: -50%;
+    height: 35rem;
+    margin-left: -60%;
     min-width: 100%;
 
     @screen sm {

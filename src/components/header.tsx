@@ -156,6 +156,9 @@ export default function Header() {
                             key={`sidenav-${item.href}`}
                         />
                     ))}
+                    <li className='flex items-center justify-center pt-2'>
+                        <ThemeSwitcher />
+                    </li>
                 </ul>
             </Sidebar>
         </React.Fragment>

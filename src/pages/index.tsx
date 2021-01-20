@@ -35,7 +35,7 @@ export default function Index({ data }: { data: GatsbyTypes.IndexMainQuery }) {
                 />
                 <div className="absolute w-full h-full top-0 left-0 flex justify-center items-center">
                     <div>
-                        <h1 className="text-7xl font-black text-white text-center">
+                        <h1 className="text-6xl md:text-7xl font-black text-white text-center">
                             akzhy
                         </h1>
                         <p className="text-white mt-4 text-center">
