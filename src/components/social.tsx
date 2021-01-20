@@ -3,16 +3,16 @@ import React, { ReactNode } from 'react'
 export default function SocialMedia() {
     return (
         <ul className="flex flex-wrap items-center justify-center">
-            <Item url="" title="Twitter">
+            <Item url="https://twitter.com/_akzhy" title="Twitter">
                 <Twitter />
             </Item>
-            <Item url="" title="Codepen">
+            <Item url="https://codepen.io/akzhy/" title="Codepen">
                 <Codepen />
             </Item>
-            <Item url="" title="StackOverflow">
+            <Item url="https://stackoverflow.com/users/3971928/akshay" title="StackOverflow">
                 <StackOverflow />
             </Item>
-            <Item url="" title="GitHub">
+            <Item url="https://github.com/akzhy" title="GitHub">
                 <GitHub />
             </Item>
         </ul>
