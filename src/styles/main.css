@@ -118,13 +118,23 @@ body {
     position: absolute;
     width: 100%;
     max-width: 400px;
-    height: 0.8rem;
+    height: 0.4rem;
     @apply bg-primary;
     bottom: 0;
     left: 50%;
     transform: translate(-50%, 0);
     margin-right: -1rem;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.1rem;
+
+    @screen md {
+        height: 0.6rem;
+        margin-bottom: 0.2rem;
+    }
+
+    @screen lg {
+        height: 0.8rem;
+        margin-bottom: 0.4rem;
+    }
 }
 
 .title::before {
