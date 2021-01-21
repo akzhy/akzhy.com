@@ -21,6 +21,8 @@ export default function Captcha() {
             <script
                 src={`https://www.google.com/recaptcha/api.js?render=${process.env.GATSBY_RECAPTCHA_KEY}`}
                 data-script-name="recaptcha"
+                async
+                defer
             ></script>
         </Helmet>
     )
