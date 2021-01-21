@@ -18,6 +18,7 @@ type CommentItem = {
     content: string
     parent_id: string
     avatar: string
+    is_post_author: boolean;
     children: CommentItem[]
 }
 
