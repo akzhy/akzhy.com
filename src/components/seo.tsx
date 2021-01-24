@@ -12,7 +12,7 @@ export function SEO({ description, title, image }: Props) {
     const seoTitle = title !== 'akzhy' ? `${title} | akzhy` : `akzhy`
     const metaDescription = description || ''
 
-    const defaultImageQuery = useStaticQuery<GatsbyTypes.DefaultCardImageQuerQuery>(graphql`
+    const defaultImageQuery = useStaticQuery<GatsbyTypes.DefaultCardImageQueryQuery>(graphql`
         query DefaultCardImageQuery {
             file(
                 name: { eq: "main" }
