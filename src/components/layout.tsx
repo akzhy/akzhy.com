@@ -1,6 +1,7 @@
 import React, { ReactNode, useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import siteStore from 'utils/sitestore'
+import CookieBox from './cookiebox'
 import Footer from './footer'
 import Header from './header'
 import { SEO } from './seo'
@@ -47,6 +48,7 @@ export default function Layout({ children, seo }: Props) {
                 <Header />
                 <div className="pt-24 lg:pt-0">{children}</div>
                 <Footer />
+                <CookieBox />
             </div>
         </div>
     )
