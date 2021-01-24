@@ -1,4 +1,4 @@
-const _ = require("lodash");
+const _ = require('lodash')
 const plugin = require('tailwindcss/plugin')
 
 module.exports = {
@@ -21,7 +21,7 @@ module.exports = {
                     success: '#0c8a11',
                     link: '#1670b7',
                 },
-            }
+            },
         },
         extend: {
             colors: {
@@ -46,76 +46,84 @@ module.exports = {
             },
             animation: {
                 spin: 'spin 3s linear infinite',
-            }
+            },
         },
     },
     variants: {
         extend: {},
     },
-    plugins: [plugin(function ({ addUtilities, addBase, variants, theme, e }) {
+    plugins: [
+        plugin(function ({ addUtilities, addBase, variants, theme, e }) {
+            const themes = theme('themes')
 
-        const themes = theme("themes");
+            const flattenColorPalette = require('tailwindcss/lib/util/flattenColorPalette')
+                .default
 
-        const flattenColorPalette = require("tailwindcss/lib/util/flattenColorPalette")
-            .default;
+            let utilities = {}
 
-        let utilities = {};
+            const properties = [
+                {
+                    property: 'background-color',
+                    name: 'bg',
+                    variants: ['hover', 'focus'],
+                },
+                {
+                    property: 'border-color',
+                    name: 'border',
+                    variants: ['hover', 'focus'],
+                },
+                {
+                    property: 'color',
+                    name: 'text',
+                    variants: ['hover', 'focus'],
+                },
+            ]
 
-        const properties = [
-            {
-                property: "background-color",
-                name: "bg",
-                variants: ['hover', 'focus']
-            }, {
-                property: "border-color",
-                name: "border",
-                variants: ['hover', 'focus']
-            }, {
-                property: "color",
-                name: "text",
-                variants: ['hover', 'focus']
-            }
-        ]
+            Object.keys(themes).forEach((theme) => {
+                let parent = e(`theme-${theme}`)
 
-        Object.keys(themes).forEach(theme => {
-            let parent = e(`theme-${theme}`);
-
-            properties.forEach(prop => {
-                let res = makeColorVariant(prop, parent, theme);
-                utilities = { ...utilities, ...res };
-            })
-        });
-
-
-        addBase(utilities)
-
-        function makeColorVariant(property, parent, th) {
-            const colors = flattenColorPalette(themes[th]);
-
-            const createPair = (p, m, v, par) => {
-                let selector = e(`${p.name}-${m}`);
-                selector = `.${par} .${selector}`;
-                let value = {};
-                value[p.property] = v;
-                return [selector, value]
-            }
-
-            const createVariant = (p, m, v, par) => {
-                let selector = e(`${p.name}-${m}`);
-                return p.variants.map(variant => {
-                    let value = {};
-                    value[p.property] = v;
-                    return [`.${par} .${variant}\\:${selector}:${variant}`, value]
+                properties.forEach((prop) => {
+                    let res = makeColorVariant(prop, parent, theme)
+                    utilities = { ...utilities, ...res }
                 })
+            })
+
+            addBase(utilities)
+
+            function makeColorVariant(property, parent, th) {
+                const colors = flattenColorPalette(themes[th])
+
+                const createPair = (p, m, v, par) => {
+                    let selector = e(`${p.name}-${m}`)
+                    selector = `.${par} .${selector}`
+                    let value = {}
+                    value[p.property] = v
+                    return [selector, value]
+                }
+
+                const createVariant = (p, m, v, par) => {
+                    let selector = e(`${p.name}-${m}`)
+                    return p.variants.map((variant) => {
+                        let value = {}
+                        value[p.property] = v
+                        return [
+                            `.${par} .${variant}\\:${selector}:${variant}`,
+                            value,
+                        ]
+                    })
+                }
+
+                return _.fromPairs([
+                    ..._.map(_.omit(colors, 'default'), (value, modifier) =>
+                        createPair(property, modifier, value, parent)
+                    ),
+                    ..._.flatten(
+                        _.map(_.omit(colors, 'default'), (value, modifier) =>
+                            createVariant(property, modifier, value, parent)
+                        )
+                    ),
+                ])
             }
-
-
-            return _.fromPairs(
-                [
-                    ..._.map(_.omit(colors, "default"), (value, modifier) => createPair(property, modifier, value, parent)),
-                    ..._.flatten(_.map(_.omit(colors, "default"), (value, modifier) => createVariant(property, modifier, value, parent)))
-                ]
-            );
-        }
-    })],
+        }),
+    ],
 }

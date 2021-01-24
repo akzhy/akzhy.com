@@ -14,7 +14,9 @@ interface State {
     subs: string[]
 }
 
-export default function ManageSubscriptionsPage({ data:queryData}: {
+export default function ManageSubscriptionsPage({
+    data: queryData,
+}: {
     data: GatsbyTypes.ManageSubscriptionsCardImageQuery
 }) {
     const location = useLocation()
@@ -55,7 +57,7 @@ export default function ManageSubscriptionsPage({ data:queryData}: {
             seo={{
                 title: 'Manage Subscriptions',
                 description: 'Manage Subscriptions',
-                image: queryData.file?.childImageSharp?.original?.src
+                image: queryData.file?.childImageSharp?.original?.src,
             }}
         >
             <Section title="Manage Subscriptions">
@@ -69,7 +71,10 @@ export default function ManageSubscriptionsPage({ data:queryData}: {
 
 export const query = graphql`
     query ManageSubscriptionsCardImage {
-        file(name: {eq: "managesubscription"}, sourceInstanceName: {eq: "cardimages"}) {
+        file(
+            name: { eq: "managesubscription" }
+            sourceInstanceName: { eq: "cardimages" }
+        ) {
             childImageSharp {
                 original {
                     src

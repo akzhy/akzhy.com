@@ -42,15 +42,23 @@ export default function TemplateSinglePage<T extends PostTypes>({
                     <main className="my-24">
                         <div className="text-center">
                             <Title>{query.title}</Title>
-                            {type !== 'page' &&  (
-                                <div className='flex items-center justify-center mt-10'>
-                                    <div className='text-right px-3'>
-                                        <p className='text-fg-light text-sm'>Created on</p>
-                                        <p className='text-fg-primary text-lg'>{query.date}</p>
+                            {type !== 'page' && (
+                                <div className="flex items-center justify-center mt-10">
+                                    <div className="text-right px-3">
+                                        <p className="text-fg-light text-sm">
+                                            Created on
+                                        </p>
+                                        <p className="text-fg-primary text-lg">
+                                            {query.date}
+                                        </p>
                                     </div>
-                                    <div className='text-left px-3'>
-                                        <p className='text-fg-light text-sm'>Updated on</p>
-                                        <p className='text-fg-primary text-lg'>{query.modified}</p>
+                                    <div className="text-left px-3">
+                                        <p className="text-fg-light text-sm">
+                                            Updated on
+                                        </p>
+                                        <p className="text-fg-primary text-lg">
+                                            {query.modified}
+                                        </p>
                                     </div>
                                 </div>
                             )}

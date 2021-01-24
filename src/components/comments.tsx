@@ -169,8 +169,9 @@ function Comment(
 
     return (
         <div
-            className={`w-full bg-bg-secondary rounded p-3 my-6 border-bg-accent comment ${data.isReply ? 'pb-2 mb-0 border-2' : ''
-                }`}
+            className={`w-full bg-bg-secondary rounded p-3 my-6 border-bg-accent comment ${
+                data.isReply ? 'pb-2 mb-0 border-2' : ''
+            }`}
             id={`c${data.id}`}
         >
             <div className={`p-3`}>
@@ -182,10 +183,14 @@ function Comment(
                         <p className="text-fg-primary text-lg flex items-center">
                             {data.author}
                             {data.is_post_author && (
-                                <span className='border-fg-success border-2 text-fg-success h-6 w-6 rounded-full flex items-center justify-center ml-2' title='Comment by post author' aria-label='Comment by post author'>
-                                    <Check size={14} strokeWidth={3}/>
-                                </span>)
-                            }
+                                <span
+                                    className="border-fg-success border-2 text-fg-success h-6 w-6 rounded-full flex items-center justify-center ml-2"
+                                    title="Comment by post author"
+                                    aria-label="Comment by post author"
+                                >
+                                    <Check size={14} strokeWidth={3} />
+                                </span>
+                            )}
                         </p>
                         <p className="text-fg-light text-sm">{formattedDate}</p>
                     </div>
@@ -216,15 +221,15 @@ function Comment(
                             }}
                         />
                     ) : (
-                            <button
-                                className="py-2 px-6 rounded inline-block border-2 border-primary text-fg-primary hover:bg-primary focus:bg-primary focus:outline-none focus:border-secondary"
-                                onClick={() => {
-                                    setReplyActive(true)
-                                }}
-                            >
-                                Reply
-                            </button>
-                        )}
+                        <button
+                            className="py-2 px-6 rounded inline-block border-2 border-primary text-fg-primary hover:bg-primary focus:bg-primary focus:outline-none focus:border-secondary"
+                            onClick={() => {
+                                setReplyActive(true)
+                            }}
+                        >
+                            Reply
+                        </button>
+                    )}
                 </div>
             </div>
             {data.children

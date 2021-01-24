@@ -46,7 +46,6 @@ export default function CommentForm({
     updateComments: (c: CommentItem[], m: Partial<MetaState>) => void
     closeReply?: () => void
 }) {
-
     const [data, setData] = useState<CommentFormState>({
         name: '',
         email: '',
@@ -106,12 +105,15 @@ export default function CommentForm({
         }))
 
     useEffect(() => {
-        let listener: any;
+        let listener: any
 
         const savedDataString = localStorage.getItem('comment_user_data')
-        if(savedDataString) {
-            const savedData = JSON.parse(savedDataString) as {name: string; email: string};
-            updateData(savedData);
+        if (savedDataString) {
+            const savedData = JSON.parse(savedDataString) as {
+                name: string
+                email: string
+            }
+            updateData(savedData)
         }
         if (siteStore.state.captchaReady) {
             generateCaptcha()
@@ -126,8 +128,7 @@ export default function CommentForm({
         }
 
         return () => {
-            if (listener)
-                listener();
+            if (listener) listener()
         }
     }, [])
 
@@ -249,7 +250,7 @@ export default function CommentForm({
                 if (res.result) {
                     let textArea = document.querySelector('.form textarea')
                     if (textArea) {
-                        ; (textArea as any).value = ''
+                        ;(textArea as any).value = ''
                     }
                     updateComments([], {
                         mainLoading: true,
@@ -508,10 +509,10 @@ export default function CommentForm({
                                 <Loader className="animate-spin ml-3" />
                             </React.Fragment>
                         ) : (
-                                <React.Fragment>
-                                    Comment <Send className="ml-3" />
-                                </React.Fragment>
-                            )}
+                            <React.Fragment>
+                                Comment <Send className="ml-3" />
+                            </React.Fragment>
+                        )}
                     </div>
                 </Button>
             </div>

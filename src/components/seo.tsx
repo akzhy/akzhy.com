@@ -1,4 +1,4 @@
-import { graphql, useStaticQuery } from 'gatsby';
+import { graphql, useStaticQuery } from 'gatsby'
 import React from 'react'
 import { Helmet } from 'react-helmet'
 
@@ -10,11 +10,14 @@ interface Props {
 
 export function SEO({ description, title, image }: Props) {
     const seoTitle = title !== 'akzhy' ? `${title} | akzhy` : `akzhy`
-    const metaDescription = description || '';
+    const metaDescription = description || ''
 
     const defaultImageQuery = useStaticQuery<GatsbyTypes.DefaultCardImageQuerQuery>(graphql`
-        query DefaultCardImageQuery{
-            file (name: {eq: "main"}, sourceInstanceName: { eq: "cardimages"}) {
+        query DefaultCardImageQuery {
+            file(
+                name: { eq: "main" }
+                sourceInstanceName: { eq: "cardimages" }
+            ) {
                 childImageSharp {
                     original {
                         src
@@ -22,11 +25,14 @@ export function SEO({ description, title, image }: Props) {
                 }
             }
         }
-    `);
+    `)
 
-    const defaultImage = defaultImageQuery.file?.childImageSharp?.original?.src as string;
-    let metaImage = image ? image : defaultImage;
-    metaImage = metaImage.startsWith("/") ? `${process.env.GATSBY_SITE_URL}${metaImage}` : metaImage
+    const defaultImage = defaultImageQuery.file?.childImageSharp?.original
+        ?.src as string
+    let metaImage = image ? image : defaultImage
+    metaImage = metaImage.startsWith('/')
+        ? `${process.env.GATSBY_SITE_URL}${metaImage}`
+        : metaImage
 
     return (
         <Helmet
@@ -73,8 +79,8 @@ export function SEO({ description, title, image }: Props) {
                 },
                 {
                     name: `twitter:image`,
-                    content: metaImage
-                }
+                    content: metaImage,
+                },
             ]}
         />
     )

@@ -2,7 +2,7 @@ type PartialRecord<K extends keyof any, T> = {
     [P in K]?: T
 }
 
-type Themes = "theme-light" | "theme-dark";
+type Themes = 'theme-light' | 'theme-dark'
 
 type TemplateContext = {
     limit: number
@@ -18,7 +18,7 @@ type CommentItem = {
     content: string
     parent_id: string
     avatar: string
-    is_post_author: boolean;
+    is_post_author: boolean
     children: CommentItem[]
 }
 

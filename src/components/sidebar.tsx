@@ -43,7 +43,7 @@ export default function Sidebar({
         opening: false,
     })
 
-    const stateRef = useRef<State>(state);
+    const stateRef = useRef<State>(state)
 
     const updateState = (v: Partial<State>) => setState((p) => ({ ...p, ...v }))
 
@@ -67,7 +67,7 @@ export default function Sidebar({
         updateState({
             screenWidth: window.screen.availWidth,
         })
-        
+
         return () => {
             window.removeEventListener('touchstart', onTouchStart)
             window.removeEventListener('touchend', onTouchEnd)
@@ -91,8 +91,8 @@ export default function Sidebar({
     }, [open])
 
     useEffect(() => {
-        stateRef.current = state;
-    }, [state]);
+        stateRef.current = state
+    }, [state])
 
     const onTouchStart = (e: TouchEvent) => {
         let s: Partial<State> &
@@ -101,8 +101,8 @@ export default function Sidebar({
             lastTouch: e.touches[0].pageX,
             touchTime: new Date().getTime(),
         }
-        let stateData = stateRef.current;
-        
+        let stateData = stateRef.current
+
         if (!stateData.sidebarOpen && s.touchX < useSettings.sensitivity) {
             s.opening = true
             s.touchDown = true
@@ -115,7 +115,7 @@ export default function Sidebar({
     }
 
     const onTouchMove = (e: TouchEvent) => {
-        let stateData = stateRef.current;
+        let stateData = stateRef.current
 
         if (stateData.touchDown) {
             if (stateData.opening) {
@@ -168,7 +168,7 @@ export default function Sidebar({
     }
 
     const onTouchEnd = (e: TouchEvent) => {
-        let stateData = stateRef.current;
+        let stateData = stateRef.current
 
         if (stateData.touchDown) {
             if (stateData.progress > 80) {
@@ -258,7 +258,12 @@ export default function Sidebar({
     }
 
     return (
-        <div className="r-swipe-sidebar-container" id='sidebar' role='menu' aria-labelledby='sidebar-menu-button'>
+        <div
+            className="r-swipe-sidebar-container"
+            id="sidebar"
+            role="menu"
+            aria-labelledby="sidebar-menu-button"
+        >
             <div
                 className="r-swipe-sidebar"
                 ref={sidebarParent}

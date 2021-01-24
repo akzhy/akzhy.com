@@ -12,7 +12,6 @@ export default function TemplateBlogList({
     data: GatsbyTypes.BlogPageQuery
     pageContext: TemplateContext
 }) {
-
     const blogItems = data.blog.edges.map((i) => (
         <BlogItem
             {...i.node}
@@ -30,7 +29,7 @@ export default function TemplateBlogList({
             seo={{
                 title: 'Blog',
                 description: `My blog where I write about some of the things that I've learned over the years. Mostly related to JavaScript and WordPress.`,
-                image: data.cardimage?.childImageSharp?.original?.src
+                image: data.cardimage?.childImageSharp?.original?.src,
             }}
         >
             <Section title="Blog">
@@ -47,7 +46,10 @@ export default function TemplateBlogList({
 
 export const query = graphql`
     query BlogPage($skip: Int!, $limit: Int!) {
-        cardimage: file(name: {eq: "blog"}, sourceInstanceName: {eq: "cardimages"}) {
+        cardimage: file(
+            name: { eq: "blog" }
+            sourceInstanceName: { eq: "cardimages" }
+        ) {
             childImageSharp {
                 original {
                     src

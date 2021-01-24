@@ -9,7 +9,10 @@ export default function SocialMedia() {
             <Item url="https://codepen.io/akzhy/" title="Codepen">
                 <Codepen />
             </Item>
-            <Item url="https://stackoverflow.com/users/3971928/akshay" title="StackOverflow">
+            <Item
+                url="https://stackoverflow.com/users/3971928/akshay"
+                title="StackOverflow"
+            >
                 <StackOverflow />
             </Item>
             <Item url="https://github.com/akzhy" title="GitHub">

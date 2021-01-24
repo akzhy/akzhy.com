@@ -67,7 +67,7 @@ export default function Header() {
 
     const [sidebarOpen, setSidebarOpen] = useState(false)
     const [fixedHeaderShown, setFixedHeaderShown] = useState(true)
-    const fixedHeaderRef = useRef(true);
+    const fixedHeaderRef = useRef(true)
 
     const prevScroll = useRef(0)
 
@@ -84,16 +84,16 @@ export default function Header() {
             window.pageYOffset < prevScroll.current
         ) {
             if (!fixedHeaderRef.current) {
-                fixedHeaderRef.current = true;
-                setFixedHeaderShown(true);
+                fixedHeaderRef.current = true
+                setFixedHeaderShown(true)
             }
         } else {
             if (fixedHeaderRef.current && window.pageYOffset > 300) {
-                fixedHeaderRef.current = false;
-                setFixedHeaderShown(false);
-            } else if(!fixedHeaderRef.current && window.pageYOffset < 300) {
-                fixedHeaderRef.current = true;
-                setFixedHeaderShown(true);
+                fixedHeaderRef.current = false
+                setFixedHeaderShown(false)
+            } else if (!fixedHeaderRef.current && window.pageYOffset < 300) {
+                fixedHeaderRef.current = true
+                setFixedHeaderShown(true)
             }
         }
         prevScroll.current = window.pageYOffset
@@ -112,23 +112,30 @@ export default function Header() {
                 <ul className="hidden lg:flex items-center justify-center">
                     {navItems}
                 </ul>
-                <div className="hidden lg:block absolute right-16 top-1/2" style={{ transform: 'translate(0%, -50%)'}}>
+                <div
+                    className="hidden lg:block absolute right-16 top-1/2"
+                    style={{ transform: 'translate(0%, -50%)' }}
+                >
                     <ThemeSwitcher />
                 </div>
                 <div className="lg:hidden flex items-center justify-center relative">
                     <button
                         className="absolute left-8 top-0 w-10 h-10 text-fg-primary flex items-center justify-center pt-3"
                         onClick={() => setSidebarOpen(true)}
-                        title='Open Sidebar'
+                        title="Open Sidebar"
                         aria-haspopup={true}
                         aria-expanded={sidebarOpen}
-                        aria-controls='sidebar'
-                        id='sidebar-menu-button'
+                        aria-controls="sidebar"
+                        id="sidebar-menu-button"
                     >
                         <Menu size={34} />
                     </button>
                     <div>
-                        <Link className="logo-container w-32 block" to='/' title='Home'>
+                        <Link
+                            className="logo-container w-32 block"
+                            to="/"
+                            title="Home"
+                        >
                             <img
                                 src="/images/logo-black.png"
                                 className="logo-dark"
@@ -156,7 +163,7 @@ export default function Header() {
                             key={`sidenav-${item.href}`}
                         />
                     ))}
-                    <li className='flex items-center justify-center pt-2'>
+                    <li className="flex items-center justify-center pt-2">
                         <ThemeSwitcher />
                     </li>
                 </ul>

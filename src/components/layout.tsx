@@ -16,23 +16,24 @@ interface Props {
 }
 
 export default function Layout({ children, seo }: Props) {
-
-    const themes = siteStore.state.themes;
-    const [theme, setTheme] = useState(siteStore.state.currentTheme);
+    const themes = siteStore.state.themes
+    const [theme, setTheme] = useState(siteStore.state.currentTheme)
 
     useEffect(() => {
-        const savedTheme = localStorage.getItem('theme');
+        const savedTheme = localStorage.getItem('theme')
 
-        if(savedTheme) {
-            siteStore.dispatch('com:toggle-theme', Number(savedTheme));
+        if (savedTheme) {
+            siteStore.dispatch('com:toggle-theme', Number(savedTheme))
         }
 
-        const removeListener = siteStore.listen('com:toggle-theme', (s) => setTheme(s.currentTheme));
+        const removeListener = siteStore.listen('com:toggle-theme', (s) =>
+            setTheme(s.currentTheme)
+        )
 
         return () => {
-            removeListener();
+            removeListener()
         }
-    }, []);
+    }, [])
 
     return (
         <div id="wrapper" className={themes[theme]}>
