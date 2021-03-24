@@ -1,5 +1,5 @@
 import React from 'react'
-import Image from 'gatsby-image'
+import { GatsbyImage } from "gatsby-plugin-image";
 import { Title } from './ui'
 
 interface Props {
@@ -32,7 +32,7 @@ export function ShelfItem({
                 <article className="flex flex-wrap relative">
                     <div className="w-full relative flex-shrink-0">
                         {featured_image && featured_image.fluid && (
-                            <Image fluid={featured_image.fluid} />
+                            <GatsbyImage image={featured_image.gatsbyImageData} />
                         )}
                     </div>
                     <div className="lg:absolute top-0 left-0 w-full h-full flex items-center justify-center flex-col bg-bg-accent content opacity-100 group-hover:opacity-100 lg:opacity-0">
@@ -56,7 +56,7 @@ export function ShelfItem({
                 {date}
             </p>
         </div>
-    )
+    );
 }
 
 export function ShelfContainer({ data }: { data: Props[] }) {

@@ -1,5 +1,5 @@
 import React from 'react'
-import Image from 'gatsby-image'
+import { GatsbyImage } from "gatsby-plugin-image";
 import { Calendar } from 'react-feather'
 
 interface Props {
@@ -28,7 +28,7 @@ export default function BlogItem({
             <article className="flex">
                 <div className="max-w-full w-96 relative flex-shrink-0 image-container">
                     {featured_image && featured_image.fluid && (
-                        <Image fluid={featured_image.fluid} />
+                        <GatsbyImage image={featured_image.gatsbyImageData} />
                     )}
                 </div>
                 <div className="p-4 py-8">
@@ -40,5 +40,5 @@ export default function BlogItem({
                 </div>
             </article>
         </a>
-    )
+    );
 }

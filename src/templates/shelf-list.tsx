@@ -39,42 +39,35 @@ export default function TemplateShelfList({
     )
 }
 
-export const query = graphql`
-    query ShelfPage($skip: Int!, $limit: Int!) {
-        cardimage: file(
-            name: { eq: "shelf" }
-            sourceInstanceName: { eq: "cardimages" }
-        ) {
-            childImageSharp {
-                original {
-                    src
-                }
-            }
-        }
-        shelf: allWpShelf(skip: $skip, limit: $limit) {
-            edges {
-                node {
-                    id
-                    slug
-                    title
-                    acf {
-                        description
-                    }
-                    date(formatString: "DD MMM YYYY")
-                    featuredImage {
-                        node {
-                            localFile {
-                                childImageSharp {
-                                    fluid {
-                                        src
-                                        ...GatsbyImageSharpFluid
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
+export const query = graphql`query ShelfPage($skip: Int!, $limit: Int!) {
+  cardimage: file(name: {eq: "shelf"}, sourceInstanceName: {eq: "cardimages"}) {
+    childImageSharp {
+      original {
+        src
+      }
     }
+  }
+  shelf: allWpShelf(skip: $skip, limit: $limit) {
+    edges {
+      node {
+        id
+        slug
+        title
+        acf {
+          description
+        }
+        date(formatString: "DD MMM YYYY")
+        featuredImage {
+          node {
+            localFile {
+              childImageSharp {
+                gatsbyImageData(placeholder: BLURRED, layout: FULL_WIDTH)
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
 `

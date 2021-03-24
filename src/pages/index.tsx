@@ -102,10 +102,10 @@ export const query = graphql`
                         node {
                             localFile {
                                 childImageSharp {
-                                    fluid {
-                                        src
-                                        ...GatsbyImageSharpFluid
-                                    }
+                                    gatsbyImageData(
+                                        placeholder: BLURRED
+                                        layout: FULL_WIDTH
+                                    )
                                 }
                             }
                         }
@@ -127,10 +127,10 @@ export const query = graphql`
                         node {
                             localFile {
                                 childImageSharp {
-                                    fluid {
-                                        src
-                                        ...GatsbyImageSharpFluid
-                                    }
+                                    gatsbyImageData(
+                                        placeholder: BLURRED
+                                        layout: FULL_WIDTH
+                                    )
                                 }
                             }
                         }

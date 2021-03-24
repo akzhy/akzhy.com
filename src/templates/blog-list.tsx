@@ -44,42 +44,35 @@ export default function TemplateBlogList({
     )
 }
 
-export const query = graphql`
-    query BlogPage($skip: Int!, $limit: Int!) {
-        cardimage: file(
-            name: { eq: "blog" }
-            sourceInstanceName: { eq: "cardimages" }
-        ) {
-            childImageSharp {
-                original {
-                    src
-                }
-            }
-        }
-        blog: allWpPost(skip: $skip, limit: $limit) {
-            edges {
-                node {
-                    id
-                    slug
-                    title
-                    acf {
-                        description
-                    }
-                    date(formatString: "DD MMM YYYY")
-                    featuredImage {
-                        node {
-                            localFile {
-                                childImageSharp {
-                                    fluid {
-                                        src
-                                        ...GatsbyImageSharpFluid
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
+export const query = graphql`query BlogPage($skip: Int!, $limit: Int!) {
+  cardimage: file(name: {eq: "blog"}, sourceInstanceName: {eq: "cardimages"}) {
+    childImageSharp {
+      original {
+        src
+      }
     }
+  }
+  blog: allWpPost(skip: $skip, limit: $limit) {
+    edges {
+      node {
+        id
+        slug
+        title
+        acf {
+          description
+        }
+        date(formatString: "DD MMM YYYY")
+        featuredImage {
+          node {
+            localFile {
+              childImageSharp {
+                gatsbyImageData(placeholder: BLURRED, layout: FULL_WIDTH)
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
 `
