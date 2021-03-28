@@ -23,7 +23,6 @@
     "gatsby-plugin-typegen": "^2.2.4",
     "gatsby-source-filesystem": "^3.1.0",
     "gatsby-source-wordpress": "^5.1.0",
-    "gatsby-source-wordpress-experimental": "^7.0.6",
     "gatsby-transformer-sharp": "^3.1.0",
     "postcss": "^8.2.8",
     "postcss-custom-properties": "^11.0.0",
@@ -61,8 +60,7 @@
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,json,tsx,ts}\"",
     "start": "npm run develop",
-    "serve": "gatsby serve",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing \""
+    "serve": "gatsby serve"
   },
   "repository": {
     "type": "git",

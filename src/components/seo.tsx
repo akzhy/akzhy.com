@@ -29,7 +29,7 @@ export function SEO({ description, title, image }: Props) {
 
     const defaultImage = defaultImageQuery.file?.childImageSharp?.original
         ?.src as string
-    let metaImage = image ? image : defaultImage
+    let metaImage = image || defaultImage
     metaImage = metaImage.startsWith('/')
         ? `${process.env.GATSBY_SITE_URL}${metaImage}`
         : metaImage

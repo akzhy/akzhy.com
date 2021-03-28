@@ -53,8 +53,8 @@ export default function Contact() {
         setErrors((p) => ({ ...p, ...v }))
 
     const clearErrors = () => {
-        let errs = errors
-        for (let err in errs) {
+        const errs = errors
+        for (const err in errs) {
             if (errs.hasOwnProperty(err)) {
                 errs[err as keyof ErrorState] = {
                     error: false,
@@ -73,7 +73,7 @@ export default function Contact() {
         } else {
             listener = siteStore.listen('com:recaptcha-ready', () => {
                 if (window.grecaptcha) {
-                    window.grecaptcha.ready(function () {
+                    window.grecaptcha.ready(() => {
                         if (mounted.current) generateCaptcha()
                     })
                 }
@@ -141,27 +141,25 @@ export default function Contact() {
                     setMessageSent(true)
                     clearErrors()
 
-                    let textArea = document.querySelector(
+                    const textArea = document.querySelector(
                         '.contact-form textarea'
                     )
                     ;(textArea as any).value = ''
+                } else if (res.error === 'captcha') {
+                    updateErrors({
+                        captcha: {
+                            error: true,
+                            message: 'Error validating captcha',
+                        },
+                    })
                 } else {
-                    if (res.error === 'captcha') {
-                        updateErrors({
-                            captcha: {
-                                error: true,
-                                message: 'Error validating captcha',
-                            },
-                        })
-                    } else {
-                        updateErrors({
-                            other: {
-                                error: true,
-                                message:
-                                    'An error occured while sending your message. Please try again',
-                            },
-                        })
-                    }
+                    updateErrors({
+                        other: {
+                            error: true,
+                            message:
+                                'An error occured while sending your message. Please try again',
+                        },
+                    })
                 }
             })
             .catch(() => {
@@ -271,16 +269,14 @@ export default function Contact() {
                                         },
                                     })
                                 }
-                            } else {
-                                if (!errors.email?.error) {
-                                    updateErrors({
-                                        email: {
-                                            error: true,
-                                            message:
-                                                'Please enter a valid email address',
-                                        },
-                                    })
-                                }
+                            } else if (!errors.email?.error) {
+                                updateErrors({
+                                    email: {
+                                        error: true,
+                                        message:
+                                            'Please enter a valid email address',
+                                    },
+                                })
                             }
                         }
                     },
@@ -352,7 +348,7 @@ export default function Contact() {
                         <ErrorLabel error={errors.captcha}>
                             {errors.captcha.loaded && (
                                 <button
-                                    className={`text-fg-light ml-4 mt-3`}
+                                    className="text-fg-light ml-4 mt-3"
                                     disabled={errors.captcha.loading}
                                     onClick={() => {
                                         generateCaptcha()
@@ -382,14 +378,14 @@ export default function Contact() {
                 >
                     <div className="flex items-center justify-center">
                         {loading ? (
-                            <React.Fragment>
+                            <>
                                 Sending...{' '}
                                 <Loader className="animate-spin ml-3" />
-                            </React.Fragment>
+                            </>
                         ) : (
-                            <React.Fragment>
+                            <>
                                 Send <Send className="ml-3" />
-                            </React.Fragment>
+                            </>
                         )}
                     </div>
                 </Button>

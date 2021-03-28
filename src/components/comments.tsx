@@ -36,7 +36,7 @@ export default function Comments({ postId }: { postId: number }) {
                 ...p.meta,
                 ...meta,
             },
-            data: data,
+            data,
         }))
     }
 
@@ -97,12 +97,13 @@ export default function Comments({ postId }: { postId: number }) {
                                     </button>
                                 </div>
                             )
-                        } else if (comments.meta.mainLoading) {
+                        }
+                        if (comments.meta.mainLoading) {
                             return (
-                                <React.Fragment>
+                                <>
                                     <CommentSkeleton />
                                     <CommentSkeleton />
-                                </React.Fragment>
+                                </>
                             )
                         }
 
@@ -117,27 +118,24 @@ export default function Comments({ postId }: { postId: number }) {
                         }
 
                         return (
-                            <React.Fragment>
-                                {(() => {
-                                    return comments.data
+                            <>
+                                {(() =>
+                                    comments.data
                                         .sort((a, b) =>
                                             a.id.localeCompare(b.id)
                                         )
-                                        .map((item) => {
-                                            return (
-                                                <Comment
-                                                    {...item}
-                                                    key={`c-id-${item.id}`}
-                                                    parent={false}
-                                                    postId={postId}
-                                                    updateComments={
-                                                        commentFormUpdateState
-                                                    }
-                                                />
-                                            )
-                                        })
-                                })()}
-                            </React.Fragment>
+                                        .map((item) => (
+                                            <Comment
+                                                {...item}
+                                                key={`c-id-${item.id}`}
+                                                parent={false}
+                                                postId={postId}
+                                                updateComments={
+                                                    commentFormUpdateState
+                                                }
+                                            />
+                                        )))()}
+                            </>
                         )
                     })()}
                 </div>
@@ -160,8 +158,8 @@ function Comment(
         updateComments: (c: CommentItem[], m: Partial<MetaState>) => void
     }
 ) {
-    let date = new Date(data.date + ' GMT')
-    let formattedDate = formatDistance(date, new Date(), {
+    const date = new Date(`${data.date} GMT`)
+    const formattedDate = formatDistance(date, new Date(), {
         addSuffix: true,
     })
 
@@ -174,7 +172,7 @@ function Comment(
             }`}
             id={`c${data.id}`}
         >
-            <div className={`p-3`}>
+            <div className="p-3">
                 <div className="flex items-center">
                     <div className="rounded bg-bg-accent w-12 h-12">
                         <img src={data.avatar} alt="Gravatar image" />
@@ -206,9 +204,7 @@ function Comment(
                     </div>
                 )}
                 <div className="my-4 text-fg-primary">
-                    <div
-                        dangerouslySetInnerHTML={{ __html: data.content }}
-                    ></div>
+                    <div dangerouslySetInnerHTML={{ __html: data.content }} />
                 </div>
                 <div className="my-4">
                     {replyActive ? (
@@ -234,18 +230,16 @@ function Comment(
             </div>
             {data.children
                 .sort((a, b) => a.id.localeCompare(b.id))
-                .map((child) => {
-                    return (
-                        <Comment
-                            {...child}
-                            parent={data}
-                            isReply={true}
-                            key={`c-id-${child.id}`}
-                            postId={data.postId}
-                            updateComments={data.updateComments}
-                        />
-                    )
-                })}
+                .map((child) => (
+                    <Comment
+                        {...child}
+                        parent={data}
+                        isReply
+                        key={`c-id-${child.id}`}
+                        postId={data.postId}
+                        updateComments={data.updateComments}
+                    />
+                ))}
         </div>
     )
 }
@@ -254,15 +248,15 @@ function CommentSkeleton() {
     return (
         <div className="w-full bg-bg-secondary opacity-75 rounded p-6 my-6">
             <div className="flex items-center">
-                <div className="w-12 h-12 rounded bg-bg-accent skeleton"></div>
+                <div className="w-12 h-12 rounded bg-bg-accent skeleton" />
                 <div className="ml-4 flex flex-col justify-center py-2">
-                    <div className="w-24 h-3 bg-bg-accent skeleton"></div>
-                    <div className="w-32 h-2 bg-bg-accent opacity-80 my-3 skeleton"></div>
+                    <div className="w-24 h-3 bg-bg-accent skeleton" />
+                    <div className="w-32 h-2 bg-bg-accent opacity-80 my-3 skeleton" />
                 </div>
             </div>
             <div className="my-4">
-                <div className="w-full h-3 bg-bg-accent skeleton"></div>
-                <div className="w-1/3 my-3 h-3 bg-bg-accent skeleton"></div>
+                <div className="w-full h-3 bg-bg-accent skeleton" />
+                <div className="w-1/3 my-3 h-3 bg-bg-accent skeleton" />
             </div>
         </div>
     )

@@ -1,5 +1,5 @@
 import React from 'react'
-import { GatsbyImage } from "gatsby-plugin-image";
+import { GatsbyImage } from 'gatsby-plugin-image'
 import { Title } from './ui'
 
 interface Props {
@@ -22,7 +22,7 @@ export function ShelfItem({
     return (
         <div className="w-full md:w-1/2 relative pb-4 lg:pt-11 shelf-item">
             <div className="connector w-1/2 top-0 left-1/2 h-11 absolute hidden lg:block">
-                <div className="line w-full h-5"></div>
+                <div className="line w-full h-5" />
             </div>
             <a
                 className="bg-bg-secondary block text-fg-primary rounded overflow-hidden border-4 border-transparent focus:border-primary focus:outline-none duration-300 transition-all hover:border-secondary group"
@@ -32,7 +32,10 @@ export function ShelfItem({
                 <article className="flex flex-wrap relative">
                     <div className="w-full relative flex-shrink-0">
                         {featured_image && featured_image.fluid && (
-                            <GatsbyImage image={featured_image.gatsbyImageData} />
+                            <GatsbyImage
+                                image={featured_image.gatsbyImageData}
+                                alt={title}
+                            />
                         )}
                     </div>
                     <div className="lg:absolute top-0 left-0 w-full h-full flex items-center justify-center flex-col bg-bg-accent content opacity-100 group-hover:opacity-100 lg:opacity-0">
@@ -56,7 +59,7 @@ export function ShelfItem({
                 {date}
             </p>
         </div>
-    );
+    )
 }
 
 export function ShelfContainer({ data }: { data: Props[] }) {
@@ -68,7 +71,7 @@ export function ShelfContainer({ data }: { data: Props[] }) {
             <div
                 className="w-1 h-full left-1/2 absolute bg-bg-secondary hidden lg:block"
                 style={{ marginLeft: `-0.125rem` }}
-            ></div>
+            />
             <div className="flex flex-wrap pt-20">{items}</div>
         </div>
     )

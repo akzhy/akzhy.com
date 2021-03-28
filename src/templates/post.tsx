@@ -33,7 +33,8 @@ export default function TemplateSinglePage<T extends PostTypes>({
                     title: query.title,
                     description: query.acf.description as string,
                     image:
-                        query.featuredImage?.node?.localFile?.childImageSharp?.gatsbyImageData?.src,
+                        query.featuredImage?.node?.localFile?.childImageSharp
+                            ?.gatsbyImageData?.src,
                 }}
             >
                 <Captcha />
@@ -67,12 +68,12 @@ export default function TemplateSinglePage<T extends PostTypes>({
                             dangerouslySetInnerHTML={{
                                 __html: query.content,
                             }}
-                        ></div>
+                        />
                     </main>
                     {type !== 'page' && <Comments postId={query.databaseId} />}
                 </Container>
             </Layout>
-        );
+        )
     }
 
     return null

@@ -1,5 +1,6 @@
 import React from 'react'
 import { graphql } from 'gatsby'
+import { GatsbyImage } from 'gatsby-plugin-image'
 import BlogItem from 'components/item-blog'
 import Layout from 'components/layout'
 import { Section } from 'components/ui'
@@ -19,6 +20,11 @@ export default function Index({ data }: { data: GatsbyTypes.IndexMainQuery }) {
         />
     ))
 
+    const wallImage = (data.wall as unknown) as Pick<
+        GatsbyTypes.ImageSharp,
+        'gatsbyImageData'
+    >
+
     return (
         <Layout
             seo={{
@@ -28,6 +34,7 @@ export default function Index({ data }: { data: GatsbyTypes.IndexMainQuery }) {
             }}
         >
             <div className="wall mt-4 rounded-xl w-11/12 m-auto overflow-hidden relative">
+                <GatsbyImage alt="" image={wallImage.gatsbyImageData} />
                 <img
                     src="/images/wall.jpg"
                     className="w-auto md:w-full"
@@ -39,8 +46,8 @@ export default function Index({ data }: { data: GatsbyTypes.IndexMainQuery }) {
                             akzhy
                         </h1>
                         <p className="text-white mt-4 text-center">
-                            Web Developer <span className="sep"></span>{' '}
-                            Javascript Enthusiast
+                            Web Developer <span className="sep" /> Javascript
+                            Enthusiast
                         </p>
                     </div>
                 </div>
@@ -78,6 +85,11 @@ export default function Index({ data }: { data: GatsbyTypes.IndexMainQuery }) {
 
 export const query = graphql`
     query IndexMain {
+        wall: file(name: { eq: "wall" }, sourceInstanceName: { eq: "images" }) {
+            childrenImageSharp {
+                gatsbyImageData(placeholder: BLURRED, layout: FULL_WIDTH)
+            }
+        }
         maincardimage: file(
             name: { eq: "main" }
             sourceInstanceName: { eq: "cardimages" }

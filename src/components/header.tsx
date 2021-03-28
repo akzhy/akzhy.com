@@ -1,9 +1,9 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'gatsby'
 import { useLocation } from '@reach/router'
 import { Menu } from 'react-feather'
 import Sidebar from './sidebar'
-import { useState } from 'react'
+
 import ThemeSwitcher from './themeswitcher'
 
 export default function Header() {
@@ -87,20 +87,18 @@ export default function Header() {
                 fixedHeaderRef.current = true
                 setFixedHeaderShown(true)
             }
-        } else {
-            if (fixedHeaderRef.current && window.pageYOffset > 300) {
-                fixedHeaderRef.current = false
-                setFixedHeaderShown(false)
-            } else if (!fixedHeaderRef.current && window.pageYOffset < 300) {
-                fixedHeaderRef.current = true
-                setFixedHeaderShown(true)
-            }
+        } else if (fixedHeaderRef.current && window.pageYOffset > 300) {
+            fixedHeaderRef.current = false
+            setFixedHeaderShown(false)
+        } else if (!fixedHeaderRef.current && window.pageYOffset < 300) {
+            fixedHeaderRef.current = true
+            setFixedHeaderShown(true)
         }
         prevScroll.current = window.pageYOffset
     }
 
     return (
-        <React.Fragment>
+        <>
             <nav
                 className="py-4 md:py-6 lg:py-8 fixed lg:relative bg-bg-primary w-full top-0 left-0 z-50 transition-transform duration-300"
                 style={{
@@ -123,7 +121,7 @@ export default function Header() {
                         className="absolute left-8 top-0 w-10 h-10 text-fg-primary flex items-center justify-center pt-3"
                         onClick={() => setSidebarOpen(true)}
                         title="Open Sidebar"
-                        aria-haspopup={true}
+                        aria-haspopup
                         aria-expanded={sidebarOpen}
                         aria-controls="sidebar"
                         id="sidebar-menu-button"
@@ -168,7 +166,7 @@ export default function Header() {
                     </li>
                 </ul>
             </Sidebar>
-        </React.Fragment>
+        </>
     )
 }
 
@@ -182,31 +180,29 @@ const NavItem = ({
     title: string
     isImg?: boolean
     active?: boolean
-}) => {
-    return (
-        <li
-            className={`text-fg-primary mx-5 font-black tracking-widest text-base nav-item text-center${
-                active ? ' active' : ''
-            } ${!isImg ? 'pt-2' : 'has-image'}`}
-        >
-            <Link to={href} title={title.toUpperCase()}>
-                {!isImg ? (
-                    <React.Fragment>{title.toUpperCase()}</React.Fragment>
-                ) : (
-                    <div className="logo-container w-32">
-                        <img
-                            src="/images/logo-black.png"
-                            className="logo-dark"
-                            alt="Logo"
-                        />
-                        <img
-                            src="/images/logo-white.png"
-                            className="logo-light"
-                            alt="Logo"
-                        />
-                    </div>
-                )}
-            </Link>
-        </li>
-    )
-}
+}) => (
+    <li
+        className={`text-fg-primary mx-5 font-black tracking-widest text-base nav-item text-center${
+            active ? ' active' : ''
+        } ${!isImg ? 'pt-2' : 'has-image'}`}
+    >
+        <Link to={href} title={title.toUpperCase()}>
+            {!isImg ? (
+                <>{title.toUpperCase()}</>
+            ) : (
+                <div className="logo-container w-32">
+                    <img
+                        src="/images/logo-black.png"
+                        className="logo-dark"
+                        alt="Logo"
+                    />
+                    <img
+                        src="/images/logo-white.png"
+                        className="logo-light"
+                        alt="Logo"
+                    />
+                </div>
+            )}
+        </Link>
+    </li>
+)

@@ -50,18 +50,16 @@ export default function RequestManagement() {
                         rest(
                             'restcomments/v1/subscriptions/request-management',
                             {
-                                email: email,
+                                email,
                             }
                         )
                             .then((res) => {
                                 if (res.result) {
                                     setState('success')
+                                } else if (res.error === 'mail') {
+                                    setState('error')
                                 } else {
-                                    if (res.error === 'mail') {
-                                        setState('error')
-                                    } else {
-                                        setState('error-nosub')
-                                    }
+                                    setState('error-nosub')
                                 }
                             })
                             .catch(() => {

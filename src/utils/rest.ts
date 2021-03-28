@@ -4,7 +4,7 @@ export default async function rest<T extends keyof FetchRequests>(
 ): Promise<FetchRequests[T]['response']> {
     try {
         const controller = new AbortController()
-        const signal = controller.signal
+        const { signal } = controller
         const timeoutId = setTimeout(() => controller.abort(), 10000)
 
         const res = await fetch(`${process.env.GATSBY_REST_API}/${url}`, {
@@ -14,16 +14,15 @@ export default async function rest<T extends keyof FetchRequests>(
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(body),
-            signal: signal,
+            signal,
         })
 
         clearTimeout(timeoutId)
 
         if (res.ok) {
             return res.json()
-        } else {
-            throw new Error('server')
         }
+        throw new Error('server')
     } catch (err) {
         throw new Error(err.name)
     }

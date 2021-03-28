@@ -154,7 +154,7 @@ export default function Management({ unsubKey }: { unsubKey: string }) {
                                 <p>Subscriptions updated successfully</p>
                             </div>
                         )}
-                        <div className="my-4"></div>
+                        <div className="my-4" />
                         <Button
                             title="Unsuscribe selected"
                             state={
@@ -175,12 +175,12 @@ export default function Management({ unsubKey }: { unsubKey: string }) {
                                         if (res.result) {
                                             setSaveState('success')
                                             loadData()
+                                        } else if (
+                                            res.error === 'key_expired'
+                                        ) {
+                                            setSaveState('error-key')
                                         } else {
-                                            if (res.error === 'key_expired') {
-                                                setSaveState('error-key')
-                                            } else {
-                                                setSaveState('error')
-                                            }
+                                            setSaveState('error')
                                         }
                                     })
                                     .catch((err) => {
@@ -217,43 +217,40 @@ const ManagementRow = ({
     setData: (a: (SubscriptionItem & { selected: boolean })[]) => void
     data: (SubscriptionItem & { selected: boolean })[]
     index: number
-}) => {
-    return (
-        <tr className={`p-3 ${index % 2 === 0 && ' bg-bg-secondary rounded'}`}>
-            <td className="p-3 text-left">
-                <CheckBox
-                    label=""
-                    inputProps={{
-                        checked: row.selected,
-                        onChange: (v) => {
-                            setData(
-                                data.map((item, i) => {
-                                    if (i === index) {
-                                        return {
-                                            ...item,
-                                            selected: !item.selected,
-                                        }
-                                    } else {
-                                        return item
+}) => (
+    <tr className={`p-3 ${index % 2 === 0 && ' bg-bg-secondary rounded'}`}>
+        <td className="p-3 text-left">
+            <CheckBox
+                label=""
+                inputProps={{
+                    checked: row.selected,
+                    onChange: (v) => {
+                        setData(
+                            data.map((item, i) => {
+                                if (i === index) {
+                                    return {
+                                        ...item,
+                                        selected: !item.selected,
                                     }
-                                })
-                            )
-                        },
-                    }}
-                />
-            </td>
-            <td className="p-3 text-left">
-                <div
-                    dangerouslySetInnerHTML={{
-                        __html: row.comment,
-                    }}
-                ></div>
-            </td>
-            <td className="p-3 text-left">
-                <Link to={row.post_url} className="link">
-                    {row.post_title}
-                </Link>
-            </td>
-        </tr>
-    )
-}
+                                }
+                                return item
+                            })
+                        )
+                    },
+                }}
+            />
+        </td>
+        <td className="p-3 text-left">
+            <div
+                dangerouslySetInnerHTML={{
+                    __html: row.comment,
+                }}
+            />
+        </td>
+        <td className="p-3 text-left">
+            <Link to={row.post_url} className="link">
+                {row.post_title}
+            </Link>
+        </td>
+    </tr>
+)

@@ -26,7 +26,7 @@ siteStore.on('com:toggle-theme', (state, action) => {
         if (state.currentTheme + 1 >= state.themes.length) {
             state.currentTheme = 0
         } else {
-            state.currentTheme = state.currentTheme + 1
+            state.currentTheme += 1
         }
     } else {
         state.currentTheme = action

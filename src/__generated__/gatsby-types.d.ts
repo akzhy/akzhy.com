@@ -978,10 +978,11 @@ type WpContentNodeToEditLastConnectionEdge = {
 
 /** File details for a Media Item */
 type WpMediaDetails = {
-  /** The height of the mediaItem */
+  /** The filename of the mediaItem */
   readonly file: Maybe<Scalars['String']>;
   /** The height of the mediaItem */
   readonly height: Maybe<Scalars['Int']>;
+  /** Meta information associated with the mediaItem */
   readonly meta: Maybe<WpMediaItemMeta>;
   /** The available sizes of the mediaItem */
   readonly sizes: Maybe<ReadonlyArray<Maybe<WpMediaSize>>>;
@@ -991,35 +992,47 @@ type WpMediaDetails = {
 
 /** Meta connected to a MediaItem */
 type WpMediaItemMeta = {
+  /** Aperture measurement of the media item. */
   readonly aperture: Maybe<Scalars['Float']>;
+  /** Information about the camera used to create the media item. */
   readonly camera: Maybe<Scalars['String']>;
+  /** The text string description associated with the media item. */
   readonly caption: Maybe<Scalars['String']>;
+  /** Copyright information associated with the media item. */
   readonly copyright: Maybe<Scalars['String']>;
+  /** The date/time when the media was created. */
   readonly createdTimestamp: Maybe<Scalars['Int']>;
+  /** The original creator of the media item. */
   readonly credit: Maybe<Scalars['String']>;
+  /** The focal length value of the media item. */
   readonly focalLength: Maybe<Scalars['Float']>;
+  /** The ISO (International Organization for Standardization) value of the media item. */
   readonly iso: Maybe<Scalars['Int']>;
+  /** List of keywords used to describe or identfy the media item. */
   readonly keywords: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
+  /** The vertical or horizontal aspect of the media item. */
   readonly orientation: Maybe<Scalars['String']>;
+  /** The shutter speed information of the media item. */
   readonly shutterSpeed: Maybe<Scalars['Float']>;
+  /** A useful title for the media item. */
   readonly title: Maybe<Scalars['String']>;
 };
 
 /** Details of an available size for a media item */
 type WpMediaSize = {
-  /** The file of the for the referenced size */
+  /** The filename of the referenced size */
   readonly file: Maybe<Scalars['String']>;
   /** The filesize of the resource */
   readonly fileSize: Maybe<Scalars['Int']>;
-  /** The height of the for the referenced size */
+  /** The height of the referenced size */
   readonly height: Maybe<Scalars['String']>;
-  /** The mime type of the resource */
+  /** The mime type of the referenced size */
   readonly mimeType: Maybe<Scalars['String']>;
   /** The referenced size name */
   readonly name: Maybe<Scalars['String']>;
-  /** The url of the for the referenced size */
+  /** The url of the referenced size */
   readonly sourceUrl: Maybe<Scalars['String']>;
-  /** The width of the for the referenced size */
+  /** The width of the referenced size */
   readonly width: Maybe<Scalars['String']>;
 };
 
@@ -1193,6 +1206,7 @@ type WpPage_Acf = {
   readonly description: Maybe<Scalars['String']>;
   readonly excerpt: Maybe<Scalars['String']>;
   readonly fieldGroupName: Maybe<Scalars['String']>;
+  readonly img: Maybe<WpMediaItem>;
   readonly metaDescription: Maybe<Scalars['String']>;
 };
 
@@ -1653,6 +1667,7 @@ type WpMenu = Node & WpNode & WpDatabaseIdentifier & {
   /** The unique identifier stored in the database */
   readonly databaseId: Scalars['Int'];
   readonly id: Scalars['ID'];
+  /** The locations a menu is assigned to */
   readonly locations: Maybe<ReadonlyArray<Maybe<WpMenuLocationEnum>>>;
   /** Connection between the Menu type and the MenuItem type */
   readonly menuItems: Maybe<WpMenuToMenuItemConnection>;
@@ -1693,6 +1708,7 @@ type WpMenuItem = Node & WpNode & WpDatabaseIdentifier & {
   readonly label: Maybe<Scalars['String']>;
   /** Link relationship (XFN) of the menu item. */
   readonly linkRelationship: Maybe<Scalars['String']>;
+  /** The locations the menu item&#039;s Menu is assigned to */
   readonly locations: Maybe<ReadonlyArray<Maybe<WpMenuLocationEnum>>>;
   /** The Menu a MenuItem is part of */
   readonly menu: Maybe<WpMenuItemToMenuConnectionEdge>;
@@ -1829,6 +1845,58 @@ type WpReadingSettings = {
   readonly postsPerPage: Maybe<Scalars['Int']>;
 };
 
+/** Site settings */
+type WpSiteSettingsType = {
+  /** Site settings blog listing */
+  readonly blogListing: Maybe<WpSiteSettingsBlogListing>;
+  /** Site settings Contact Page */
+  readonly contactPage: Maybe<WpSiteSettingsContactPage>;
+  /** Site settings front page */
+  readonly frontpage: Maybe<WpSiteSettingsFrontPage>;
+  /** Site settings shelf listing */
+  readonly shelfListing: Maybe<WpSiteSettingsShelfListing>;
+};
+
+/** Site settings Blog Listing items */
+type WpSiteSettingsBlogListing = {
+  /** SEO Description */
+  readonly seo_description: Maybe<Scalars['String']>;
+  /** SEO Image */
+  readonly seo_image: Maybe<WpSiteSettingsImage>;
+};
+
+/** Site settings image */
+type WpSiteSettingsImage = {
+  /** URL of the image */
+  readonly url: Maybe<Scalars['String']>;
+};
+
+/** Site settings Contact Page items */
+type WpSiteSettingsContactPage = {
+  /** SEO Description */
+  readonly seo_description: Maybe<Scalars['String']>;
+  /** SEO Image */
+  readonly seo_image: Maybe<WpSiteSettingsImage>;
+};
+
+/** Site settings front page items */
+type WpSiteSettingsFrontPage = {
+  /** About */
+  readonly about: Maybe<Scalars['String']>;
+  /** Hero Image */
+  readonly hero_image: Maybe<WpSiteSettingsImage>;
+  /** Seo Description */
+  readonly seo_description: Maybe<Scalars['String']>;
+};
+
+/** Site settings Shelf Listing items */
+type WpSiteSettingsShelfListing = {
+  /** SEO Description */
+  readonly seo_description: Maybe<Scalars['String']>;
+  /** SEO Image */
+  readonly seo_image: Maybe<WpSiteSettingsImage>;
+};
+
 /** Information needed by gatsby-source-wordpress. */
 type WpWPGatsby = {
   /** Returns wether or not pretty permalinks are enabled. */
@@ -1858,6 +1926,8 @@ type Wp = Node & {
   readonly discussionSettings: Maybe<WpDiscussionSettings>;
   readonly generalSettings: Maybe<WpGeneralSettings>;
   readonly readingSettings: Maybe<WpReadingSettings>;
+  /** Site Settings */
+  readonly siteSettings: Maybe<WpSiteSettingsType>;
   /** Information needed by gatsby-source-wordpress. */
   readonly wpGatsby: Maybe<WpWPGatsby>;
   readonly writingSettings: Maybe<WpWritingSettings>;
@@ -2168,6 +2238,9 @@ type SitePluginPluginOptions = {
   readonly failOnError: Maybe<Scalars['Boolean']>;
   readonly output: Maybe<Scalars['String']>;
   readonly createLinkInHead: Maybe<Scalars['Boolean']>;
+  readonly stages: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
+  readonly extensions: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
+  readonly exclude: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
   readonly pathCheck: Maybe<Scalars['Boolean']>;
   readonly allExtensions: Maybe<Scalars['Boolean']>;
   readonly isTSX: Maybe<Scalars['Boolean']>;
@@ -3024,6 +3097,7 @@ type Query_wpArgs = {
   discussionSettings: Maybe<WpDiscussionSettingsFilterInput>;
   generalSettings: Maybe<WpGeneralSettingsFilterInput>;
   readingSettings: Maybe<WpReadingSettingsFilterInput>;
+  siteSettings: Maybe<WpSiteSettingsTypeFilterInput>;
   wpGatsby: Maybe<WpWPGatsbyFilterInput>;
   writingSettings: Maybe<WpWritingSettingsFilterInput>;
   nodeType: Maybe<StringQueryOperatorInput>;
@@ -4008,6 +4082,9 @@ type SitePluginPluginOptionsFilterInput = {
   readonly failOnError: Maybe<BooleanQueryOperatorInput>;
   readonly output: Maybe<StringQueryOperatorInput>;
   readonly createLinkInHead: Maybe<BooleanQueryOperatorInput>;
+  readonly stages: Maybe<StringQueryOperatorInput>;
+  readonly extensions: Maybe<StringQueryOperatorInput>;
+  readonly exclude: Maybe<StringQueryOperatorInput>;
   readonly pathCheck: Maybe<BooleanQueryOperatorInput>;
   readonly allExtensions: Maybe<BooleanQueryOperatorInput>;
   readonly isTSX: Maybe<BooleanQueryOperatorInput>;
@@ -4244,6 +4321,9 @@ type SitePageFieldsEnum =
   | 'pluginCreator.pluginOptions.failOnError'
   | 'pluginCreator.pluginOptions.output'
   | 'pluginCreator.pluginOptions.createLinkInHead'
+  | 'pluginCreator.pluginOptions.stages'
+  | 'pluginCreator.pluginOptions.extensions'
+  | 'pluginCreator.pluginOptions.exclude'
   | 'pluginCreator.pluginOptions.pathCheck'
   | 'pluginCreator.pluginOptions.allExtensions'
   | 'pluginCreator.pluginOptions.isTSX'
@@ -4582,27 +4662,8 @@ type WpPage_AcfFilterInput = {
   readonly description: Maybe<StringQueryOperatorInput>;
   readonly excerpt: Maybe<StringQueryOperatorInput>;
   readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
+  readonly img: Maybe<WpMediaItemFilterInput>;
   readonly metaDescription: Maybe<StringQueryOperatorInput>;
-};
-
-type WpHierarchicalContentNodeToContentNodeAncestorsConnectionFilterInput = {
-  readonly nodes: Maybe<WpContentNodeFilterListInput>;
-};
-
-type WpNodeWithAuthorToUserConnectionEdgeFilterInput = {
-  readonly node: Maybe<WpUserFilterInput>;
-};
-
-type WpHierarchicalContentNodeToContentNodeChildrenConnectionFilterInput = {
-  readonly nodes: Maybe<WpContentNodeFilterListInput>;
-};
-
-type WpPageToCommentConnectionFilterInput = {
-  readonly nodes: Maybe<WpCommentFilterListInput>;
-};
-
-type WpNodeWithFeaturedImageToMediaItemConnectionEdgeFilterInput = {
-  readonly node: Maybe<WpMediaItemFilterInput>;
 };
 
 type WpMediaItemFilterInput = {
@@ -4653,6 +4714,18 @@ type WpMediaItemFilterInput = {
   readonly internal: Maybe<InternalFilterInput>;
 };
 
+type WpHierarchicalContentNodeToContentNodeAncestorsConnectionFilterInput = {
+  readonly nodes: Maybe<WpContentNodeFilterListInput>;
+};
+
+type WpNodeWithAuthorToUserConnectionEdgeFilterInput = {
+  readonly node: Maybe<WpUserFilterInput>;
+};
+
+type WpHierarchicalContentNodeToContentNodeChildrenConnectionFilterInput = {
+  readonly nodes: Maybe<WpContentNodeFilterListInput>;
+};
+
 type WpMediaItemToCommentConnectionFilterInput = {
   readonly nodes: Maybe<WpCommentFilterListInput>;
 };
@@ -4700,6 +4773,14 @@ type WpHierarchicalContentNodeToParentContentNodeConnectionEdgeFilterInput = {
 
 type WpContentTemplateFilterInput = {
   readonly templateName: Maybe<StringQueryOperatorInput>;
+};
+
+type WpPageToCommentConnectionFilterInput = {
+  readonly nodes: Maybe<WpCommentFilterListInput>;
+};
+
+type WpNodeWithFeaturedImageToMediaItemConnectionEdgeFilterInput = {
+  readonly node: Maybe<WpMediaItemFilterInput>;
 };
 
 type WpUserToPostConnectionFilterInput = {
@@ -7050,6 +7131,134 @@ type WpPageFieldsEnum =
   | 'acf.description'
   | 'acf.excerpt'
   | 'acf.fieldGroupName'
+  | 'acf.img.altText'
+  | 'acf.img.ancestors.nodes'
+  | 'acf.img.authorDatabaseId'
+  | 'acf.img.authorId'
+  | 'acf.img.caption'
+  | 'acf.img.wpChildren.nodes'
+  | 'acf.img.commentCount'
+  | 'acf.img.commentStatus'
+  | 'acf.img.comments.nodes'
+  | 'acf.img.databaseId'
+  | 'acf.img.date'
+  | 'acf.img.dateGmt'
+  | 'acf.img.description'
+  | 'acf.img.desiredSlug'
+  | 'acf.img.enclosure'
+  | 'acf.img.fileSize'
+  | 'acf.img.guid'
+  | 'acf.img.id'
+  | 'acf.img.link'
+  | 'acf.img.mediaDetails.file'
+  | 'acf.img.mediaDetails.height'
+  | 'acf.img.mediaDetails.sizes'
+  | 'acf.img.mediaDetails.width'
+  | 'acf.img.mediaItemUrl'
+  | 'acf.img.mediaType'
+  | 'acf.img.mimeType'
+  | 'acf.img.modified'
+  | 'acf.img.modifiedGmt'
+  | 'acf.img.parentDatabaseId'
+  | 'acf.img.parentId'
+  | 'acf.img.sizes'
+  | 'acf.img.slug'
+  | 'acf.img.sourceUrl'
+  | 'acf.img.srcSet'
+  | 'acf.img.status'
+  | 'acf.img.template.templateName'
+  | 'acf.img.title'
+  | 'acf.img.uri'
+  | 'acf.img.nodeType'
+  | 'acf.img.remoteFile.sourceInstanceName'
+  | 'acf.img.remoteFile.absolutePath'
+  | 'acf.img.remoteFile.relativePath'
+  | 'acf.img.remoteFile.extension'
+  | 'acf.img.remoteFile.size'
+  | 'acf.img.remoteFile.prettySize'
+  | 'acf.img.remoteFile.modifiedTime'
+  | 'acf.img.remoteFile.accessTime'
+  | 'acf.img.remoteFile.changeTime'
+  | 'acf.img.remoteFile.birthTime'
+  | 'acf.img.remoteFile.root'
+  | 'acf.img.remoteFile.dir'
+  | 'acf.img.remoteFile.base'
+  | 'acf.img.remoteFile.ext'
+  | 'acf.img.remoteFile.name'
+  | 'acf.img.remoteFile.relativeDirectory'
+  | 'acf.img.remoteFile.dev'
+  | 'acf.img.remoteFile.mode'
+  | 'acf.img.remoteFile.nlink'
+  | 'acf.img.remoteFile.uid'
+  | 'acf.img.remoteFile.gid'
+  | 'acf.img.remoteFile.rdev'
+  | 'acf.img.remoteFile.ino'
+  | 'acf.img.remoteFile.atimeMs'
+  | 'acf.img.remoteFile.mtimeMs'
+  | 'acf.img.remoteFile.ctimeMs'
+  | 'acf.img.remoteFile.atime'
+  | 'acf.img.remoteFile.mtime'
+  | 'acf.img.remoteFile.ctime'
+  | 'acf.img.remoteFile.birthtime'
+  | 'acf.img.remoteFile.birthtimeMs'
+  | 'acf.img.remoteFile.blksize'
+  | 'acf.img.remoteFile.blocks'
+  | 'acf.img.remoteFile.url'
+  | 'acf.img.remoteFile.publicURL'
+  | 'acf.img.remoteFile.childrenImageSharp'
+  | 'acf.img.remoteFile.id'
+  | 'acf.img.remoteFile.children'
+  | 'acf.img.localFile.sourceInstanceName'
+  | 'acf.img.localFile.absolutePath'
+  | 'acf.img.localFile.relativePath'
+  | 'acf.img.localFile.extension'
+  | 'acf.img.localFile.size'
+  | 'acf.img.localFile.prettySize'
+  | 'acf.img.localFile.modifiedTime'
+  | 'acf.img.localFile.accessTime'
+  | 'acf.img.localFile.changeTime'
+  | 'acf.img.localFile.birthTime'
+  | 'acf.img.localFile.root'
+  | 'acf.img.localFile.dir'
+  | 'acf.img.localFile.base'
+  | 'acf.img.localFile.ext'
+  | 'acf.img.localFile.name'
+  | 'acf.img.localFile.relativeDirectory'
+  | 'acf.img.localFile.dev'
+  | 'acf.img.localFile.mode'
+  | 'acf.img.localFile.nlink'
+  | 'acf.img.localFile.uid'
+  | 'acf.img.localFile.gid'
+  | 'acf.img.localFile.rdev'
+  | 'acf.img.localFile.ino'
+  | 'acf.img.localFile.atimeMs'
+  | 'acf.img.localFile.mtimeMs'
+  | 'acf.img.localFile.ctimeMs'
+  | 'acf.img.localFile.atime'
+  | 'acf.img.localFile.mtime'
+  | 'acf.img.localFile.ctime'
+  | 'acf.img.localFile.birthtime'
+  | 'acf.img.localFile.birthtimeMs'
+  | 'acf.img.localFile.blksize'
+  | 'acf.img.localFile.blocks'
+  | 'acf.img.localFile.url'
+  | 'acf.img.localFile.publicURL'
+  | 'acf.img.localFile.childrenImageSharp'
+  | 'acf.img.localFile.id'
+  | 'acf.img.localFile.children'
+  | 'acf.img.parent.id'
+  | 'acf.img.parent.children'
+  | 'acf.img.children'
+  | 'acf.img.children.id'
+  | 'acf.img.children.children'
+  | 'acf.img.internal.content'
+  | 'acf.img.internal.contentDigest'
+  | 'acf.img.internal.description'
+  | 'acf.img.internal.fieldOwners'
+  | 'acf.img.internal.ignoreType'
+  | 'acf.img.internal.mediaType'
+  | 'acf.img.internal.owner'
+  | 'acf.img.internal.type'
   | 'acf.metaDescription'
   | 'ancestors.nodes'
   | 'ancestors.nodes.databaseId'
@@ -10199,6 +10408,38 @@ type WpReadingSettingsFilterInput = {
   readonly postsPerPage: Maybe<IntQueryOperatorInput>;
 };
 
+type WpSiteSettingsTypeFilterInput = {
+  readonly blogListing: Maybe<WpSiteSettingsBlogListingFilterInput>;
+  readonly contactPage: Maybe<WpSiteSettingsContactPageFilterInput>;
+  readonly frontpage: Maybe<WpSiteSettingsFrontPageFilterInput>;
+  readonly shelfListing: Maybe<WpSiteSettingsShelfListingFilterInput>;
+};
+
+type WpSiteSettingsBlogListingFilterInput = {
+  readonly seo_description: Maybe<StringQueryOperatorInput>;
+  readonly seo_image: Maybe<WpSiteSettingsImageFilterInput>;
+};
+
+type WpSiteSettingsImageFilterInput = {
+  readonly url: Maybe<StringQueryOperatorInput>;
+};
+
+type WpSiteSettingsContactPageFilterInput = {
+  readonly seo_description: Maybe<StringQueryOperatorInput>;
+  readonly seo_image: Maybe<WpSiteSettingsImageFilterInput>;
+};
+
+type WpSiteSettingsFrontPageFilterInput = {
+  readonly about: Maybe<StringQueryOperatorInput>;
+  readonly hero_image: Maybe<WpSiteSettingsImageFilterInput>;
+  readonly seo_description: Maybe<StringQueryOperatorInput>;
+};
+
+type WpSiteSettingsShelfListingFilterInput = {
+  readonly seo_description: Maybe<StringQueryOperatorInput>;
+  readonly seo_image: Maybe<WpSiteSettingsImageFilterInput>;
+};
+
 type WpWPGatsbyFilterInput = {
   readonly arePrettyPermalinksEnabled: Maybe<BooleanQueryOperatorInput>;
 };
@@ -10264,6 +10505,15 @@ type WpFieldsEnum =
   | 'generalSettings.title'
   | 'generalSettings.url'
   | 'readingSettings.postsPerPage'
+  | 'siteSettings.blogListing.seo_description'
+  | 'siteSettings.blogListing.seo_image.url'
+  | 'siteSettings.contactPage.seo_description'
+  | 'siteSettings.contactPage.seo_image.url'
+  | 'siteSettings.frontpage.about'
+  | 'siteSettings.frontpage.hero_image.url'
+  | 'siteSettings.frontpage.seo_description'
+  | 'siteSettings.shelfListing.seo_description'
+  | 'siteSettings.shelfListing.seo_image.url'
   | 'wpGatsby.arePrettyPermalinksEnabled'
   | 'writingSettings.defaultCategory'
   | 'writingSettings.defaultPostFormat'
@@ -10370,6 +10620,7 @@ type WpFilterInput = {
   readonly discussionSettings: Maybe<WpDiscussionSettingsFilterInput>;
   readonly generalSettings: Maybe<WpGeneralSettingsFilterInput>;
   readonly readingSettings: Maybe<WpReadingSettingsFilterInput>;
+  readonly siteSettings: Maybe<WpSiteSettingsTypeFilterInput>;
   readonly wpGatsby: Maybe<WpWPGatsbyFilterInput>;
   readonly writingSettings: Maybe<WpWritingSettingsFilterInput>;
   readonly nodeType: Maybe<StringQueryOperatorInput>;
@@ -10817,6 +11068,9 @@ type SitePluginFieldsEnum =
   | 'pluginOptions.failOnError'
   | 'pluginOptions.output'
   | 'pluginOptions.createLinkInHead'
+  | 'pluginOptions.stages'
+  | 'pluginOptions.extensions'
+  | 'pluginOptions.exclude'
   | 'pluginOptions.pathCheck'
   | 'pluginOptions.allExtensions'
   | 'pluginOptions.isTSX'
@@ -10855,8 +11109,6 @@ type SitePluginSortInput = {
   readonly order: Maybe<ReadonlyArray<Maybe<SortOrderEnum>>>;
 };
 
-type GatsbyImageSharpFluidFragment = Pick<ImageSharpFluid, 'base64' | 'aspectRatio' | 'src' | 'srcSet' | 'sizes'>;
-
 type PageSingleQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
@@ -10864,10 +11116,7 @@ type PageSingleQueryVariables = Exact<{
 
 type PageSingleQuery = { readonly query: Maybe<(
     Pick<WpPage, 'databaseId' | 'title' | 'content' | 'date' | 'modified'>
-    & { readonly acf: Pick<WpPage_Acf, 'description' | 'metaDescription'>, readonly featuredImage: Maybe<{ readonly node: Maybe<{ readonly localFile: Maybe<{ readonly childImageSharp: Maybe<{ readonly fluid: Maybe<(
-              Pick<ImageSharpFluid, 'base64'>
-              & GatsbyImageSharpFluidFragment
-            )> }> }> }> }> }
+    & { readonly acf: Pick<WpPage_Acf, 'description' | 'metaDescription'>, readonly featuredImage: Maybe<{ readonly node: Maybe<{ readonly localFile: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }> }> }> }
   )> };
 
 type BlogSingleQueryVariables = Exact<{
@@ -10877,10 +11126,7 @@ type BlogSingleQueryVariables = Exact<{
 
 type BlogSingleQuery = { readonly query: Maybe<(
     Pick<WpPost, 'databaseId' | 'title' | 'content' | 'date' | 'modified'>
-    & { readonly acf: Pick<WpPost_Acf, 'description' | 'metaDescription' | 'metaKeywords'>, readonly featuredImage: { readonly node: Maybe<{ readonly localFile: Maybe<{ readonly childImageSharp: Maybe<{ readonly fluid: Maybe<(
-              Pick<ImageSharpFluid, 'base64'>
-              & GatsbyImageSharpFluidFragment
-            )> }> }> }> } }
+    & { readonly acf: Pick<WpPost_Acf, 'description' | 'metaDescription' | 'metaKeywords'>, readonly featuredImage: { readonly node: Maybe<{ readonly localFile: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }> }> } }
   )> };
 
 type ShelfSingleQueryVariables = Exact<{
@@ -10890,10 +11136,7 @@ type ShelfSingleQueryVariables = Exact<{
 
 type ShelfSingleQuery = { readonly query: Maybe<(
     Pick<WpShelf, 'databaseId' | 'title' | 'content' | 'date' | 'modified'>
-    & { readonly acf: Pick<WpShelf_Acf, 'description' | 'metaDescription' | 'metaKeywords'>, readonly featuredImage: { readonly node: Maybe<{ readonly localFile: Maybe<{ readonly childImageSharp: Maybe<{ readonly fluid: Maybe<(
-              Pick<ImageSharpFluid, 'base64'>
-              & GatsbyImageSharpFluidFragment
-            )> }> }> }> } }
+    & { readonly acf: Pick<WpShelf_Acf, 'description' | 'metaDescription' | 'metaKeywords'>, readonly featuredImage: { readonly node: Maybe<{ readonly localFile: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }> }> } }
   )> };
 
 type ShelfPageQueryVariables = Exact<{
@@ -10904,10 +11147,7 @@ type ShelfPageQueryVariables = Exact<{
 
 type ShelfPageQuery = { readonly cardimage: Maybe<{ readonly childImageSharp: Maybe<{ readonly original: Maybe<Pick<ImageSharpOriginal, 'src'>> }> }>, readonly shelf: { readonly edges: ReadonlyArray<{ readonly node: (
         Pick<WpShelf, 'id' | 'slug' | 'title' | 'date'>
-        & { readonly acf: Pick<WpShelf_Acf, 'description'>, readonly featuredImage: { readonly node: Maybe<{ readonly localFile: Maybe<{ readonly childImageSharp: Maybe<{ readonly fluid: Maybe<(
-                  Pick<ImageSharpFluid, 'src'>
-                  & GatsbyImageSharpFluidFragment
-                )> }> }> }> } }
+        & { readonly acf: Pick<WpShelf_Acf, 'description'>, readonly featuredImage: { readonly node: Maybe<{ readonly localFile: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }> }> } }
       ) }> } };
 
 type BlogPageQueryVariables = Exact<{
@@ -10918,10 +11158,7 @@ type BlogPageQueryVariables = Exact<{
 
 type BlogPageQuery = { readonly cardimage: Maybe<{ readonly childImageSharp: Maybe<{ readonly original: Maybe<Pick<ImageSharpOriginal, 'src'>> }> }>, readonly blog: { readonly edges: ReadonlyArray<{ readonly node: (
         Pick<WpPost, 'id' | 'slug' | 'title' | 'date'>
-        & { readonly acf: Pick<WpPost_Acf, 'description'>, readonly featuredImage: { readonly node: Maybe<{ readonly localFile: Maybe<{ readonly childImageSharp: Maybe<{ readonly fluid: Maybe<(
-                  Pick<ImageSharpFluid, 'src'>
-                  & GatsbyImageSharpFluidFragment
-                )> }> }> }> } }
+        & { readonly acf: Pick<WpPost_Acf, 'description'>, readonly featuredImage: { readonly node: Maybe<{ readonly localFile: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }> }> } }
       ) }> } };
 
 type PagesQueryQueryVariables = Exact<{ [key: string]: never; }>;
@@ -10937,18 +11174,12 @@ type ContactCardImageQuery = { readonly file: Maybe<{ readonly childImageSharp: 
 type IndexMainQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type IndexMainQuery = { readonly maincardimage: Maybe<{ readonly childImageSharp: Maybe<{ readonly original: Maybe<Pick<ImageSharpOriginal, 'src'>> }> }>, readonly blog: { readonly edges: ReadonlyArray<{ readonly node: (
+type IndexMainQuery = { readonly wall: Maybe<{ readonly childrenImageSharp: Maybe<ReadonlyArray<Maybe<Pick<ImageSharp, 'gatsbyImageData'>>>> }>, readonly maincardimage: Maybe<{ readonly childImageSharp: Maybe<{ readonly original: Maybe<Pick<ImageSharpOriginal, 'src'>> }> }>, readonly blog: { readonly edges: ReadonlyArray<{ readonly node: (
         Pick<WpPost, 'id' | 'slug' | 'title' | 'date'>
-        & { readonly acf: Pick<WpPost_Acf, 'description'>, readonly featuredImage: { readonly node: Maybe<{ readonly localFile: Maybe<{ readonly childImageSharp: Maybe<{ readonly fluid: Maybe<(
-                  Pick<ImageSharpFluid, 'src'>
-                  & GatsbyImageSharpFluidFragment
-                )> }> }> }> } }
+        & { readonly acf: Pick<WpPost_Acf, 'description'>, readonly featuredImage: { readonly node: Maybe<{ readonly localFile: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }> }> } }
       ) }> }, readonly shelf: { readonly edges: ReadonlyArray<{ readonly node: (
         Pick<WpShelf, 'id' | 'slug' | 'title' | 'date'>
-        & { readonly acf: Pick<WpShelf_Acf, 'description'>, readonly featuredImage: { readonly node: Maybe<{ readonly localFile: Maybe<{ readonly childImageSharp: Maybe<{ readonly fluid: Maybe<(
-                  Pick<ImageSharpFluid, 'src'>
-                  & GatsbyImageSharpFluidFragment
-                )> }> }> }> } }
+        & { readonly acf: Pick<WpShelf_Acf, 'description'>, readonly featuredImage: { readonly node: Maybe<{ readonly localFile: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }> }> } }
       ) }> } };
 
 type ManageSubscriptionsCardImageQueryVariables = Exact<{ [key: string]: never; }>;
@@ -10972,6 +11203,8 @@ type GatsbyImageSharpFixed_withWebp_tracedSVGFragment = Pick<ImageSharpFixed, 't
 type GatsbyImageSharpFixed_noBase64Fragment = Pick<ImageSharpFixed, 'width' | 'height' | 'src' | 'srcSet'>;
 
 type GatsbyImageSharpFixed_withWebp_noBase64Fragment = Pick<ImageSharpFixed, 'width' | 'height' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp'>;
+
+type GatsbyImageSharpFluidFragment = Pick<ImageSharpFluid, 'base64' | 'aspectRatio' | 'src' | 'srcSet' | 'sizes'>;
 
 type GatsbyImageSharpFluidLimitPresentationSizeFragment = { maxHeight: ImageSharpFluid['presentationHeight'], maxWidth: ImageSharpFluid['presentationWidth'] };
 
