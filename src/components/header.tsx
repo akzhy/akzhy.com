@@ -5,6 +5,7 @@ import { Menu } from 'react-feather'
 import Sidebar from './sidebar'
 
 import ThemeSwitcher from './themeswitcher'
+import { StaticImage } from 'gatsby-plugin-image'
 
 export default function Header() {
     const items = [
@@ -134,15 +135,15 @@ export default function Header() {
                             to="/"
                             title="Home"
                         >
-                            <img
-                                src="/images/logo-black.png"
+                            <StaticImage
+                                src="../images/logo-black.png"
+                                alt="Logo in black color"
                                 className="logo-dark"
-                                alt="Logo"
                             />
-                            <img
-                                src="/images/logo-white.png"
+                            <StaticImage
+                                src="../images/logo-white.png"
+                                alt="Logo in white color"
                                 className="logo-light"
-                                alt="Logo"
                             />
                         </Link>
                     </div>
@@ -191,15 +192,15 @@ const NavItem = ({
                 <>{title.toUpperCase()}</>
             ) : (
                 <div className="logo-container w-32">
-                    <img
-                        src="/images/logo-black.png"
+                    <StaticImage
+                        src="../images/logo-black.png"
+                        alt="Logo in black color"
                         className="logo-dark"
-                        alt="Logo"
                     />
-                    <img
-                        src="/images/logo-white.png"
+                    <StaticImage
+                        src="../images/logo-white.png"
+                        alt="Logo in white color"
                         className="logo-light"
-                        alt="Logo"
                     />
                 </div>
             )}
