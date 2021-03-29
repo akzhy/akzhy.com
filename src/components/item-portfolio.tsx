@@ -31,7 +31,7 @@ export function ShelfItem({
             >
                 <article className="flex flex-wrap relative">
                     <div className="w-full relative flex-shrink-0">
-                        {featured_image && featured_image.fluid && (
+                        {featured_image && (
                             <GatsbyImage
                                 image={featured_image.gatsbyImageData}
                                 alt={title}

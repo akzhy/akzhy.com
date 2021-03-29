@@ -27,7 +27,7 @@ export default function BlogItem({
         >
             <article className="flex">
                 <div className="max-w-full w-96 relative flex-shrink-0 image-container">
-                    {featured_image && featured_image.fluid && (
+                    {featured_image && (
                         <GatsbyImage
                             image={featured_image.gatsbyImageData}
                             alt={title}
