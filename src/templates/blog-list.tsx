@@ -28,8 +28,10 @@ export default function TemplateBlogList({
         <Layout
             seo={{
                 title: 'Blog',
-                description: `My blog where I write about some of the things that I've learned over the years. Mostly related to JavaScript and WordPress.`,
-                image: data.cardimage?.childImageSharp?.original?.src,
+                description: data.blogLising?.siteSettings?.blogListing
+                    ?.seo_description as string,
+                image:
+                    data.blogLising?.siteSettings?.blogListing?.seo_image?.url,
             }}
         >
             <Section title="Blog">
@@ -46,13 +48,13 @@ export default function TemplateBlogList({
 
 export const query = graphql`
     query BlogPage($skip: Int!, $limit: Int!) {
-        cardimage: file(
-            name: { eq: "blog" }
-            sourceInstanceName: { eq: "cardimages" }
-        ) {
-            childImageSharp {
-                original {
-                    src
+        blogLising: wp {
+            siteSettings {
+                blogListing {
+                    seo_description
+                    seo_image {
+                        url
+                    }
                 }
             }
         }

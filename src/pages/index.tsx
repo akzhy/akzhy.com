@@ -20,25 +20,32 @@ export default function Index({ data }: { data: GatsbyTypes.IndexMainQuery }) {
         />
     ))
 
-    const wallImage = (data.wall as unknown) as Pick<
+    const wallImage = (data.wall?.childImageSharp as unknown) as Pick<
         GatsbyTypes.ImageSharp,
         'gatsbyImageData'
     >
+
+    const frontpageSettings = (data.frontpage?.siteSettings
+        ?.frontpage as unknown) as Pick<
+        GatsbyTypes.WpSiteSettingsFrontPage,
+        'about' | 'seo_description'
+    > & {
+        hero_image: Pick<GatsbyTypes.WpSiteSettingsImage, 'url'>
+    }
 
     return (
         <Layout
             seo={{
                 title: 'akzhy',
-                description: `Hi, I am Akshay, I am a web developer from Kerala, India who loves to experiment with JavaScript. This is my personal webpage where I show case some of my works and write about some of the stuff that I've learned`,
-                image: data.maincardimage?.childImageSharp?.original?.src,
+                description: frontpageSettings.seo_description as string,
+                image: frontpageSettings.hero_image.url,
             }}
         >
             <div className="wall mt-4 rounded-xl w-11/12 m-auto overflow-hidden relative">
-                <GatsbyImage alt="" image={wallImage.gatsbyImageData} />
-                <img
-                    src="/images/wall.jpg"
-                    className="w-auto md:w-full"
+                <GatsbyImage
                     alt=""
+                    image={wallImage.gatsbyImageData}
+                    className="w-auto md:w-full"
                 />
                 <div className="absolute w-full h-full top-0 left-0 flex justify-center items-center">
                     <div>
@@ -53,17 +60,12 @@ export default function Index({ data }: { data: GatsbyTypes.IndexMainQuery }) {
                 </div>
             </div>
             <Section title="About">
-                <p className="text-center text-fg-primary text-lg">
-                    Hello, I am Akshay
-                    <br />
-                    I am a web developer who is very passionate about web
-                    development and related fields.
-                    <br />
-                    I’ve been into web designing since i was 15 and thats when i
-                    discovered my passion for it.
-                    <br />I am also into a bit of graphic designing, though i am
-                    no pro at it.
-                </p>
+                <p
+                    className="text-center text-fg-primary text-lg"
+                    dangerouslySetInnerHTML={{
+                        __html: frontpageSettings.about as string,
+                    }}
+                ></p>
             </Section>
             <Section title="Shelf">
                 <ShelfContainer
@@ -85,8 +87,19 @@ export default function Index({ data }: { data: GatsbyTypes.IndexMainQuery }) {
 
 export const query = graphql`
     query IndexMain {
+        frontpage: wp {
+            siteSettings {
+                frontpage {
+                    about
+                    hero_image {
+                        url
+                    }
+                    seo_description
+                }
+            }
+        }
         wall: file(name: { eq: "wall" }, sourceInstanceName: { eq: "images" }) {
-            childrenImageSharp {
+            childImageSharp {
                 gatsbyImageData(placeholder: BLURRED, layout: FULL_WIDTH)
             }
         }

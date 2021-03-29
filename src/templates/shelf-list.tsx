@@ -16,8 +16,11 @@ export default function TemplateShelfList({
         <Layout
             seo={{
                 title: 'Shelf',
-                description: `Shelf is the showcase for all the things that I've created.`,
-                image: data.cardimage?.childImageSharp?.original?.src,
+                description: data.shelfListing?.siteSettings?.shelfListing
+                    ?.seo_description as string,
+                image:
+                    data.shelfListing?.siteSettings?.shelfListing?.seo_image
+                        ?.url,
             }}
         >
             <Section title="Shelf">
@@ -41,13 +44,13 @@ export default function TemplateShelfList({
 
 export const query = graphql`
     query ShelfPage($skip: Int!, $limit: Int!) {
-        cardimage: file(
-            name: { eq: "shelf" }
-            sourceInstanceName: { eq: "cardimages" }
-        ) {
-            childImageSharp {
-                original {
-                    src
+        shelfListing: wp {
+            siteSettings {
+                shelfListing {
+                    seo_description
+                    seo_image {
+                        url
+                    }
                 }
             }
         }
