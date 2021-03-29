@@ -22,7 +22,7 @@ export default function ManageSubscriptionsPage({
     const location = useLocation()
 
     const [data, setData] = useState<State>({
-        type: 'unsub',
+        type: 'request',
         email: '',
         key: '',
         subs: [],
