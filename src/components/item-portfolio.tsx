@@ -72,7 +72,7 @@ export function ShelfContainer({ data }: { data: Props[] }) {
                 className="w-1 h-full left-1/2 absolute bg-bg-secondary hidden lg:block"
                 style={{ marginLeft: `-0.125rem` }}
             />
-            <div className="flex flex-wrap pt-20">{items}</div>
+            <div className="flex flex-wrap pt-8 md:pt-16 lg:pt-20">{items}</div>
         </div>
     )
 }
