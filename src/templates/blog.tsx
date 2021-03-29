@@ -27,10 +27,10 @@ export const query = graphql`
                 node {
                     localFile {
                         childImageSharp {
-                            fluid {
-                                base64
-                                ...GatsbyImageSharpFluid
-                            }
+                            gatsbyImageData(
+                                placeholder: BLURRED
+                                layout: FULL_WIDTH
+                            )
                         }
                     }
                 }

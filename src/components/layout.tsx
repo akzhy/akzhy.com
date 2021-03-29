@@ -16,7 +16,7 @@ interface Props {
 }
 
 export default function Layout({ children, seo }: Props) {
-    const themes = siteStore.state.themes
+    const { themes } = siteStore.state
     const [theme, setTheme] = useState(siteStore.state.currentTheme)
 
     useEffect(() => {

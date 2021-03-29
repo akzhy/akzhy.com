@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react'
 import Layout from 'components/layout'
 import { Section } from 'components/ui'
 import { useLocation } from '@reach/router'
+import { graphql } from 'gatsby'
 import RequestManagement from './components/_request'
 import Unsubscribe from './components/_unsubscribe'
 import Management from './components/_management'
-import { graphql } from 'gatsby'
 
 interface State {
     type: 'unsub' | 'manage' | 'request'
@@ -22,7 +22,7 @@ export default function ManageSubscriptionsPage({
     const location = useLocation()
 
     const [data, setData] = useState<State>({
-        type: 'unsub',
+        type: 'request',
         email: '',
         key: '',
         subs: [],
@@ -32,7 +32,7 @@ export default function ManageSubscriptionsPage({
 
     useEffect(() => {
         const url = new URL(location.href)
-        const searchParams = url.searchParams
+        const { searchParams } = url
         const unsub = searchParams.get('unsub')
         const key = searchParams.get('key')
         if (unsub) {
@@ -42,7 +42,7 @@ export default function ManageSubscriptionsPage({
             })
         } else if (key) {
             updateData({
-                key: key,
+                key,
                 type: 'manage',
             })
         } else {

@@ -50,7 +50,7 @@ export default function CommentForm({
         name: '',
         email: '',
         comment: '',
-        parent: parent,
+        parent,
         captchaToken: false,
         subscribe: true,
         save: true,
@@ -120,7 +120,7 @@ export default function CommentForm({
         } else {
             listener = siteStore.listen('com:recaptcha-ready', () => {
                 if (window.grecaptcha) {
-                    window.grecaptcha.ready(function () {
+                    window.grecaptcha.ready(() => {
                         generateCaptcha()
                     })
                 }
@@ -184,7 +184,7 @@ export default function CommentForm({
     }
 
     const onSubmit = () => {
-        let errors: Partial<CommentMetaError> = {}
+        const errors: Partial<CommentMetaError> = {}
         errors.other = {
             error: false,
             message: '',
@@ -248,7 +248,7 @@ export default function CommentForm({
         })
             .then((res) => {
                 if (res.result) {
-                    let textArea = document.querySelector('.form textarea')
+                    const textArea = document.querySelector('.form textarea')
                     if (textArea) {
                         ;(textArea as any).value = ''
                     }
@@ -457,7 +457,7 @@ export default function CommentForm({
                     <ErrorLabel error={meta.errors.captcha}>
                         {meta.errors.captcha.loaded && (
                             <button
-                                className={`text-fg-light ml-4 mt-3`}
+                                className="text-fg-light ml-4 mt-3"
                                 disabled={meta.errors.captcha.loading}
                                 onClick={() => {
                                     generateCaptcha()
@@ -504,14 +504,14 @@ export default function CommentForm({
                 >
                     <div className="flex items-center justify-center">
                         {meta.loading ? (
-                            <React.Fragment>
+                            <>
                                 Commenting...{' '}
                                 <Loader className="animate-spin ml-3" />
-                            </React.Fragment>
+                            </>
                         ) : (
-                            <React.Fragment>
+                            <>
                                 Comment <Send className="ml-3" />
-                            </React.Fragment>
+                            </>
                         )}
                     </div>
                 </Button>

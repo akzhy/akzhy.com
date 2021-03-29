@@ -13,7 +13,7 @@ module.exports = {
     },
     plugins: [
         {
-            resolve: `gatsby-source-wordpress-experimental`,
+            resolve: `gatsby-source-wordpress`,
             options: {
                 url: process.env.GATSBY_GRAPHQL,
             },
@@ -55,9 +55,9 @@ module.exports = {
             },
         },
         `gatsby-plugin-postcss`,
+        `gatsby-plugin-image`,
         `gatsby-transformer-sharp`,
         `gatsby-plugin-sharp`,
-        `gatsby-plugin-sass`,
         `gatsby-plugin-sitemap`,
         // `gatsby-plugin-offline`,
     ],

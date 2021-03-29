@@ -29,24 +29,24 @@ export default function Unsubscribe({ unsubKey }: { unsubKey: string }) {
     }
 
     let returnValue = (
-        <React.Fragment>
+        <>
             <Loader className="animate-spin" size={44} />
             <p className="mt-4 text-lg">Unsubscribing, please wait...</p>
-        </React.Fragment>
+        </>
     )
 
     if (state === 'success') {
         returnValue = (
-            <React.Fragment>
+            <>
                 <Check size={44} className="text-fg-success" />
                 <p className="mt-4 text-lg">
                     You have been successfully unsubscribed.
                 </p>
-            </React.Fragment>
+            </>
         )
     } else if (state === 'error') {
         returnValue = (
-            <React.Fragment>
+            <>
                 <X size={44} className="text-fg-error" />
                 <p className="mt-4 text-lg">
                     An error occured, please try again.
@@ -57,7 +57,7 @@ export default function Unsubscribe({ unsubKey }: { unsubKey: string }) {
                 >
                     Retry
                 </button>
-            </React.Fragment>
+            </>
         )
     }
 

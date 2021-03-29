@@ -105,11 +105,11 @@ body {
 }
 
 .theme-light .logo-light {
-    display: none;
+    display: none !important;
 }
 
 .theme-dark .logo-dark {
-    display: none;
+    display: none !important;
 }
 
 .title::after,

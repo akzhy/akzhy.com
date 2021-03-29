@@ -23,7 +23,7 @@ export default function Captcha() {
                 data-script-name="recaptcha"
                 async
                 defer
-            ></script>
+            />
         </Helmet>
     )
 }

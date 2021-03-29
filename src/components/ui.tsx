@@ -23,7 +23,7 @@ export function Title({
     return (
         <h2
             className={`title relative inline-block font-black ${
-                className ? className : 'text-4xl md:text-6xl text-fg-primary'
+                className || 'text-4xl md:text-6xl text-fg-primary'
             }`}
         >
             <span>{children}</span>
@@ -77,7 +77,7 @@ export function TextInput({
                     className="bg-bg-primary w-full p-4 py-3 border-primary rounded outline-none border-2 text-fg-primary focus:outline-none relative z-10"
                     {...inputProps}
                 />
-                <span className="w-full h-full absolute top-0 left-0 bg-bg-secondary rounded z-0 opacity-0 border-secondary border-opacity-40 border-2"></span>
+                <span className="w-full h-full absolute top-0 left-0 bg-bg-secondary rounded z-0 opacity-0 border-secondary border-opacity-40 border-2" />
                 {footer && <div className="relative z-10">{footer}</div>}
             </label>
         </div>
@@ -105,8 +105,7 @@ export function TextArea({
                 textArea.current.getBoundingClientRect().height <
                 textArea.current.scrollHeight
             ) {
-                textArea.current.style.height =
-                    textArea.current.scrollHeight + 'px'
+                textArea.current.style.height = `${textArea.current.scrollHeight}px`
             }
         }
     }
@@ -132,8 +131,8 @@ export function TextArea({
                     name={name}
                     className="bg-bg-primary w-full p-4 py-3 border-primary rounded outline-none border-2 text-fg-primary focus:outline-none relative z-10 resize-none max-h-56"
                     {...inputProps}
-                ></textarea>
-                <span className="w-full h-full absolute top-0 left-0 bg-bg-secondary rounded z-0 opacity-0 border-secondary border-opacity-40 border-2"></span>
+                />
+                <span className="w-full h-full absolute top-0 left-0 bg-bg-secondary rounded z-0 opacity-0 border-secondary border-opacity-40 border-2" />
                 {footer && <div className="relative z-10">{footer}</div>}
             </label>
         </div>
@@ -219,7 +218,6 @@ export function ErrorLabel({
                 {children}
             </div>
         )
-    } else {
-        return null
     }
+    return null
 }
