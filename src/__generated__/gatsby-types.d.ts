@@ -2238,9 +2238,6 @@ type SitePluginPluginOptions = {
   readonly failOnError: Maybe<Scalars['Boolean']>;
   readonly output: Maybe<Scalars['String']>;
   readonly createLinkInHead: Maybe<Scalars['Boolean']>;
-  readonly stages: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
-  readonly extensions: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
-  readonly exclude: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
   readonly pathCheck: Maybe<Scalars['Boolean']>;
   readonly allExtensions: Maybe<Scalars['Boolean']>;
   readonly isTSX: Maybe<Scalars['Boolean']>;
@@ -4082,9 +4079,6 @@ type SitePluginPluginOptionsFilterInput = {
   readonly failOnError: Maybe<BooleanQueryOperatorInput>;
   readonly output: Maybe<StringQueryOperatorInput>;
   readonly createLinkInHead: Maybe<BooleanQueryOperatorInput>;
-  readonly stages: Maybe<StringQueryOperatorInput>;
-  readonly extensions: Maybe<StringQueryOperatorInput>;
-  readonly exclude: Maybe<StringQueryOperatorInput>;
   readonly pathCheck: Maybe<BooleanQueryOperatorInput>;
   readonly allExtensions: Maybe<BooleanQueryOperatorInput>;
   readonly isTSX: Maybe<BooleanQueryOperatorInput>;
@@ -4321,9 +4315,6 @@ type SitePageFieldsEnum =
   | 'pluginCreator.pluginOptions.failOnError'
   | 'pluginCreator.pluginOptions.output'
   | 'pluginCreator.pluginOptions.createLinkInHead'
-  | 'pluginCreator.pluginOptions.stages'
-  | 'pluginCreator.pluginOptions.extensions'
-  | 'pluginCreator.pluginOptions.exclude'
   | 'pluginCreator.pluginOptions.pathCheck'
   | 'pluginCreator.pluginOptions.allExtensions'
   | 'pluginCreator.pluginOptions.isTSX'
@@ -11068,9 +11059,6 @@ type SitePluginFieldsEnum =
   | 'pluginOptions.failOnError'
   | 'pluginOptions.output'
   | 'pluginOptions.createLinkInHead'
-  | 'pluginOptions.stages'
-  | 'pluginOptions.extensions'
-  | 'pluginOptions.exclude'
   | 'pluginOptions.pathCheck'
   | 'pluginOptions.allExtensions'
   | 'pluginOptions.isTSX'
@@ -11145,7 +11133,10 @@ type ShelfPageQueryVariables = Exact<{
 }>;
 
 
-type ShelfPageQuery = { readonly cardimage: Maybe<{ readonly childImageSharp: Maybe<{ readonly original: Maybe<Pick<ImageSharpOriginal, 'src'>> }> }>, readonly shelf: { readonly edges: ReadonlyArray<{ readonly node: (
+type ShelfPageQuery = { readonly shelfListing: Maybe<{ readonly siteSettings: Maybe<{ readonly shelfListing: Maybe<(
+        Pick<WpSiteSettingsShelfListing, 'seo_description'>
+        & { readonly seo_image: Maybe<Pick<WpSiteSettingsImage, 'url'>> }
+      )> }> }>, readonly shelf: { readonly edges: ReadonlyArray<{ readonly node: (
         Pick<WpShelf, 'id' | 'slug' | 'title' | 'date'>
         & { readonly acf: Pick<WpShelf_Acf, 'description'>, readonly featuredImage: { readonly node: Maybe<{ readonly localFile: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }> }> } }
       ) }> } };
@@ -11156,7 +11147,10 @@ type BlogPageQueryVariables = Exact<{
 }>;
 
 
-type BlogPageQuery = { readonly cardimage: Maybe<{ readonly childImageSharp: Maybe<{ readonly original: Maybe<Pick<ImageSharpOriginal, 'src'>> }> }>, readonly blog: { readonly edges: ReadonlyArray<{ readonly node: (
+type BlogPageQuery = { readonly blogLising: Maybe<{ readonly siteSettings: Maybe<{ readonly blogListing: Maybe<(
+        Pick<WpSiteSettingsBlogListing, 'seo_description'>
+        & { readonly seo_image: Maybe<Pick<WpSiteSettingsImage, 'url'>> }
+      )> }> }>, readonly blog: { readonly edges: ReadonlyArray<{ readonly node: (
         Pick<WpPost, 'id' | 'slug' | 'title' | 'date'>
         & { readonly acf: Pick<WpPost_Acf, 'description'>, readonly featuredImage: { readonly node: Maybe<{ readonly localFile: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }> }> } }
       ) }> } };
@@ -11166,15 +11160,21 @@ type PagesQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 type PagesQueryQuery = { readonly allSitePage: { readonly nodes: ReadonlyArray<Pick<SitePage, 'path'>> } };
 
-type ContactCardImageQueryVariables = Exact<{ [key: string]: never; }>;
+type ContactPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type ContactCardImageQuery = { readonly file: Maybe<{ readonly childImageSharp: Maybe<{ readonly original: Maybe<Pick<ImageSharpOriginal, 'src'>> }> }> };
+type ContactPageQuery = { readonly contact_page: Maybe<{ readonly siteSettings: Maybe<{ readonly contactPage: Maybe<(
+        Pick<WpSiteSettingsContactPage, 'seo_description'>
+        & { readonly seo_image: Maybe<Pick<WpSiteSettingsImage, 'url'>> }
+      )> }> }> };
 
 type IndexMainQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type IndexMainQuery = { readonly wall: Maybe<{ readonly childrenImageSharp: Maybe<ReadonlyArray<Maybe<Pick<ImageSharp, 'gatsbyImageData'>>>> }>, readonly maincardimage: Maybe<{ readonly childImageSharp: Maybe<{ readonly original: Maybe<Pick<ImageSharpOriginal, 'src'>> }> }>, readonly blog: { readonly edges: ReadonlyArray<{ readonly node: (
+type IndexMainQuery = { readonly frontpage: Maybe<{ readonly siteSettings: Maybe<{ readonly frontpage: Maybe<(
+        Pick<WpSiteSettingsFrontPage, 'about' | 'seo_description'>
+        & { readonly hero_image: Maybe<Pick<WpSiteSettingsImage, 'url'>> }
+      )> }> }>, readonly wall: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }>, readonly maincardimage: Maybe<{ readonly childImageSharp: Maybe<{ readonly original: Maybe<Pick<ImageSharpOriginal, 'src'>> }> }>, readonly blog: { readonly edges: ReadonlyArray<{ readonly node: (
         Pick<WpPost, 'id' | 'slug' | 'title' | 'date'>
         & { readonly acf: Pick<WpPost_Acf, 'description'>, readonly featuredImage: { readonly node: Maybe<{ readonly localFile: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }> }> } }
       ) }> }, readonly shelf: { readonly edges: ReadonlyArray<{ readonly node: (
