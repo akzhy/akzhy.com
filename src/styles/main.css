@@ -51,7 +51,8 @@ body {
 
 .nav-item a:hover img.logo-dark,
 .nav-item a:focus img.logo-dark {
-    filter: invert(100%) brightness(0.7) sepia(0.5) saturate(111) hue-rotate(170deg)
+    filter: invert(100%) brightness(0.7) sepia(0.5) saturate(111)
+        hue-rotate(170deg);
 }
 
 .nav-item a:hover::after,
@@ -92,15 +93,13 @@ body {
     @apply bg-secondary;
 }
 
-.wall img {
-    max-width: initial;
-    height: 35rem;
-    margin-left: -60%;
-    min-width: 100%;
+@media only screen and (max-width: 600px) {
+    .wall .gatsby-image-wrapper img {
+        object-position: 67%;
+    }
 
-    @screen sm {
-        height: auto;
-        margin-left: 0;
+    .wall .gatsby-image-wrapper div[aria-hidden] {
+        padding-top: 140% !important;
     }
 }
 
@@ -379,7 +378,6 @@ body {
 }
 
 @media only screen and (max-width: 600px) {
-
     .single-page p,
     .single-page h1,
     .single-page h2,
