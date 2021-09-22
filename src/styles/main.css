@@ -472,6 +472,13 @@ body {
     margin: 0 3px;
 }
 
+.comment pre code {
+    padding: initial;
+    background: initial;
+    margin: initial;
+    border-radius: initial;
+}
+
 .checkbox div svg {
     display: none;
 }
