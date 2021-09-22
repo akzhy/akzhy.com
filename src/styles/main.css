@@ -465,6 +465,13 @@ body {
     max-width: 100%;
 }
 
+.comment code {
+    padding: 0 6px;
+    background: #a5a5a540;
+    border-radius: 4px;
+    margin: 0 3px;
+}
+
 .checkbox div svg {
     display: none;
 }
