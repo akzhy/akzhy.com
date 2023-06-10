@@ -10,7 +10,7 @@
     "babel-preset-gatsby": "^1.1.0",
     "date-fns": "^2.19.0",
     "dotenv": "^8.2.0",
-    "gatsby": "^3.1.1",
+    "gatsby": "^4.25.7",
     "gatsby-image": "^3.1.0",
     "gatsby-plugin-graphql-codegen": "^2.7.1",
     "gatsby-plugin-image": "^1.1.1",
