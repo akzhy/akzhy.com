@@ -1,0 +1,41 @@
+---
+import { getImage } from "astro:assets";
+import { getBlurredBase64 } from "./LazyImage/service";
+
+interface Props extends astroHTML.JSX.ImgHTMLAttributes {
+  src: string;
+};
+
+const { src, ...props } = Astro.props;
+
+const optimized = await getImage({
+  src,
+  inferSize: true,
+  widths: [400, 900],
+});
+
+const blurred = await getBlurredBase64(src);
+
+const srcSet = `${optimized.srcSet.attribute}, ${optimized.src} 1200w`;
+---
+
+<img
+  src={blurred}
+  sizes="100vw"
+  data-src={optimized.src}
+  data-srcset={srcSet}
+  decoding="async"
+  loading="lazy"
+  data-lazy-image
+  {...props}
+/>
+
+
+<script>
+  const lazyImages = document.querySelectorAll("[data-lazy-image]");
+  lazyImages.forEach((_img) => {
+    const img = _img as HTMLImageElement;
+    img.setAttribute('src', img.dataset.src!);
+    img.setAttribute('srcset', img.dataset.srcset!);
+  })
+</script>

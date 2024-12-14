@@ -1,0 +1,40 @@
+<div class="wrapper">
+  <div class="line"></div>
+  <div class="container">
+    <slot />
+  </div>
+</div>
+
+<style lang="scss">
+  .wrapper {
+    position: relative;
+  }
+
+  .line {
+    width: 0.25rem;
+    margin-left: -0.125rem;
+    position: absolute;
+    height: 100%;
+    display: none;
+    left: 50%;
+    background-color: cssvar(bg__secondary);
+
+    @include media(min-lg) {
+      display: block;
+    }
+  }
+
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 2rem;
+
+    @include media(min-md) {
+      padding-top: 4rem;
+    }
+
+    @include media(min-lg) {
+      padding-top: 5rem;
+    }
+  }
+</style>

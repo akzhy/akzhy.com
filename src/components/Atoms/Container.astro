@@ -1,0 +1,12 @@
+<div class="container">
+  <slot />
+</div>
+<style lang="scss">
+  @use "sass:math";
+
+  .container {
+    width: math.div(11%, 12) * 100;
+    max-width: 1024px;
+    margin: 0 auto;
+  }
+</style>

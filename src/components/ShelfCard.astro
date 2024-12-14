@@ -1,0 +1,268 @@
+---
+import Title from "./Atoms/Title.astro";
+import Img from "./Img.astro";
+import { format } from "date-fns";
+
+interface Props {
+  id: string;
+  title: string;
+  slug: string;
+  date: string;
+  description: string;
+  featured_image: string;
+}
+
+const { title, slug, featured_image, date: dateStr, description } = Astro.props;
+
+const dateObj = new Date(dateStr);
+const date = format(dateObj, "dd MMM yyyy");
+---
+
+<div class="shelf-item">
+  <div class="connector">
+    <div class="line"></div>
+  </div>
+  <a class="link" title={title} href={`/shelf/${slug}`}>
+    <article class="article">
+      <div class="featured-image-container">
+        {featured_image && <Img src={featured_image} class="img" />}
+      </div>
+      <div class="data">
+        <Title class="shelf-item__title">
+          {title}
+        </Title>
+        <p class="description">{description}</p>
+        <p class="date" aria-label={`Published on ${date}`}>
+          {date}
+        </p>
+      </div>
+    </article>
+  </a>
+  <p
+    class="connector-date text-fg-light items-center absolute right-0 top-0 text-sm -mt-12 hidden lg:block"
+    aria-hidden="true"
+  >
+    {date}
+  </p>
+</div>
+
+<style lang="scss">
+  .shelf-item {
+    width: 100%;
+    position: relative;
+    padding-bottom: 1rem;
+
+    @include media(min-md) {
+      width: 50%;
+    }
+
+    @include media(min-lg) {
+      padding-top: 2.75rem;
+    }
+
+    &:nth-child(odd) {
+      padding-right: 0;
+
+      @include media(min-lg) {
+        padding-right: 3.5rem;
+      }
+    }
+
+    &:nth-child(even) {
+      padding-left: 0;
+      margin-top: 0;
+
+      @include media(min-lg) {
+        padding-left: 3.5rem;
+        margin-top: 7rem;
+      }
+
+      .connector {
+        left: 0;
+
+        &:after {
+          right: auto;
+          left: -0.75rem;
+        }
+
+        &::before {
+          right: 0;
+        }
+      }
+
+      .connector-date {
+        transform: translate(-50%);
+        right: auto;
+        left: 0;
+      }
+    }
+  }
+
+  .connector {
+    width: 50%;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    height: 2.75rem;
+    display: none;
+
+    &::before,
+    &::after {
+      content: "";
+      border-radius: 9999px;
+      height: 1.5rem;
+      position: absolute;
+      bottom: 0;
+      width: 1.5rem;
+      background-color: cssvar(shelf_dots);
+    }
+
+    &::after {
+      right: -0.75rem;
+      top: -1.5rem;
+    }
+
+    @include media(min-lg) {
+      display: block;
+    }
+
+    .line {
+      background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Ccircle cx='10' cy='5' fill='%23efebe9' r='5'/%3E%3C/svg%3E");
+      background-repeat: space;
+      width: 100%;
+      height: 1.25rem;
+    }
+  }
+
+  .link {
+    background: cssvar(bg__secondary);
+    display: block;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    color: cssvar(fg__primary);
+    overflow: hidden;
+    border-radius: 0.25rem;
+    border: 4px solid transparent;
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+      border-color: cssvar(secondary);
+
+      .data {
+        opacity: 1;
+      }
+
+      .title {
+        transform: translateY(0);
+        opacity: 1;
+
+        &::after {
+          width: 100%;
+        }
+        &::before {
+          width: 50%;
+        }
+      }
+
+      .description {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  }
+
+  .article {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+  }
+
+  .featured-image-container {
+    width: 100%;
+    position: relative;
+    flex-shrink: 0;
+
+    .img {
+      width: 100%;
+    }
+  }
+
+  .data {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: cssvar(bg__accent);
+
+    @include media(min-lg) {
+      position: absolute;
+      opacity: 0;
+    }
+  }
+
+  .title {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+    color: cssvar(fg__primary);
+    transition:
+      transform 0.15s ease,
+      opacity 0.15s ease;
+
+    @include media(min-lg) {
+      transform: translateY(-3rem);
+      opacity: 0.3;
+    }
+
+    &::after,
+    &::before {
+      height: 0.4rem;
+      transition: width 0.25s;
+      width: 0;
+      margin-bottom: -0.2rem;
+    }
+
+    &::after {
+      margin-bottom: 0.1rem;
+    }
+  }
+
+  .description {
+    margin-top: 1rem;
+    transition:
+      transform 0.15s ease,
+      opacity 0.15s ease;
+
+    @include media(min-lg) {
+      opacity: 0.3;
+      transform: translateY(3rem);
+    }
+  }
+
+  .date {
+    color: cssvar(fg__light);
+
+    @include media(min-lg) {
+      display: none;
+    }
+  }
+
+  .connector-date {
+    color: cssvar(fg__light);
+    position: absolute;
+    right: 0;
+    top: 0;
+    transform: translate(50%);
+    display: none;
+    margin-top: -3rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+
+    @include media(min-lg) {
+      display: block;
+    }
+  }
+</style>

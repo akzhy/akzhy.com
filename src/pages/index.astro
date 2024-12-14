@@ -1,0 +1,105 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Wall from "@src/components/Wall.astro";
+import Section from "@src/components/Atoms/Section.astro";
+import { apolloClient } from "@src/utils/apollo-client";
+import { HOME_PAGE_QUERY } from "@src/graphql/homepage";
+import ShelfCard from "@src/components/ShelfCard.astro";
+import Shelf from "@src/layouts/Shelf.astro";
+
+const { data } = await apolloClient.query({
+  query: HOME_PAGE_QUERY,
+});
+---
+
+<Layout title="Welcome to Astro.">
+  <Wall />
+  <Section title="About">
+    <p class="about-text">
+      <Fragment set:html={data.siteSettings?.frontpage?.about} />
+    </p>
+  </Section>
+  <Section title="Shelf">
+    <Shelf>
+      {
+        data.shelfItems?.edges?.map(({ node }) => (
+          <ShelfCard
+            date={node.date!}
+            description={node.acf?.description!}
+            featured_image={node.featuredImage?.node.sourceUrl!}
+            id={node.id}
+            slug={node.slug!}
+            title={node.title!}
+          />
+        ))
+      }
+    </Shelf>
+  </Section>
+</Layout>
+
+<style>
+  .about-text {
+    text-align: center;
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
+  main {
+    margin: auto;
+    padding: 1rem;
+    width: 800px;
+    max-width: calc(100% - 2rem);
+    color: white;
+    font-size: 20px;
+    line-height: 1.6;
+  }
+  .astro-a {
+    position: absolute;
+    top: -32px;
+    left: 50%;
+    transform: translatex(-50%);
+    width: 220px;
+    height: auto;
+    z-index: -1;
+  }
+  h1 {
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    margin-bottom: 1em;
+  }
+  .text-gradient {
+    background-image: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 400%;
+    background-position: 0%;
+  }
+  .instructions {
+    margin-bottom: 2rem;
+    border: 1px solid rgba(var(--accent-light), 25%);
+    background: linear-gradient(
+      rgba(var(--accent-dark), 66%),
+      rgba(var(--accent-dark), 33%)
+    );
+    padding: 1.5rem;
+    border-radius: 8px;
+  }
+  .instructions code {
+    font-size: 0.8em;
+    font-weight: bold;
+    background: rgba(var(--accent-light), 12%);
+    color: rgb(var(--accent-light));
+    border-radius: 4px;
+    padding: 0.3em 0.4em;
+  }
+  .instructions strong {
+    color: rgb(var(--accent-light));
+  }
+  .link-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
+    gap: 2rem;
+    padding: 0;
+  }
+</style>

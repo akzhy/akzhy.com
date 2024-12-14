@@ -1,2 +1,0 @@
-schema: "src/__generated__/gatsby-introspection.json"
-documents: "src/**/*.{graphql,js,ts,jsx,tsx}"

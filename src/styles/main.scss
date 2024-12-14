@@ -1,0 +1,63 @@
+$css_variables: (
+  primary: #9c27b0,
+  secondary: #f44336,
+  bg__primary: #171414,
+  bg__secondary: #1b1b1b,
+  bg__accent: #2f283d,
+  fg__primary: #fff,
+  fg__light: #eee,
+  fg__error: #ff8080,
+  fg__success: #8bf189,
+  fg__link: #5bb3ff,
+  shelf_dots: #efebe9,
+  font: #{"Poppins",
+  sans-serif},
+);
+
+$breakpointSizes: (
+  sm: 640px,
+  md: 768px,
+  lg: 1024px,
+  2xl: 1563px,
+);
+
+$breakpoints: (
+  min-sm: (
+    min-width: map-get($breakpointSizes, "sm"),
+  ),
+  min-md: (
+    min-width: 768px,
+  ),
+  min-lg: (
+    min-width: 1024px,
+  ),
+  min-xl: (
+    min-width: 1280px,
+  ),
+  min-2xl: (
+    min-width: 1563px,
+  ),
+);
+
+@mixin cssvars() {
+  :root {
+    @each $name, $value in $css_variables {
+      --#{$name}: #{$value};
+    }
+  }
+}
+
+@function cssvar($name) {
+  @return var(--#{$name}, map-get($css_variables, $name));
+}
+
+@mixin media($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media #{inspect(map-get($breakpoints, $breakpoint))} {
+      @content;
+    }
+  } @else {
+    @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
+        + "Please make sure it is defined in `$breakpoints` map.";
+  }
+}

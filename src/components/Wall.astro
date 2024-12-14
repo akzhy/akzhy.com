@@ -1,0 +1,101 @@
+---
+import { Image } from "astro:assets";
+
+import wallImage from "@src/images/wall.jpg";
+---
+<div class="wall mt-4 rounded-xl w-11/12 m-auto overflow-hidden relative">
+  <Image
+    alt=""
+    src={wallImage}
+    class="bg-image"
+  />
+  <div class="text-container">
+    <div>
+      <h1 class="heading">
+        akzhy
+      </h1>
+      <p class="sub-heading">
+        Web Developer <span class="sep" /> Javascript Enthusiast
+      </p>
+    </div>
+  </div>
+</div>
+<style lang="scss">
+ @use "sass:math";
+
+.wall {
+  margin: auto;
+  margin-top: 1rem;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  position: relative;
+  background-color: #1f2125;
+  width: math.percentage(math.div(11, 12));
+}
+
+.bg-image {
+  width: auto;
+  display: block;
+
+  @include media (min-md) {
+    width: 100%;
+  }
+}
+
+.text-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.heading {
+  font-size: 3.75rem;
+  font-weight: 900;
+  color: #fff;
+
+  @include media (min-md) {
+    font-size: 4.5rem;
+  }
+}
+
+.sub-heading {
+  color: #fff;
+  margin-top: 1rem;
+
+  .sep {
+    width: 8px;
+    height: 24px;
+    margin: 0 8px;
+    position: relative;
+    display: inline-block;
+    vertical-align: bottom;
+  }
+
+  .sep::after,
+  .sep::before {
+    content: "";
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    left: 0;
+    top: -2px;
+    background-color: cssvar(primary);
+    border-radius: 24px;
+  }
+
+  .sep::after {
+    top: auto;
+    bottom: -2px;
+    left: auto;
+    right: 0;
+    background-color: cssvar(secondary);
+  }
+}
+
+</style>
