@@ -1,0 +1,105 @@
+---
+import Img from "../Atoms/Img.astro";
+import { format } from "date-fns";
+import { Calendar } from "@src/icons/Calendar";
+
+interface Props {
+  id: string;
+  title: string;
+  slug: string;
+  date: string;
+  description: string;
+  featuredImage: string;
+}
+
+const { title, slug, featuredImage, date: dateStr, description } = Astro.props;
+
+const dateObj = new Date(dateStr);
+const date = format(dateObj, "dd MMM yyyy");
+---
+
+<a class="blog-item" title={title} href={`/blog/${slug}`}>
+  <article class="article">
+    <div class="image-container">
+      {
+        featuredImage && (
+          <Img src={featuredImage} alt={title} class="featured-image" />
+        )
+      }
+    </div>
+    <div class="content">
+      <h3 class="title text-3xl font-black">{title}</h3>
+      <p class="date">
+        <Calendar class="icon" />
+        {date}
+      </p>
+      <p class="description">{description}</p>
+    </div>
+  </article>
+</a>
+
+<style lang="scss">
+  .blog-item {
+    background-color: cssvar(bg__secondary);
+    display: block;
+    color: cssvar(fg__primary);
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    border-radius: 0.25rem;
+    border: 4px solid transparent;
+    overflow: hidden;
+    transition: border 0.3s ease;
+    text-decoration: none;
+
+    &:hover {
+      border-color: cssvar(secondary);
+    }
+
+    &:focus {
+      border-color: cssvar(primary);
+      outline: none;
+    }
+  }
+
+  .article {
+    display: flex;
+  }
+
+  .image-container {
+    width: 24rem;
+    max-width: 100%;
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .featured-image {
+    border-top-left-radius: 0.15rem;
+    border-bottom-left-radius: 0.15rem;
+  }
+
+  .content {
+    padding: 2rem 1rem;
+  }
+
+  .title {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+    font-weight: 900;
+  }
+
+  .date {
+    display: flex;
+    color: cssvar(fg__light);
+    margin-top: 1rem;
+    align-items: center;
+
+    .icon {
+      color: cssvar(primary);
+      margin-right: 0.5rem;
+    }
+  }
+
+  .description {
+    margin-top: 1rem;
+  }
+</style>

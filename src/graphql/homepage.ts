@@ -30,5 +30,23 @@ export const HOME_PAGE_QUERY = gql(`
         }
       }
     }
+    posts {
+      edges {
+        node {
+          id
+          slug
+          title
+          acf {
+            description
+          }
+          date
+          featuredImage {
+            node {
+              sourceUrl
+            }
+          }
+        }
+      }
+    }
   }
 `);

@@ -15,8 +15,8 @@
   "dependencies": {
     "@apollo/client": "^3.11.5",
     "@astrojs/check": "0.9.4",
-    "@astrojs/solid-js": "4.4.4",
-    "astro": "4.16.16",
+    "@astrojs/solid-js": "5.0.1",
+    "astro": "5.1.1",
     "astro-imagetools": "^0.9.0",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
@@ -31,6 +31,7 @@
     "@graphql-codegen/cli": "^5.0.2",
     "@graphql-codegen/client-preset": "^4.3.3",
     "@graphql-typed-document-node/core": "^3.2.0",
+    "@types/grecaptcha": "^3.0.9",
     "prettier": "^3.3.3",
     "prettier-plugin-astro": "^0.14.1"
   }

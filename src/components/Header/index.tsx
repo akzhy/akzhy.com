@@ -1,11 +1,10 @@
-import { navbarLinks } from "@src/utils/navlinks";
-import { MenuIcon } from "@src/icons/Menu";
-import { createEffect, createSignal, onCleanup, onMount } from "solid-js";
 import logoBlack from "@src/images/logo-black.png";
 import logoWhite from "@src/images/logo-white.png";
-import styles from "./header.module.scss";
-import { Img } from "../Img";
+import { navbarLinks } from "@src/utils/navlinks";
 import clsx from "clsx";
+import { createSignal, onCleanup, onMount } from "solid-js";
+import { Img } from "../Atoms/Img";
+import styles from "./header.module.scss";
 
 export function Header() {
   const [sidebarOpen, setSidebarOpen] = createSignal(false);

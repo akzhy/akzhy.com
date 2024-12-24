@@ -1,0 +1,24 @@
+.button {
+  display: inline-flex;
+  padding: 0.75rem 1.5rem;
+  border: 2px solid cssvar(primary);
+  border-radius: 0.25rem;
+  background-color: cssvar(bg__primary);
+  color: cssvar(fg__primary);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1rem;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  &--with-icon {
+    gap: 0.75rem;
+  }
+
+  svg {
+    display: block;
+  }
+}

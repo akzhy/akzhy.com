@@ -1,18 +1,20 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Wall from "@src/components/Wall.astro";
+import Wall from "@src/components/Layout/Wall.astro";
 import Section from "@src/components/Atoms/Section.astro";
 import { apolloClient } from "@src/utils/apollo-client";
 import { HOME_PAGE_QUERY } from "@src/graphql/homepage";
-import ShelfCard from "@src/components/ShelfCard.astro";
+import ShelfCard from "@src/components/Layout/ShelfCard.astro";
 import Shelf from "@src/layouts/Shelf.astro";
+import BlogCard from "@src/components/Layout/BlogCard.astro";
+import Contact from "@src/components/Layout/Contact.astro";
 
 const { data } = await apolloClient.query({
   query: HOME_PAGE_QUERY,
 });
 ---
 
-<Layout title="Welcome to Astro.">
+<Layout title="Welcome to Astro." withRecaptcha>
   <Wall />
   <Section title="About">
     <p class="about-text">
@@ -26,7 +28,7 @@ const { data } = await apolloClient.query({
           <ShelfCard
             date={node.date!}
             description={node.acf?.description!}
-            featured_image={node.featuredImage?.node.sourceUrl!}
+            featuredImage={node.featuredImage?.node.sourceUrl!}
             id={node.id}
             slug={node.slug!}
             title={node.title!}
@@ -34,6 +36,23 @@ const { data } = await apolloClient.query({
         ))
       }
     </Shelf>
+  </Section>
+  <Section title="Blog">
+    {
+      data.posts?.edges.map(({ node }) => (
+        <BlogCard
+          date={node.date!}
+          description={node.acf?.description!}
+          featuredImage={node.featuredImage?.node.sourceUrl!}
+          id={node.id}
+          title={node.title!}
+          slug={node.slug!}
+        />
+      ))
+    }
+  </Section>
+  <Section title="Contact">
+    <Contact />
   </Section>
 </Layout>
 

@@ -1,12 +1,13 @@
 ---
 import { getImage } from "astro:assets";
-import { getBlurredBase64 } from "./LazyImage/service";
+import { getBlurredBase64 } from "@src/utils/lazy-image/service";
+import clsx from "clsx";
 
 interface Props extends astroHTML.JSX.ImgHTMLAttributes {
   src: string;
 };
 
-const { src, ...props } = Astro.props;
+const { src, class: className, ...props } = Astro.props;
 
 const optimized = await getImage({
   src,
@@ -27,9 +28,16 @@ const srcSet = `${optimized.srcSet.attribute}, ${optimized.src} 1200w`;
   decoding="async"
   loading="lazy"
   data-lazy-image
+  class={clsx('img', className)}
   {...props}
 />
 
+<style>
+  .img {
+    width: 100%;
+    display: block;
+  }
+</style>
 
 <script>
   const lazyImages = document.querySelectorAll("[data-lazy-image]");

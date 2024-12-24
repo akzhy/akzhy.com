@@ -10,5 +10,3 @@ globalThis.__ROOT_DIR = path.resolve(__dirname);;
 declare global {
   var __ROOT_DIR: string;
 }
-
-console.log(globalThis.__ROOT_DIR)

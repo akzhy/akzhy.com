@@ -1,6 +1,6 @@
 ---
-import Title from "./Atoms/Title.astro";
-import Img from "./Img.astro";
+import Title from "../Atoms/Title.astro";
+import Img from "../Atoms/Img.astro";
 import { format } from "date-fns";
 
 interface Props {
@@ -9,10 +9,10 @@ interface Props {
   slug: string;
   date: string;
   description: string;
-  featured_image: string;
+  featuredImage: string;
 }
 
-const { title, slug, featured_image, date: dateStr, description } = Astro.props;
+const { title, slug, featuredImage, date: dateStr, description } = Astro.props;
 
 const dateObj = new Date(dateStr);
 const date = format(dateObj, "dd MMM yyyy");
@@ -25,7 +25,7 @@ const date = format(dateObj, "dd MMM yyyy");
   <a class="link" title={title} href={`/shelf/${slug}`}>
     <article class="article">
       <div class="featured-image-container">
-        {featured_image && <Img src={featured_image} class="img" />}
+        {featuredImage && <Img src={featuredImage} class="img" />}
       </div>
       <div class="data">
         <Title class="shelf-item__title">
@@ -38,10 +38,7 @@ const date = format(dateObj, "dd MMM yyyy");
       </div>
     </article>
   </a>
-  <p
-    class="connector-date text-fg-light items-center absolute right-0 top-0 text-sm -mt-12 hidden lg:block"
-    aria-hidden="true"
-  >
+  <p class="connector-date" aria-hidden="true">
     {date}
   </p>
 </div>

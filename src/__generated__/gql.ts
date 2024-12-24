@@ -1,6 +1,6 @@
 /* eslint-disable */
-import * as types from "./graphql";
-import type { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/core";
+import * as types from './graphql';
+import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 
 /**
  * Map of all GraphQL operations in the project.
@@ -13,8 +13,7 @@ import type { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-  "\n  query IndexMain {\n    siteSettings {\n      frontpage {\n        about\n        hero_image {\n          url\n        }\n        seo_description\n      }\n    }\n    shelfItems {\n      edges {\n        node {\n          id\n          slug\n          title\n          acf {\n            description\n          }\n          date\n          featuredImage {\n            node {\n              sourceUrl\n              srcSet\n            }\n          }\n        }\n      }\n    }\n  }\n":
-    types.IndexMainDocument,
+    "\n  query IndexMain {\n    siteSettings {\n      frontpage {\n        about\n        hero_image {\n          url\n        }\n        seo_description\n      }\n    }\n    shelfItems {\n      edges {\n        node {\n          id\n          slug\n          title\n          acf {\n            description\n          }\n          date\n          featuredImage {\n            node {\n              sourceUrl\n              srcSet\n            }\n          }\n        }\n      }\n    }\n    posts {\n      edges {\n        node {\n          id\n          slug\n          title\n          acf {\n            description\n          }\n          date\n          featuredImage {\n            node {\n              sourceUrl\n            }\n          }\n        }\n      }\n    }\n  }\n": types.IndexMainDocument,
 };
 
 /**
@@ -34,13 +33,10 @@ export function gql(source: string): unknown;
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(
-  source: "\n  query IndexMain {\n    siteSettings {\n      frontpage {\n        about\n        hero_image {\n          url\n        }\n        seo_description\n      }\n    }\n    shelfItems {\n      edges {\n        node {\n          id\n          slug\n          title\n          acf {\n            description\n          }\n          date\n          featuredImage {\n            node {\n              sourceUrl\n              srcSet\n            }\n          }\n        }\n      }\n    }\n  }\n",
-): (typeof documents)["\n  query IndexMain {\n    siteSettings {\n      frontpage {\n        about\n        hero_image {\n          url\n        }\n        seo_description\n      }\n    }\n    shelfItems {\n      edges {\n        node {\n          id\n          slug\n          title\n          acf {\n            description\n          }\n          date\n          featuredImage {\n            node {\n              sourceUrl\n              srcSet\n            }\n          }\n        }\n      }\n    }\n  }\n"];
+export function gql(source: "\n  query IndexMain {\n    siteSettings {\n      frontpage {\n        about\n        hero_image {\n          url\n        }\n        seo_description\n      }\n    }\n    shelfItems {\n      edges {\n        node {\n          id\n          slug\n          title\n          acf {\n            description\n          }\n          date\n          featuredImage {\n            node {\n              sourceUrl\n              srcSet\n            }\n          }\n        }\n      }\n    }\n    posts {\n      edges {\n        node {\n          id\n          slug\n          title\n          acf {\n            description\n          }\n          date\n          featuredImage {\n            node {\n              sourceUrl\n            }\n          }\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query IndexMain {\n    siteSettings {\n      frontpage {\n        about\n        hero_image {\n          url\n        }\n        seo_description\n      }\n    }\n    shelfItems {\n      edges {\n        node {\n          id\n          slug\n          title\n          acf {\n            description\n          }\n          date\n          featuredImage {\n            node {\n              sourceUrl\n              srcSet\n            }\n          }\n        }\n      }\n    }\n    posts {\n      edges {\n        node {\n          id\n          slug\n          title\n          acf {\n            description\n          }\n          date\n          featuredImage {\n            node {\n              sourceUrl\n            }\n          }\n        }\n      }\n    }\n  }\n"];
 
 export function gql(source: string) {
   return (documents as any)[source] ?? {};
 }
 
-export type DocumentType<TDocumentNode extends DocumentNode<any, any>> =
-  TDocumentNode extends DocumentNode<infer TType, any> ? TType : never;
+export type DocumentType<TDocumentNode extends DocumentNode<any, any>> = TDocumentNode extends DocumentNode<  infer TType,  any>  ? TType  : never;

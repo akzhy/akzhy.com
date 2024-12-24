@@ -1,8 +1,6 @@
 import sharp from "sharp";
 import { blurredImageCache } from "./cache";
 
-
-
 export const getBlurredBase64 = async (src: string): Promise<string> => {
   const cached = blurredImageCache.get(src);
   if (cached) {

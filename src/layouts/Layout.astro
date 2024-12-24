@@ -1,60 +1,105 @@
 ---
-import { Header } from '@src/components/Header';
-import { Seo } from '../components/Seo';
+import { Header } from "@src/components/Header";
+import { Seo } from "../components/Atoms/Seo";
 
 interface Props {
-	title: string;
+  title: string;
+  withRecaptcha?: boolean;
 }
 
-const { title } = Astro.props;
+const { title, withRecaptcha } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<Seo title="Homepage" description='Description' />
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;900&display=swap" rel="stylesheet">
-	</head>
-	<body class="theme-dark">
-		<div id="main">
-			<Header client:load />
-			<slot />
-		</div>
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <Seo title="Homepage" description="Description" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="theme-dark">
+    <div id="main">
+      <Header client:load />
+      <slot />
+    </div>
+    {
+      withRecaptcha && (
+        <script
+          src={`https://www.google.com/recaptcha/api.js?render=${import.meta.env.PUBLIC_RECAPTCHA_KEY}`}
+          is:inline
+          async
+          defer
+        />
+      )
+    }
+  </body>
 </html>
 <style is:global lang="scss">
-	@include cssvars();
+  @include cssvars();
 
-	* {
-		box-sizing: border-box;
-		margin: 0;
-		padding: 0;
-	}
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
-	body {
-		color: cssvar(fg__primary);
-	}
+  body {
+    color: cssvar(fg__primary);
+  }
 
-	body, input, textarea {
-		font-family: cssvar(font);
-	}
+  body,
+  input,
+  textarea {
+    font-family: cssvar(font);
+  }
 
-	.theme-dark .logo-dark {
-		display: none;
-	}
+  .theme-dark .logo-dark {
+    display: none;
+  }
 
-	.theme-light .logo-light {
-		display: none;
-	}
+  .theme-light .logo-light {
+    display: none;
+  }
 
-	#main {
-		background-color: cssvar(bg__primary);
-	}
+  #main {
+    background-color: cssvar(bg__primary);
+  }
+
+  .grecaptcha-badge {
+    visibility: hidden;
+  }
+
+  .link {
+    color: cssvar(fg__link);
+    position: relative;
+
+    &::before {
+      content: "";
+      width: 0%;
+      height: 2px;
+      background: cssvar(primary);
+      position: absolute;
+      bottom: 2px;
+      left: 0;
+      transition: width 0.25s ease;
+    }
+
+    &:hover::before,
+    &:focus::before {
+      width: 100%;
+    }
+
+    &:focus::before {
+      background: cssvar(secondary);
+    }
+  }
 </style>
