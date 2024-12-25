@@ -1,7 +1,25 @@
 ---
 import { ContactForm } from "../ContactForm";
+import { Socials } from "../Socials";
 ---
 
 <div>
   <ContactForm client:load />
+  <div class="socials">
+    <Socials />
+  </div>
 </div>
+
+<style lang="scss">
+  .socials {
+    margin: 3.5rem 0;
+  }
+</style>
+<style is:global lang="scss">
+  .theme-dark {
+    .codepen-logo path,
+    .github-logo path {
+      fill: white;
+    }
+  }
+</style>
