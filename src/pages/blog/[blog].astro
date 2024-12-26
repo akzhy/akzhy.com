@@ -1,0 +1,47 @@
+---
+import { BLOG_CONTENT_QUERY } from "@src/graphql/blog-content";
+import Layout from "@src/layouts/Layout.astro";
+import PostContent from "@src/layouts/PostContent.astro";
+import { apolloClient } from "@src/utils/apollo-client";
+import type { GetStaticPaths } from "astro";
+
+export const getStaticPaths = (async () => {
+  const { data } = await apolloClient.query({
+    query: BLOG_CONTENT_QUERY,
+  });
+
+  return (
+    data.posts?.edges.map(({ node }) => ({
+      params: {
+        blog: node.slug!,
+      },
+      props: {
+        title: node.title!,
+        description: node.acf!.description!,
+        featuredImage: node.featuredImage!.node.sourceUrl!,
+        content: node.content!,
+        createdDate: node.date!,
+        modifiedDate: node.modified!,
+      },
+    })) ?? []
+  );
+}) satisfies GetStaticPaths;
+
+const {
+  title,
+  content,
+  createdDate,
+  description,
+  featuredImage,
+  modifiedDate,
+} = Astro.props;
+---
+
+<Layout title={`${title} | akzhy`}>
+  <PostContent
+    title={title}
+    content={content}
+    createdDate={createdDate}
+    updatedDate={modifiedDate}
+  />
+</Layout>

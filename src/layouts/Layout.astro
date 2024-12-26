@@ -1,6 +1,7 @@
 ---
 import { Header } from "@src/components/Header";
 import { Seo } from "../components/Atoms/Seo";
+import Footer from "@src/components/Layout/Footer.astro";
 
 interface Props {
   title: string;
@@ -30,6 +31,7 @@ const { title, withRecaptcha } = Astro.props;
     <div id="main">
       <Header client:load />
       <slot />
+      <Footer />
     </div>
     {
       withRecaptcha && (
@@ -78,7 +80,8 @@ const { title, withRecaptcha } = Astro.props;
     visibility: hidden;
   }
 
-  .link {
+  .link,
+  .post-content a {
     color: cssvar(fg__link);
     position: relative;
 

@@ -1,0 +1,85 @@
+---
+import clsx from "clsx";
+
+interface Props {
+  type: "blog" | "shelf";
+  totalPages: number;
+  currentPage: number;
+}
+
+const { totalPages, currentPage, type } = Astro.props;
+---
+
+<div class="pagination-container">
+  <ul class="pagination-list">
+    {
+      Array.from({ length: totalPages }).map((_, index) => {
+        const page = index + 1;
+        let link = `/${type}`;
+        if (page !== 1) {
+          link += `/${page}`;
+        }
+
+        const active = currentPage === page;
+
+        return (
+          <li class="pagination-item">
+            <a href={link} class={clsx("pagination-link", { active })}>
+              {page}
+            </a>
+          </li>
+        );
+      })
+    }
+  </ul>
+</div>
+
+<style lang="scss" scoped>
+  .pagination-container {
+    margin: 1.5rem auto;
+  }
+
+  .pagination-list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    list-style: none;
+    gap: 0.5rem;
+  }
+
+  .pagination-item {
+    display: inline-block;
+  }
+
+  .pagination-link {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid cssvar(primary);
+    text-decoration: none;
+    color: cssvar(fg__primary);
+    transition: background-color 0.3s ease, color 0.3s ease;
+
+    &:hover {
+      background-color: cssvar(primary);
+      color: white;
+    }
+
+    &:focus {
+      border-color: cssvar(secondary);
+    }
+
+    &.active {
+      background-color: cssvar(primary);
+      color: white;
+
+      &:hover {
+        border-color: cssvar(secondary);
+      }
+    }
+  }
+</style>

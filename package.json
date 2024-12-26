@@ -22,16 +22,20 @@
     "date-fns": "^4.1.0",
     "dotenv": "^16.4.5",
     "graphql": "^16.9.0",
+    "prism-themes": "^1.9.0",
+    "prismjs": "^1.29.0",
     "sass": "^1.77.8",
     "sharp": "^0.33.5",
     "solid-js": "^1.8.21",
-    "typescript": "^5.5.4"
+    "typescript": "^5.5.4",
+    "vite-plugin-prismjs": "^0.0.11"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^5.0.2",
     "@graphql-codegen/client-preset": "^4.3.3",
     "@graphql-typed-document-node/core": "^3.2.0",
     "@types/grecaptcha": "^3.0.9",
+    "@types/prismjs": "^1.26.5",
     "prettier": "^3.3.3",
     "prettier-plugin-astro": "^0.14.1"
   }

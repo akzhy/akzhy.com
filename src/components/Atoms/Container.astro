@@ -1,4 +1,12 @@
-<div class="container">
+---
+import clsx from "clsx";
+
+export interface Props extends astroHTML.JSX.HTMLAttributes {}
+
+const { class: className, ...props } = Astro.props;
+---
+
+<div {...props} class={clsx("container", className)}>
   <slot />
 </div>
 <style lang="scss">

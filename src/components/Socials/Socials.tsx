@@ -35,6 +35,7 @@ const Item = ({
       class={styles.item}
       href={url}
       title={title}
+      aria-label={title}
       target="_blank"
       rel="noopener noreferrer"
     >

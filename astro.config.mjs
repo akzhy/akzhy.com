@@ -2,6 +2,7 @@ import { defineConfig } from "astro/config";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 import { astroImageTools } from "astro-imagetools";
+import prism from "vite-plugin-prismjs";
 
 import "./global";
 
@@ -12,6 +13,7 @@ const __dirname = dirname(__filename);
 
 // https://astro.build/config
 export default defineConfig({
+  prefetch: true,
   integrations: [solidJs(), astroImageTools],
   vite: {
     alias: {
@@ -24,8 +26,22 @@ export default defineConfig({
         },
       },
     },
+    plugins: [
+      prism({
+        languages: [
+          "javascript",
+          "css",
+          "markup",
+          "typescript",
+          "scss",
+          "json",
+          "bash",
+          "php"
+        ],
+      }),
+    ],
   },
   image: {
     domains: ["cms.akzhy.local"],
-  }
+  },
 });

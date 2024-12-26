@@ -21,7 +21,12 @@
   width: 100%;
   outline: none;
   border-radius: 0.25rem;
-  transition: all 0.25s ease;
+  transition: border-color 0.25s ease;
+  
+
+  &.textarea {
+    resize: vertical;
+  }
 
   &:focus {
     border-color: cssvar(primary);

@@ -18,7 +18,7 @@ const dateObj = new Date(dateStr);
 const date = format(dateObj, "dd MMM yyyy");
 ---
 
-<a class="blog-item" title={title} href={`/blog/${slug}`}>
+<a class="blog-item" title={title} href={`/blog/${slug}`} data-astro-prefetch>
   <article class="article">
     <div class="image-container">
       {

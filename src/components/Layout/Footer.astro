@@ -1,0 +1,72 @@
+---
+import { sitenavLinks } from "@src/utils/navlinks";
+import Container from "../Atoms/Container.astro";
+import logoBlack from "@src/images/logo-black.png";
+import logoWhite from "@src/images/logo-white.png";
+import { Image } from "astro:assets";
+---
+
+<footer class="footer">
+  <Container>
+    <a class="logo-container" href="/" title="Home" data-astro-prefetch>
+      <Image src={logoBlack} class="logo-dark" alt="akzhy" />
+      <Image src={logoWhite} class="logo-light" alt="akzhy" />
+    </a>
+    <ul class="nav-links text-center mt-8">
+      {
+        sitenavLinks.map((item, i) => (
+          <li>
+            <a href={item.href} class="link" data-astro-prefetch>
+              {item.title}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </Container>
+  <p class="info">
+    &copy; {new Date().getFullYear()} akzhy. All rights reserved.
+    <a href="/privacy-policy" class="link" data-astro-prefetch> Privacy Policy </a>
+  </p>
+</footer>
+
+<style lang="scss">
+  .footer {
+    background-color: cssvar(bg__secondary);
+    padding-top: 3rem;
+  }
+
+  .logo-container {
+    display: block;
+    width: 8rem;
+    margin: 0 auto;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  .nav-links {
+    text-align: center;
+    margin-top: 2rem;
+    list-style: none;
+
+    li {
+      display: inline-block;
+      margin: 0 1rem;
+
+      a {
+        text-decoration: none;
+        color: cssvar(fg__primary);
+      }
+    }
+  }
+
+  .info {
+    background-color: rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-top: 2rem;
+    padding: 1rem 0;
+  }
+</style>

@@ -21,7 +21,7 @@ export const navbarLinks = [
   },
 ];
 
-export const sidenavLinks = [
+export const sitenavLinks = [
   {
     title: "Home",
     href: "/",

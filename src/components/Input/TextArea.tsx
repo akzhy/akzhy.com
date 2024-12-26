@@ -22,7 +22,10 @@ export const TextArea = (props: TextAreaProps) => {
   return (
     <label class={clsx(styles.label, local.containerClassName)}>
       <p class={styles.label_text}>{local.label}</p>
-      <textarea class={clsx(styles.field, local.class)} {...other}></textarea>
+      <textarea
+        class={clsx(styles.field, styles.textarea, local.class)}
+        {...other}
+      ></textarea>
       <Show when={local.error}>
         <ErrorContainer message={local.error!} />
       </Show>

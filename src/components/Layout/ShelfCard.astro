@@ -22,10 +22,10 @@ const date = format(dateObj, "dd MMM yyyy");
   <div class="connector">
     <div class="line"></div>
   </div>
-  <a class="link" title={title} href={`/shelf/${slug}`}>
+  <a class="link" title={title} href={`/shelf/${slug}`} data-astro-prefetch>
     <article class="article">
       <div class="featured-image-container">
-        {featuredImage && <Img src={featuredImage} class="img" />}
+        {featuredImage && <Img src={featuredImage} class="img" alt="" />}
       </div>
       <div class="data">
         <Title class="shelf-item__title">

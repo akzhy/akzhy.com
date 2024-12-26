@@ -19,6 +19,7 @@ $breakpointSizes: (
   sm: 640px,
   md: 768px,
   lg: 1024px,
+  xl: 1280,
   2xl: 1563px,
 );
 
@@ -27,16 +28,31 @@ $breakpoints: (
     min-width: map-get($breakpointSizes, "sm"),
   ),
   min-md: (
-    min-width: 768px,
+    min-width: map-get($breakpointSizes, "md"),
   ),
   min-lg: (
-    min-width: 1024px,
+    min-width: map-get($breakpointSizes, "lg"),
   ),
   min-xl: (
-    min-width: 1280px,
+    min-width: map-get($breakpointSizes, "xl"),
   ),
   min-2xl: (
-    min-width: 1563px,
+    min-width: map-get($breakpointSizes, "2xl"),
+  ),
+  max-sm: (
+    max-width: map-get($breakpointSizes, "sm"),
+  ),
+  max-md: (
+    max-width: map-get($breakpointSizes, "md"),
+  ),
+  max-lg: (
+    max-width: map-get($breakpointSizes, "lg"),
+  ),
+  max-xl: (
+    max-width: map-get($breakpointSizes, "xl"),
+  ),
+  max-2xl: (
+    min-width: map-get($breakpointSizes, "2xl"),
   ),
 );
 

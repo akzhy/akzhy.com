@@ -1,0 +1,83 @@
+---
+import Container from "@src/components/Atoms/Container.astro";
+import Pagination from "@src/components/Atoms/Pagination.astro";
+import Title from "@src/components/Atoms/Title.astro";
+import ShelfCard from "@src/components/Layout/ShelfCard.astro";
+import { SHELF_LISTING_QUERY } from "@src/graphql/shelf-listing";
+import Layout from "@src/layouts/Layout.astro";
+import Shelf from "@src/layouts/Shelf.astro";
+import { apolloClient } from "@src/utils/apollo-client";
+import type { GetStaticPaths } from "astro";
+
+export const getStaticPaths = (async () => {
+  const POSTS_PER_PAGE = 15;
+
+  const { data } = await apolloClient.query({
+    query: SHELF_LISTING_QUERY,
+  });
+
+  const totalPages = Math.ceil(
+    (data.shelfItems?.edges.length ?? 0) / POSTS_PER_PAGE
+  );
+  return Array.from({ length: totalPages }).map((_, i) => ({
+    params: {
+      listing: i === 0 ? undefined : (i + 1).toString(),
+    },
+    props: {
+      data: data.shelfItems!.edges.slice(
+        i * POSTS_PER_PAGE,
+        (i + 1) * POSTS_PER_PAGE
+      ),
+      page: i + 1,
+      totalPages,
+    },
+  }));
+}) satisfies GetStaticPaths;
+
+const { listing } = Astro.params;
+const { data, totalPages, page } = Astro.props;
+
+let title = "Shelf";
+if (listing) {
+  title = `Shelf - Page ${listing}`;
+}
+---
+
+<Layout title={`${title} | akzhy`}>
+  <Container class="listing-container">
+    <div class="title-container">
+      <Title class="default">Shelf</Title>
+    </div>
+    <Shelf>
+      {
+        data.map(({ node }) => (
+          <ShelfCard
+            date={node.date!}
+            description={node.acf?.description!}
+            featuredImage={node.featuredImage?.node.sourceUrl!}
+            id={node.id}
+            title={node.title!}
+            slug={node.slug!}
+          />
+        ))
+      }
+    </Shelf>
+    {
+      totalPages > 1 && (
+        <Pagination type="shelf" totalPages={totalPages} currentPage={page} />
+      )
+    }
+  </Container>
+</Layout>
+
+<style lang="scss">
+  .listing-container {
+    padding: 3rem 0;
+    padding-bottom: 7rem;
+  }
+
+  .title-container {
+    text-align: center;
+    padding: 3.5rem 0;
+  }
+</style>
