@@ -1,0 +1,26 @@
+---
+import Container from "@src/components/Atoms/Container.astro";
+import Title from "@src/components/Atoms/Title.astro";
+import { ContactForm } from "@src/components/ContactForm";
+import Layout from "@src/layouts/Layout.astro";
+---
+
+<Layout title="Welcome to Astro." withRecaptcha>
+  <Container class="contact-container">
+    <div class="title-container">
+      <Title>Contact</Title>
+    </div>
+    <ContactForm />
+  </Container>
+</Layout>
+
+<style lang="scss">
+  .contact-container {
+    padding: 6rem 0 8rem 0;
+  }
+
+  .title-container {
+    text-align: center;
+    margin-bottom: 6rem;
+  }
+</style>
