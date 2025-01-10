@@ -18,7 +18,7 @@ export const getStaticPaths = (async () => {
       props: {
         title: node.title!,
         description: node.acf!.description!,
-        featuredImage: node.featuredImage!.node.sourceUrl!,
+        featuredImage: node.featuredImage?.node?.sourceUrl,
         content: node.content!,
       },
     })) ?? []
