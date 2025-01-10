@@ -7,6 +7,9 @@ import { Input, TextArea } from "../Input";
 import styles from "./contact-form.module.scss";
 import { ErrorContainer } from "../Input/Error";
 import clsx from "clsx";
+import { submitContactForm } from "@src/apis/contact-form";
+import { Loader } from "../Atoms/Loader";
+import { Dynamic } from "solid-js/web";
 
 interface Fields {
   name?: string;
@@ -16,17 +19,24 @@ interface Fields {
 }
 
 export const ContactForm = () => {
-  const [errors, setErrors] = createSignal<Fields>({
+  const [errors, setErrors] = createSignal<
+    Fields & {
+      other?: string;
+    }
+  >({
     name: "",
     email: "",
     message: "",
     captcha: "",
+    other: "",
   });
 
   const [loading, setLoading] = createSignal(false);
 
+  const [showSuccess, setShowSuccess] = createSignal(false);
+
   const buttonDisabled = () => {
-    const { captcha, ...relevantErrors } = errors();
+    const { captcha, other, ...relevantErrors } = errors();
     if (Object.values(relevantErrors).some((v) => v.length > 0)) return true;
     return false;
   };
@@ -34,35 +44,58 @@ export const ContactForm = () => {
   return (
     <form
       onSubmit={async (e) => {
-        e.preventDefault();
-        setLoading(true);
+        try {
+          e.preventDefault();
+          setLoading(true);
 
-        const formData = new FormData(e.currentTarget);
-        const values = Object.fromEntries(formData) as Fields;
+          const formData = new FormData(e.currentTarget);
+          const values = Object.fromEntries(formData) as Fields;
 
-        setErrors({ name: "", email: "", message: "", captcha: "" });
+          setErrors({ name: "", email: "", message: "", captcha: "" });
 
-        const newErrors: Fields = {};
+          const newErrors: Fields = {};
 
-        if (!values.name || values.name?.trim().length === 0) {
-          newErrors.name = "Please enter a name";
+          if (!values.name || values.name?.trim().length === 0) {
+            newErrors.name = "Please enter a name";
+          }
+
+          if (!values.email?.match(/^[^@]+@[^@]+\.[^@]+$/)) {
+            newErrors.email = "Please enter a valid email";
+          }
+
+          if (!values.message || values.message.trim().length < 10) {
+            newErrors.message =
+              "Please enter a message with few more characters";
+          }
+
+          setErrors(newErrors);
+
+          if (Object.keys(newErrors).length > 0) return;
+
+          const token = await generateCaptchaToken({ action: "contact_form" });
+
+          await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulate network delay
+
+          setShowSuccess(true);
+
+          await submitContactForm({
+            ...values,
+            captcha: token,
+          } as Required<Fields>);
+
+          setTimeout(() => {
+            setShowSuccess(false);
+            setErrors({ name: "", email: "", message: "", captcha: "" });
+            e.currentTarget.reset();
+          }, 3000);
+        } catch (e) {
+          setErrors({
+            ...errors(),
+            other: "An error occurred. Please try again.",
+          });
+        } finally {
+          setLoading(false);
         }
-
-        if (!values.email?.match(/^[^@]+@[^@]+\.[^@]+$/)) {
-          newErrors.email = "Please enter a valid email";
-        }
-
-        if (!values.message || values.message.trim().length < 10) {
-          newErrors.message = "Please enter a message with few more characters";
-        }
-
-        setErrors(newErrors);
-
-        if (Object.keys(newErrors).length > 0) return;
-
-        const token = await generateCaptchaToken({ action: "contact_form" })
-      
-        setLoading(false);
       }}
     >
       <div class={styles.spaced}>
@@ -96,14 +129,19 @@ export const ContactForm = () => {
         />
         <CaptchaMessage class={styles["captcha-message"]} />
       </div>
-      {errors().captcha && (
+      {(errors().captcha || errors().other) && (
         <div class={clsx("spaced", styles["general-error"])}>
-          <ErrorContainer message={errors().captcha!} />
+          <ErrorContainer message={errors().captcha! || errors().other!} />
+        </div>
+      )}
+      {showSuccess() && (
+        <div class={styles["success-message"]}>
+          <p>Message sent successfully!</p>
         </div>
       )}
       <Button
         type="submit"
-        icon={() => <Paperplane />}
+        icon={() => <Dynamic component={loading() ? Loader : Paperplane} />}
         disabled={buttonDisabled()}
       >
         Send
