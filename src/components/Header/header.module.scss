@@ -101,3 +101,15 @@
     height: auto;
   }
 }
+
+.theme-switcher-container {
+  display: none;
+  position: absolute;
+  top: 50%;
+  right: 4rem;
+  transform: translate(0, -50%);
+
+  @include media(min-lg) {
+    display: block;
+  }
+}
