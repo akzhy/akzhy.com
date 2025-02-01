@@ -30,7 +30,11 @@ const { title, createdDate, updatedDate, content } = Astro.props;
 
 <style lang="scss">
   .post-container {
-    margin: 6rem auto;
+    padding: 6rem 0;
+
+    @include media(max-lg) {
+      padding: 3rem 0;
+    }
   }
 
   .title-container {

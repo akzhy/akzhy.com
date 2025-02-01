@@ -6,9 +6,9 @@ import { createSignal, onCleanup, onMount } from "solid-js";
 import { Img } from "../Atoms/Img";
 import styles from "./header.module.scss";
 import { ThemeSwitcher } from "./ThemeSwitcher";
+import { MobileNav } from "./MobileNav";
 
 export function Header() {
-  const [sidebarOpen, setSidebarOpen] = createSignal(false);
   const [fixedHeaderShown, setFixedHeaderShown] = createSignal(true);
   const [rootPath, setRootPath] = createSignal("/");
 
@@ -20,7 +20,7 @@ export function Header() {
       href={i.href}
       title={i.title}
       isImg={i.href === "/"}
-      active={rootPath() === i.href.split("/")[1]}
+      active={rootPath() === i.href.substring(1)}
     />
   ));
 
@@ -62,53 +62,17 @@ export function Header() {
           ["fixed-hidden"]: !fixedHeaderShown(),
         })}
       >
-        <ul class={styles["main-nav"]}>{navItems}</ul>
-        <div class={styles["theme-switcher-container"]}>
-          <ThemeSwitcher />
-        </div>
-        {/* <div class="lg:hidden flex items-center justify-center relative">
-          <button
-            type="button"
-            class="absolute left-8 top-0 w-10 h-10 text-fg-primary flex items-center justify-center pt-3"
-            onClick={() => setSidebarOpen(true)}
-            title="Open Sidebar"
-            aria-haspopup
-            aria-expanded={sidebarOpen()}
-            aria-controls="sidebar"
-            id="sidebar-menu-button"
-          >
-            <MenuIcon size={34} />
-          </button>
-          <div>
-            <a
-              class="logo-container w-32 block"
-              href="/"
-              title="Home"
-              data-astro-prefetch
-            >
-              <Img source={logoBlack} alt="akzhy" class="logo-dark" />
-              <Img source={logoWhite} alt="akzhy" class="logo-light" />
-            </a>
-          </div>
-        </div> */}
-      </nav>
-      {/* <Sidebar onChange={setSidebarOpen} open={sidebarOpen}>
-        <ul class="">
-          {sidenavItems.map((item) => (
-            <NavItem
-              href={item.href}
-              title={item.title}
-              active={
-                location.pathname.split("/")[1] === item.href.split("/")[1]
-              }
-              key={`sidenav-${item.href}`}
-            />
-          ))}
-          <li class="flex items-center justify-center pt-2">
+        <div class={styles.desktop}>
+          <ul class={styles["main-nav"]}>{navItems}</ul>
+          <div class={styles["theme-switcher-container"]}>
             <ThemeSwitcher />
-          </li>
-        </ul>
-      </Sidebar> */}
+          </div>
+        </div>
+        <div class={styles.mobile}>
+          <MobileNav rootPath={rootPath()} />
+        </div>
+      </nav>
+      <div class={styles.spacer}></div>
     </>
   );
 }
@@ -126,7 +90,7 @@ const NavItem = ({
 }) => (
   <li
     class={clsx(styles["nav-item"], {
-      active,
+      [styles["nav-item--active"]]: active,
       "has-image": isImg,
     })}
   >

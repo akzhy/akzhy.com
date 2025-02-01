@@ -22,6 +22,30 @@
   }
 }
 
+.spacer {
+  height: 8rem;
+
+  @include media(min-lg) {
+    height: 0rem;
+  }
+}
+
+.desktop {
+  display: none;
+
+  @include media(min-lg) {
+    display: block;
+  }
+}
+
+.mobile {
+  display: block;
+
+  @include media(min-lg) {
+    display: none;
+  }
+}
+
 .main-nav {
   display: flex;
   align-items: center;
@@ -44,6 +68,11 @@
       }
     }
   }
+
+  &--active a::after,
+  &--active a::before {
+    width: 95%;
+  }
 }
 
 .nav-item-link {
@@ -52,6 +81,13 @@
   color: cssvar(fg__primary);
   text-decoration: none;
   font-weight: 900;
+
+  &.nav-item-link--logo {
+    &::after,
+    &::before {
+      display: none;
+    }
+  }
 
   &::after,
   &::before {
@@ -86,9 +122,7 @@
   &:hover::after,
   &:hover::before,
   &:focus::after,
-  &:focus::before,
-  &.active a::after,
-  &.active a::before {
+  &:focus::before {
     width: 95%;
   }
 }
@@ -112,4 +146,67 @@
   @include media(min-lg) {
     display: block;
   }
+}
+
+.mobile-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.hamburger-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  left: 2rem;
+  top: 50%;
+  transform: translate(0, -50%);
+  color: cssvar(fg__primary);
+
+  svg {
+    display: block;
+  }
+}
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  visibility: hidden;
+  transition: visibility 0.25s ease;
+
+  &--open {
+    visibility: visible;
+
+    .sidebar-body {
+      transform: translate(0, 0);
+    }
+  }
+}
+
+.sidebar-body {
+  position: absolute;
+  width: 300px;
+  min-width: 65%;
+  max-width: 80%;
+  height: 100%;
+  background: cssvar(bg__secondary);
+  transform: translate(-100%, 0);
+  transition: transform 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-item-mobile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
 }
