@@ -9,6 +9,7 @@ export interface TextAreaProps
   label: string;
   containerClassName?: string;
   error?: string;
+  autoExpand?: boolean;
 }
 
 export const TextArea = (props: TextAreaProps) => {
@@ -17,6 +18,7 @@ export const TextArea = (props: TextAreaProps) => {
     "label",
     "class",
     "error",
+    "autoExpand",
   ]);
 
   return (
@@ -25,6 +27,15 @@ export const TextArea = (props: TextAreaProps) => {
       <textarea
         class={clsx(styles.field, styles.textarea, local.class)}
         {...other}
+        onKeyDown={(e) => {
+          if (local.autoExpand) {
+            e.currentTarget.style.height = "auto";
+            e.currentTarget.style.height = e.currentTarget.scrollHeight + "px";
+          }
+          if (typeof other.onKeyDown === "function") {
+            other.onKeyDown(e);
+          }
+        }}
       ></textarea>
       <Show when={local.error}>
         <ErrorContainer message={local.error!} />
