@@ -13,6 +13,7 @@
   margin: 0 1rem;
   display: block;
   border: 2px solid transparent;
+  color: cssvar(fg__primary);
 
   &:focus {
     border-color: cssvar(primary);
