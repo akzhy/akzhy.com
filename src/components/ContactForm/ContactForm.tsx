@@ -1,15 +1,15 @@
+import { submitContactForm } from "@src/apis/contact-form";
 import { Paperplane } from "@src/icons/Paperplane";
+import styles from "@src/styles/form.module.scss";
 import { generateCaptchaToken } from "@src/utils/generate-captcha-token";
-import { createSignal } from "solid-js";
+import clsx from "clsx";
+import { createSignal, Show } from "solid-js";
+import { Dynamic } from "solid-js/web";
 import { CaptchaMessage } from "../Atoms/CaptchaMessage";
+import { Loader } from "../Atoms/Loader";
 import { Button } from "../Button";
 import { Input, TextArea } from "../Input";
-import styles from "./contact-form.module.scss";
 import { ErrorContainer } from "../Input/Error";
-import clsx from "clsx";
-import { submitContactForm } from "@src/apis/contact-form";
-import { Loader } from "../Atoms/Loader";
-import { Dynamic } from "solid-js/web";
 
 interface Fields {
   name?: string;
@@ -44,9 +44,9 @@ export const ContactForm = () => {
   return (
     <form
       onSubmit={async (e) => {
+        const form = e.currentTarget;
         try {
           e.preventDefault();
-          setLoading(true);
 
           const formData = new FormData(e.currentTarget);
           const values = Object.fromEntries(formData) as Fields;
@@ -72,23 +72,24 @@ export const ContactForm = () => {
 
           if (Object.keys(newErrors).length > 0) return;
 
+          setLoading(true);
+
           const token = await generateCaptchaToken({ action: "contact_form" });
-
-          await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulate network delay
-
-          setShowSuccess(true);
 
           await submitContactForm({
             ...values,
             captcha: token,
           } as Required<Fields>);
 
+          setShowSuccess(true);
+          form.reset();
+
           setTimeout(() => {
             setShowSuccess(false);
             setErrors({ name: "", email: "", message: "", captcha: "" });
-            e.currentTarget.reset();
           }, 3000);
         } catch (e) {
+          console.log(e);
           setErrors({
             ...errors(),
             other: "An error occurred. Please try again.",
@@ -129,16 +130,16 @@ export const ContactForm = () => {
         />
         <CaptchaMessage class={styles["captcha-message"]} />
       </div>
-      {(errors().captcha || errors().other) && (
+      <Show when={errors().captcha || errors().other}>
         <div class={clsx("spaced", styles["general-error"])}>
           <ErrorContainer message={errors().captcha! || errors().other!} />
         </div>
-      )}
-      {showSuccess() && (
+      </Show>
+      <Show when={showSuccess()}>
         <div class={styles["success-message"]}>
           <p>Message sent successfully!</p>
         </div>
-      )}
+      </Show>
       <Button
         type="submit"
         icon={() => <Dynamic component={loading() ? Loader : Paperplane} />}
