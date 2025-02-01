@@ -27,7 +27,12 @@ const { title, withRecaptcha } = Astro.props;
       rel="stylesheet"
     />
   </head>
-  <body class="theme-dark">
+  <body data-theme="light">
+    <script is:inline>
+      if (localStorage.getItem('theme')) {
+        document.body.dataset.theme = localStorage.getItem('theme');
+      }
+    </script>
     <div id="main">
       <Header client:load />
       <slot />
@@ -64,11 +69,11 @@ const { title, withRecaptcha } = Astro.props;
     font-family: cssvar(font);
   }
 
-  .theme-dark .logo-dark {
+  [data-theme="dark"] .logo-dark {
     display: none;
   }
 
-  .theme-light .logo-light {
+  [data-theme="light"] .logo-light {
     display: none;
   }
 
@@ -81,7 +86,8 @@ const { title, withRecaptcha } = Astro.props;
   }
 
   .link,
-  .post-content a {
+  .post-content a,
+  .comment-content a {
     color: cssvar(fg__link);
     position: relative;
 
