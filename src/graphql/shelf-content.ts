@@ -6,6 +6,7 @@ export const SHELF_CONTENT_QUERY = gql(`
       edges {
         node {
           id
+          databaseId
           slug
           title
           content
