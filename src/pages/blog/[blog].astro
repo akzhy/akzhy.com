@@ -1,4 +1,5 @@
 ---
+import Comments from "@src/components/Comments/Comments.astro";
 import { BLOG_CONTENT_QUERY } from "@src/graphql/blog-content";
 import Layout from "@src/layouts/Layout.astro";
 import PostContent from "@src/layouts/PostContent.astro";
@@ -16,6 +17,7 @@ export const getStaticPaths = (async () => {
         blog: node.slug!,
       },
       props: {
+        id: node.databaseId,
         title: node.title!,
         description: node.acf!.description!,
         featuredImage: node.featuredImage!.node.sourceUrl!,
@@ -28,6 +30,7 @@ export const getStaticPaths = (async () => {
 }) satisfies GetStaticPaths;
 
 const {
+  id,
   title,
   content,
   createdDate,
@@ -37,11 +40,12 @@ const {
 } = Astro.props;
 ---
 
-<Layout title={`${title} | akzhy`}>
+<Layout title={`${title} | akzhy`} withRecaptcha>
   <PostContent
     title={title}
     content={content}
     createdDate={createdDate}
     updatedDate={modifiedDate}
   />
+  <Comments postId={id} />
 </Layout>
