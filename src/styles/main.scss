@@ -1,3 +1,5 @@
+@use "sass:map";
+
 $css_variables: (
   primary: #9c27b0,
   secondary: #f44336,
@@ -5,7 +7,7 @@ $css_variables: (
   bg__secondary: #1b1b1b,
   bg__accent: #2f283d,
   fg__primary: #fff,
-  fg__light: #eee,
+  fg__light: #d2d2d2,
   fg__error: #ff8080,
   fg__success: #8bf189,
   fg__link: #5bb3ff,
@@ -13,6 +15,21 @@ $css_variables: (
   input_border: rgba(255, 255, 255, 0.3),
   font: #{"Poppins",
   sans-serif},
+);
+
+$light_theme: (
+  primary: #94c759,
+  secondary: #3ca8d8,
+  bg__primary: #fff,
+  bg__secondary: #f7f7f7,
+  bg__accent: #d7d7d7,
+  fg__primary: #343959,
+  fg__light: #444,
+  fg__error: #f44335,
+  fg__success: #0c8a11,
+  fg__link: #1670b7,
+  shelf_dots: #efebe9,
+  input_border: rgba(0, 0, 0, 0.3),
 );
 
 $breakpointSizes: (
@@ -59,6 +76,11 @@ $breakpoints: (
 @mixin cssvars() {
   :root {
     @each $name, $value in $css_variables {
+      --#{$name}: #{$value};
+    }
+  }
+  body[data-theme="light"] {
+    @each $name, $value in map.merge($css_variables, $light_theme) {
       --#{$name}: #{$value};
     }
   }
