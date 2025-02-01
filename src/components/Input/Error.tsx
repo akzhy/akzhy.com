@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { Warning } from "@src/icons/Warning";
+import { WarningIcon } from "@src/icons/Warning";
 import styles from "./input.module.scss";
 
 export const ErrorContainer = (props: { message: string }) => {
@@ -8,7 +8,7 @@ export const ErrorContainer = (props: { message: string }) => {
       class={clsx("error-container", styles.error_container)}
       aria-live="polite"
     >
-      <Warning />
+      <WarningIcon />
       <p>{props.message}</p>
     </div>
   );

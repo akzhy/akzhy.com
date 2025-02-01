@@ -1,4 +1,4 @@
-import { CheckCircle } from "@src/icons/CheckCircle";
+import { CheckCircleIcon } from "@src/icons/CheckCircle";
 import type { CommentItem } from "@src/utils/types";
 import clsx from "clsx";
 import { formatDistance } from "date-fns";
@@ -52,7 +52,7 @@ export const Comment = (data: CommentProps) => {
                   title="Verified author"
                   aria-label="Verified author"
                 >
-                  <CheckCircle size={18} stroke-width={3} />
+                  <CheckCircleIcon size={18} stroke-width={3} />
                 </span>
               )}
             </p>

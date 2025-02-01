@@ -1,6 +1,6 @@
 import type { IconProps } from "@src/utils/types";
 
-export function CheckCircle({ size = 24, ...props }: IconProps) {
+export function CheckCircleIcon({ size = 24, ...props }: IconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

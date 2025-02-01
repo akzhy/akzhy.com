@@ -1,7 +1,7 @@
 ---
 import Img from "../Atoms/Img.astro";
 import { format } from "date-fns";
-import { Calendar } from "@src/icons/Calendar";
+import { CalendarIcon } from "@src/icons/Calendar";
 
 interface Props {
   id: number;
@@ -30,7 +30,7 @@ const date = format(dateObj, "dd MMM yyyy");
     <div class="content">
       <h3 class="title text-3xl font-black">{title}</h3>
       <p class="date">
-        <Calendar class="icon" />
+        <CalendarIcon class="icon" />
         {date}
       </p>
       <p class="description">{description}</p>
