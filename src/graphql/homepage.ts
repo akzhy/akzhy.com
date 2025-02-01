@@ -15,6 +15,7 @@ export const HOME_PAGE_QUERY = gql(`
       edges {
         node {
           id
+          databaseId
           slug
           title
           acf {
@@ -34,6 +35,7 @@ export const HOME_PAGE_QUERY = gql(`
       edges {
         node {
           id
+          databaseId
           slug
           title
           acf {

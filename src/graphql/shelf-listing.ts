@@ -6,6 +6,7 @@ export const SHELF_LISTING_QUERY = gql(`
       edges {
         node {
           id
+          databaseId
           slug
           title
           acf {

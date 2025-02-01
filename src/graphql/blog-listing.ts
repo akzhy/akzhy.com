@@ -6,6 +6,7 @@ export const BLOG_LISTING_QUERY = gql(`
       edges {
         node {
           id
+          databaseId
           slug
           title
           acf {

@@ -29,7 +29,7 @@ const { data } = await apolloClient.query({
             date={node.date!}
             description={node.acf?.description!}
             featuredImage={node.featuredImage?.node.sourceUrl!}
-            id={node.id}
+            id={node.databaseId}
             slug={node.slug!}
             title={node.title!}
           />
@@ -44,7 +44,7 @@ const { data } = await apolloClient.query({
           date={node.date!}
           description={node.acf?.description!}
           featuredImage={node.featuredImage?.node.sourceUrl!}
-          id={node.id}
+          id={node.databaseId}
           title={node.title!}
           slug={node.slug!}
         />

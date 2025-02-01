@@ -6,6 +6,7 @@ export const PAGES_QUERY = gql(`
       edges {
         node {
           id
+          databaseId
           slug
           title
           content
