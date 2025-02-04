@@ -22,7 +22,7 @@ export const generateCaptchaToken = ({
     });
   } else {
     if (retries > 0) {
-      return new Promise<string>((resolve, reject) => {
+      return new Promise<string>((resolve) => {
         setTimeout(() => {
           resolve(generateCaptchaToken({ action, retries: retries - 1 }));
         }, 1000);

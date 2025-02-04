@@ -104,7 +104,7 @@ export const ContactForm = () => {
           name="name"
           label="Name"
           error={errors().name}
-          onInput={(e) => {
+          onInput={() => {
             setErrors({ ...errors(), name: "" });
           }}
         />
@@ -114,7 +114,7 @@ export const ContactForm = () => {
           name="email"
           label="Email"
           error={errors().email}
-          onInput={(e) => {
+          onInput={() => {
             setErrors({ ...errors(), email: "" });
           }}
         />
@@ -124,7 +124,7 @@ export const ContactForm = () => {
           name="message"
           label="Message"
           error={errors().message}
-          onInput={(e) => {
+          onInput={() => {
             setErrors({ ...errors(), message: "" });
           }}
         />

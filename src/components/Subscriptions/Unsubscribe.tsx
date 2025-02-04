@@ -20,7 +20,7 @@ export const Unsubscribe = () => {
       if (!params.has("unsub")) {
         throw new Error("No unsub parameter found in URL");
       }
-      const response = await unsubscribe({
+      await unsubscribe({
         key: params.get("unsub") as string,
         captcha: captchaToken,
       });

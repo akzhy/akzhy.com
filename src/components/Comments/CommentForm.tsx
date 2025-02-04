@@ -127,7 +127,7 @@ export const CommentForm = (props: ContactFormProps) => {
           name="name"
           label="Name"
           error={errors().name}
-          onInput={(e) => {
+          onInput={() => {
             setErrors({ ...errors(), name: "" });
           }}
         />
@@ -137,7 +137,7 @@ export const CommentForm = (props: ContactFormProps) => {
           name="email"
           label="Email"
           error={errors().email}
-          onInput={(e) => {
+          onInput={() => {
             setErrors({ ...errors(), email: "" });
           }}
         />
@@ -148,7 +148,7 @@ export const CommentForm = (props: ContactFormProps) => {
           label="Comment"
           error={errors().comment}
           autoExpand
-          onInput={(e) => {
+          onInput={() => {
             setErrors({ ...errors(), comment: "" });
           }}
         />
