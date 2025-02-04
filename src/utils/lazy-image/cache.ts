@@ -21,11 +21,15 @@ class BlurredImageCache {
       const localCache = fs.readFileSync(this.localCachePath, {
         encoding: 'utf-8'
       });
+      console.log('Cache hit for blurred images');
       localCache.split('\n').forEach(line => {
         const [src, value] = line.split(' ');
         this.cache.set(src, value);
       })
     } catch (err) {
+      fs.mkdirSync(path.dirname(this.localCachePath), {
+        recursive: true,
+      });
       fs.writeFileSync(this.localCachePath, "", {
         encoding: "utf8",
       });
