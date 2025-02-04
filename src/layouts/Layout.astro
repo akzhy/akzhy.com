@@ -5,21 +5,23 @@ import Footer from "@src/components/Layout/Footer.astro";
 
 interface Props {
   title: string;
+  description: string;
+  featuredImage: string;
   withRecaptcha?: boolean;
 }
 
-const { title, withRecaptcha } = Astro.props;
+const { title, description, featuredImage, withRecaptcha } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Astro description" />
+    <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <Seo title="Homepage" description="Description" />
+    <Seo title={title} description={description} image={featuredImage} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

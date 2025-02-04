@@ -1,7 +1,9 @@
 ---
 import Container from "@src/components/Atoms/Container.astro";
 import Title from "@src/components/Atoms/Title.astro";
+import { formatDate } from "date-fns";
 import "prism-themes/themes/prism-atom-dark.css";
+import { Show } from "solid-js";
 
 interface Props {
   title: string;
@@ -16,6 +18,24 @@ const { title, createdDate, updatedDate, content } = Astro.props;
 <Container class="post-container">
   <div class="title-container">
     <Title class="default post-title">{title}</Title>
+    {
+      createdDate && (
+        <div class="dates">
+          <div class="date created-date">
+            <p class="date-label">Created on</p>
+            <p class="date-value">
+              {formatDate(new Date(createdDate!), "dd MMM yyyy")}
+            </p>
+          </div>
+          <div class="date updated-date">
+            <p class="date-label">Updated on</p>
+            <p class="date-value">
+              {formatDate(new Date(updatedDate ?? createdDate!), "dd MMM yyyy")}
+            </p>
+          </div>
+        </div>
+      )
+    }
   </div>
   <div class="post-content">
     <div set:html={content} />
@@ -43,6 +63,35 @@ const { title, createdDate, updatedDate, content } = Astro.props;
 
   .post-title {
     text-align: center;
+  }
+
+  .dates {
+    margin-top: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .date {
+    padding: 0 0.75rem;
+  }
+
+  .date-label {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+
+  .date-value {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
+
+  .created-date {
+    text-align: right;
+  }
+
+  .updated-date {
+    text-align: left;
   }
 </style>
 

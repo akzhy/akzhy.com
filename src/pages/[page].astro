@@ -28,6 +28,10 @@ export const getStaticPaths = (async () => {
 const { title, content, description, featuredImage } = Astro.props;
 ---
 
-<Layout title={`${title} | akzhy`}>
+<Layout
+  title={`${title} | akzhy`}
+  description={description}
+  featuredImage={featuredImage!}
+>
   <PostContent title={title} content={content} />
 </Layout>

@@ -8,7 +8,6 @@ import Layout from "@src/layouts/Layout.astro";
 import { apolloClient } from "@src/utils/apollo-client";
 import type { GetStaticPaths } from "astro";
 
-
 export const getStaticPaths = (async () => {
   const POSTS_PER_PAGE = 15;
   const { data } = await apolloClient.query({
@@ -42,7 +41,11 @@ if (listing) {
 }
 ---
 
-<Layout title={`${title} | akzhy`}>
+<Layout
+  title={`${title} | akzhy`}
+  description="A collection of my thoughts and experiences."
+  featuredImage="https://cms.akzhy.com/wp-content/uploads/2021/03/blog.png"
+>
   <Container class="listing-container">
     <div class="title-container">
       <Title class="default">Blog</Title>

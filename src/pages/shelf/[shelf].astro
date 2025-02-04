@@ -40,7 +40,12 @@ const {
 } = Astro.props;
 ---
 
-<Layout title={`${title} | akzhy`} withRecaptcha>
+<Layout
+  title={`${title} | akzhy`}
+  description={description}
+  featuredImage={featuredImage}
+  withRecaptcha
+>
   <PostContent
     title={title}
     content={content}

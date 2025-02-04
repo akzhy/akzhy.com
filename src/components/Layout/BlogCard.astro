@@ -63,6 +63,10 @@ const date = format(dateObj, "dd MMM yyyy");
 
   .article {
     display: flex;
+
+    @include media(max-md) {
+      flex-direction: column;
+    }
   }
 
   .image-container {
@@ -70,6 +74,10 @@ const date = format(dateObj, "dd MMM yyyy");
     max-width: 100%;
     position: relative;
     flex-shrink: 0;
+
+    @include media(max-md) {
+      width: 100%;
+    }
   }
 
   .featured-image {
