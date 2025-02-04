@@ -8,6 +8,7 @@
   cursor: pointer;
   font-family: inherit;
   font-size: 1rem;
+  transition: background-color 0.2s, color 0.2s;
 
   &:disabled {
     cursor: not-allowed;
@@ -20,5 +21,10 @@
 
   svg {
     display: block;
+  }
+
+  &:hover {
+    background-color: cssvar(primary);
+    color: #fff;
   }
 }
