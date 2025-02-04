@@ -8,7 +8,7 @@ export const Button = (
     icon?: () => JSX.Element;
   }
 ) => {
-  const [local, other] = splitProps(props, ["children", "class", "icon"]);
+  const [local, other] = splitProps(props, ["children", "class", "icon", "onClick"]);
 
   const Icon = local.icon!;
 
@@ -16,6 +16,7 @@ export const Button = (
     <button
       type="button"
       {...other}
+      onClick={local.onClick}
       class={clsx(
         styles.button,
         {
