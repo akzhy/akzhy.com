@@ -42,6 +42,6 @@ export default defineConfig({
     ],
   },
   image: {
-    domains: ["cms.akzhy.local"],
+    domains: ["cms.akzhy.local", "cms.akzhy.com"],
   },
 });
