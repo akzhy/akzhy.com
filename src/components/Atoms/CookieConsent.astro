@@ -1,0 +1,67 @@
+---
+import { Button } from "../Button";
+---
+
+<div class="cookie-container">
+  <p>
+    Cookies are used for site analytics. By clicking "Agree" you consent to the
+    <a href="/privacy-policy" class="link" data-astro-prefetch>usage of cookies</a>.
+  </p>
+  <Button class="button" id="cookie-accept">Agree</Button>
+  <Button class="button reject" id="cookie-reject">Reject</Button>
+</div>
+
+<script>
+  const cookieContainer = document.querySelector(".cookie-container") as HTMLDivElement;
+  const acceptButton = document.querySelector("#cookie-accept") as HTMLButtonElement;
+  const rejectButton = document.querySelector("#cookie-reject") as HTMLButtonElement;
+
+  // @ts-expect-error
+  const gtag = window.gtag as ((...params: any) => void) | undefined;
+
+  acceptButton.addEventListener("click", () => {
+    localStorage.setItem("cookie-consent", "accepted");
+    cookieContainer.style.display = "none";
+
+    if (gtag) {
+      gtag("consent", "update", {
+        analytics_storage: "granted",
+      });
+    }
+  });
+
+  rejectButton.addEventListener("click", () => {
+    localStorage.setItem("cookie-consent", "rejected");
+    cookieContainer.style.display = "none";
+  });
+
+</script>
+
+<style lang="scss">
+  .cookie-container {
+    position: fixed;
+    padding: 1rem 2rem;
+    background: cssvar(bg__primary);
+    border-top: 1px solid cssvar(bg__accent);
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99;
+    gap: 0.5rem;
+
+    .button {
+      padding: 0.35rem 1rem;
+    }
+
+    .reject {
+      border: none;
+    }
+  }
+
+  body[data-cookie-consent] .cookie-container {
+    display: none;
+  }
+</style>

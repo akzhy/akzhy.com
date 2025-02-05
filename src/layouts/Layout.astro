@@ -3,6 +3,7 @@ import { Header } from "@src/components/Header";
 import { Seo } from "../components/Atoms/Seo";
 import Footer from "@src/components/Layout/Footer.astro";
 import Analytics from "@src/components/Atoms/Analytics.astro";
+import CookieConsent from "@src/components/Atoms/CookieConsent.astro";
 
 interface Props {
   title: string;
@@ -29,12 +30,15 @@ const { title, description, featuredImage, withRecaptcha } = Astro.props;
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;900&display=swap"
       rel="stylesheet"
     />
-    {import.meta.env.PROD && <Analytics />}
+    <Analytics />
   </head>
   <body data-theme="light">
     <script is:inline>
       if (localStorage.getItem("theme")) {
         document.body.dataset.theme = localStorage.getItem("theme");
+      }
+      if (localStorage.getItem("cookie-consent")) {
+        document.body.dataset.cookieConsent = localStorage.getItem("cookie-consent");
       }
     </script>
     <div id="main">
@@ -52,6 +56,7 @@ const { title, description, featuredImage, withRecaptcha } = Astro.props;
         />
       )
     }
+    <CookieConsent />
   </body>
 </html>
 <style is:global lang="scss">
