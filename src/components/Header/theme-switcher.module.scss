@@ -1,0 +1,22 @@
+.theme-switcher {
+  width: 2.5rem;
+  height: 2.5rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  color: cssvar(fg__primary);
+}
+
+.icon-container {
+  position: absolute;
+  transform: scale(0, 0);
+  transition: transform 0.3s;
+
+  &.active {
+    transform: scale(1, 1);
+  }
+}

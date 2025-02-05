@@ -1,0 +1,123 @@
+---
+import { Header } from "@src/components/Header";
+import { Seo } from "../components/Atoms/Seo";
+import Footer from "@src/components/Layout/Footer.astro";
+import Analytics from "@src/components/Atoms/Analytics.astro";
+import CookieConsent from "@src/components/Atoms/CookieConsent.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  featuredImage: string;
+  withRecaptcha?: boolean;
+}
+
+const { title, description, featuredImage, withRecaptcha } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <Seo title={title} description={description} image={featuredImage} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;900&display=swap"
+      rel="stylesheet"
+    />
+    <Analytics />
+  </head>
+  <body data-theme="light">
+    <script is:inline>
+      if (localStorage.getItem("theme")) {
+        document.body.dataset.theme = localStorage.getItem("theme");
+      }
+      if (localStorage.getItem("cookie-consent")) {
+        document.body.dataset.cookieConsent = localStorage.getItem("cookie-consent");
+      }
+    </script>
+    <div id="main">
+      <Header client:load />
+      <slot />
+      <Footer />
+    </div>
+    {
+      withRecaptcha && (
+        <script
+          src={`https://www.google.com/recaptcha/api.js?render=${import.meta.env.PUBLIC_RECAPTCHA_KEY}`}
+          is:inline
+          async
+          defer
+        />
+      )
+    }
+    <CookieConsent />
+  </body>
+</html>
+<style is:global lang="scss">
+  @include cssvars();
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    color: cssvar(fg__primary);
+  }
+
+  body,
+  input,
+  textarea {
+    font-family: cssvar(font);
+  }
+
+  [data-theme="dark"] .logo-dark {
+    display: none;
+  }
+
+  [data-theme="light"] .logo-light {
+    display: none;
+  }
+
+  #main {
+    background-color: cssvar(bg__primary);
+  }
+
+  .grecaptcha-badge {
+    visibility: hidden;
+  }
+
+  .link,
+  .post-content a,
+  .comment-content a {
+    color: cssvar(fg__link);
+    position: relative;
+
+    &::before {
+      content: "";
+      width: 0%;
+      height: 2px;
+      background: cssvar(primary);
+      position: absolute;
+      bottom: 2px;
+      left: 0;
+      transition: width 0.25s ease;
+    }
+
+    &:hover::before,
+    &:focus::before {
+      width: 100%;
+    }
+
+    &:focus::before {
+      background: cssvar(secondary);
+    }
+  }
+</style>

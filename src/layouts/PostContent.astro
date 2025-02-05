@@ -1,0 +1,202 @@
+---
+import Container from "@src/components/Atoms/Container.astro";
+import Title from "@src/components/Atoms/Title.astro";
+import { formatDate } from "date-fns";
+import "prism-themes/themes/prism-atom-dark.css";
+
+interface Props {
+  title: string;
+  createdDate?: string;
+  updatedDate?: string;
+  content: string;
+}
+
+const { title, createdDate, updatedDate, content } = Astro.props;
+---
+
+<Container class="post-container">
+  <div class="title-container">
+    <Title class="default post-title">{title}</Title>
+    {
+      createdDate && (
+        <div class="dates">
+          <div class="date created-date">
+            <p class="date-label">Created on</p>
+            <p class="date-value">
+              {formatDate(new Date(createdDate!), "dd MMM yyyy")}
+            </p>
+          </div>
+          <div class="date updated-date">
+            <p class="date-label">Updated on</p>
+            <p class="date-value">
+              {formatDate(new Date(updatedDate ?? createdDate!), "dd MMM yyyy")}
+            </p>
+          </div>
+        </div>
+      )
+    }
+  </div>
+  <div class="post-content">
+    <div set:html={content} />
+  </div>
+</Container>
+
+<script>
+  import Prism from "prismjs";
+
+  Prism.highlightAll();
+</script>
+
+<style lang="scss">
+  .post-container {
+    padding: 6rem 0;
+
+    @include media(max-lg) {
+      padding: 3rem 0;
+    }
+  }
+
+  .title-container {
+    text-align: center;
+  }
+
+  .post-title {
+    text-align: center;
+  }
+
+  .dates {
+    margin-top: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .date {
+    padding: 0 0.75rem;
+  }
+
+  .date-label {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+
+  .date-value {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
+
+  .created-date {
+    text-align: right;
+  }
+
+  .updated-date {
+    text-align: left;
+  }
+</style>
+
+<style lang="scss" is:global>
+  .post-content {
+    margin-top: 6rem;
+
+    p {
+      margin: 1rem auto;
+      width: 85%;
+    }
+
+    pre {
+      width: 90%;
+      margin: 2rem auto;
+      overflow: auto;
+    }
+
+    h1 {
+      font-size: 3rem;
+    }
+
+    h2 {
+      font-size: 2.3rem;
+    }
+
+    h3 {
+      font-size: 1.9rem;
+    }
+
+    h4 {
+      font-size: 1.5rem;
+    }
+
+    h5 {
+      font-size: 1.3rem;
+    }
+
+    h6 {
+      font-size: 1.1rem;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-weight: bold;
+      margin: 2rem auto;
+      width: 85%;
+    }
+
+    img,
+    div,
+    video,
+    object,
+    iframe {
+      max-width: 100%;
+    }
+
+    img {
+      height: auto;
+    }
+
+    hr {
+      width: 70%;
+      margin: 1rem auto;
+    }
+
+    ul,
+    ol {
+      width: 85%;
+      margin: 2rem auto;
+    }
+
+    ul li,
+    ol li {
+      margin: 1rem 0;
+    }
+
+    pre {
+      width: 90%;
+      margin: 2rem auto !important;
+      overflow: auto;
+    }
+
+    blockquote {
+      width: 85%;
+      margin: 1rem auto;
+    }
+
+    @include media(max-md) {
+      p,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      blockquote,
+      pre,
+      ul,
+      ol {
+        width: 100%;
+      }
+    }
+  }
+</style>

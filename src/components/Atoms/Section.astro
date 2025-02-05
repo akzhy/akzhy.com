@@ -1,0 +1,26 @@
+---
+interface Props {
+  title: string;
+}
+
+import Container from "./Container.astro";
+import SectionTitle from "./SectionTitle.astro";
+
+const { title } = Astro.props;
+---
+
+<Container>
+  <div class="box">
+      <div class="box">
+          <SectionTitle>{title}</SectionTitle>
+      </div>
+      <div>
+        <slot />
+      </div>
+  </div>
+</Container>
+<style lang="scss">
+  .box {
+    padding: 2rem 0;
+  }
+</style>

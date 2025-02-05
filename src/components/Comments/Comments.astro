@@ -1,0 +1,43 @@
+---
+import Container from "../Atoms/Container.astro";
+import Title from "../Atoms/Title.astro";
+import { CommentForm } from "./CommentForm";
+import { CommentsListing } from "./CommentsListing";
+
+interface Props {
+  postId: number;
+}
+
+const { postId } = Astro.props;
+---
+
+<div class="comments-wrapper">
+  <Container>
+    <div class="title-container">
+      <Title class="comments-header">Comments</Title>
+    </div>
+    <div class="comments-listing">
+      <CommentsListing postId={postId} client:idle />
+    </div>
+    <CommentForm postId={postId} title="Add a comment" client:idle />
+  </Container>
+</div>
+
+<style lang="scss">
+  .comments-wrapper {
+    margin: 2.5rem 0;
+    padding-bottom: 4rem;
+  }
+
+  .title-container {
+    text-align: center;
+  }
+
+  .comments-header {
+    font-size: 2.5rem;
+  }
+
+  .comments-listing {
+    margin: 4rem 0;
+  }
+</style>

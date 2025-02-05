@@ -1,0 +1,37 @@
+---
+import { PAGES_QUERY } from "@src/graphql/pages";
+import Layout from "@src/layouts/Layout.astro";
+import PostContent from "@src/layouts/PostContent.astro";
+import { apolloClient } from "@src/utils/apollo-client";
+import type { GetStaticPaths } from "astro";
+
+export const getStaticPaths = (async () => {
+  const { data } = await apolloClient.query({
+    query: PAGES_QUERY,
+  });
+
+  return (
+    data.pages?.edges.map(({ node }) => ({
+      params: {
+        page: node.slug!,
+      },
+      props: {
+        title: node.title!,
+        description: node.acf!.description!,
+        featuredImage: node.featuredImage?.node?.sourceUrl,
+        content: node.content!,
+      },
+    })) ?? []
+  );
+}) satisfies GetStaticPaths;
+
+const { title, content, description, featuredImage } = Astro.props;
+---
+
+<Layout
+  title={`${title} | akzhy`}
+  description={description}
+  featuredImage={featuredImage!}
+>
+  <PostContent title={title} content={content} />
+</Layout>

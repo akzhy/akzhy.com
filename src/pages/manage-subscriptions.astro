@@ -1,0 +1,38 @@
+---
+import Container from "@src/components/Atoms/Container.astro";
+import Title from "@src/components/Atoms/Title.astro";
+import Layout from "@src/layouts/Layout.astro";
+import { Unsubscribe as UnsubscribeForm } from "@src/components/Subscriptions/Unsubscribe";
+---
+
+<Layout
+  title="Unsubscribe | akzhy"
+  description="Unsubscribe from comment notifications"
+  featuredImage=""
+  withRecaptcha
+>
+  <Container class="contact-container">
+    <div class="title-container">
+      <Title>Unsubscribe</Title>
+    </div>
+    <div class="content">
+      <UnsubscribeForm client:load />
+    </div>
+  </Container>
+</Layout>
+
+<style lang="scss">
+  .contact-container {
+    padding: 6rem 0 8rem 0;
+    min-height: calc(100vh - 300px);
+  }
+
+  .title-container {
+    text-align: center;
+    margin-bottom: 6rem;
+  }
+
+  .content {
+    text-align: center;
+  }
+</style>
