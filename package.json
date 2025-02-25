@@ -28,7 +28,7 @@
     "prismjs": "^1.29.0",
     "sass": "^1.77.8",
     "sharp": "^0.33.5",
-    "solid-js": "^1.8.21",
+    "solid-js": "^1.9.4",
     "typescript": "^5.5.4",
     "vite-plugin-prismjs": "^0.0.11"
   },

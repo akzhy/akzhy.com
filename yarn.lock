@@ -6140,10 +6140,10 @@ snake-case@^3.0.4:
     dot-case "^3.0.4"
     tslib "^2.0.3"
 
-solid-js@^1.8.21:
-  version "1.8.21"
-  resolved "https://registry.yarnpkg.com/solid-js/-/solid-js-1.8.21.tgz#cf7e2618659d233d61424f159300a3379a6b8762"
-  integrity sha512-FHUGdoo7GVa1BTpGh/4UtwIISde0vSXoqNB6KFpHiTgkIY959tmCJ7NYQAWDfScBfnpoMGZR8lFz0DiwW/gFlw==
+solid-js@^1.9.4:
+  version "1.9.4"
+  resolved "https://registry.yarnpkg.com/solid-js/-/solid-js-1.9.4.tgz#da9b5645f10875a631d93335cd50525ff36b6c27"
+  integrity sha512-ipQl8FJ31bFUoBNScDQTG3BjN6+9Rg+Q+f10bUbnO6EOTTf5NGerJeHc7wyu5I4RMHEl/WwZwUmy/PTRgxxZ8g==
   dependencies:
     csstype "^3.1.0"
     seroval "^1.1.0"
