@@ -1,9 +1,9 @@
+import { css } from "@flairjs/client";
 import { listComments } from "@src/apis/comments";
 import { createSignal, For, onMount, Show } from "solid-js";
 import { Comment } from "./Comment";
-import { commentsStore, setPostId, setStoreComments } from "./store";
 import { CommentSkeletons } from "./CommentSkeleton";
-import styles from "./comment.module.scss";
+import { commentsStore, setPostId, setStoreComments } from "./store";
 
 interface CommentsProps {
   postId: number;
@@ -32,7 +32,7 @@ export const CommentsListing = (props: CommentsProps) => {
         <Show
           when={commentsStore.comments.length > 0}
           fallback={
-            <div class={styles["no-comments"]}>
+            <div class="no-comments">
               No comments yet. Be the first to comment!
             </div>
           }
@@ -49,3 +49,13 @@ export const CommentsListing = (props: CommentsProps) => {
     </div>
   );
 };
+
+CommentsListing.flair = css`
+  .no-comments {
+    padding: 2rem;
+    text-align: center;
+    color: cssvar(fg__primary);
+    background: cssvar(bg__secondary);
+    border-radius: 0.25rem;
+  }
+`;

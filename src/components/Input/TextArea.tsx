@@ -1,8 +1,8 @@
+import { css } from "@flairjs/client";
 import clsx from "clsx";
 import { Show, splitProps } from "solid-js";
 import type { JSX } from "solid-js/jsx-runtime";
 import { ErrorContainer } from "./Error";
-import styles from "./input.module.scss";
 
 export interface TextAreaProps
   extends JSX.InputHTMLAttributes<HTMLTextAreaElement> {
@@ -22,10 +22,10 @@ export const TextArea = (props: TextAreaProps) => {
   ]);
 
   return (
-    <label class={clsx(styles.label, local.containerClassName)}>
-      <p class={styles.label_text}>{local.label}</p>
+    <label class={clsx("label", local.containerClassName)}>
+      <p class="label-text">{local.label}</p>
       <textarea
-        class={clsx(styles.field, styles.textarea, local.class)}
+        class={clsx("field", "textarea", local.class)}
         {...other}
         onKeyDown={(e) => {
           if (local.autoExpand) {
@@ -43,3 +43,41 @@ export const TextArea = (props: TextAreaProps) => {
     </label>
   );
 };
+
+TextArea.flair = css`
+  .label {
+    display: block;
+
+    &:hover {
+      .field {
+        border-color: var(--secondary);
+      }
+    }
+  }
+
+  .label-text {
+    margin-bottom: 0.25rem;
+    margin-left: 0.25rem;
+  }
+
+  .field {
+    border: 2px solid var(--input_border);
+    padding: 0.75rem 1rem;
+    color: var(--fg__primary);
+    background-color: var(--bg__primary);
+    width: 100%;
+    outline: none;
+    border-radius: 0.25rem;
+    transition: border-color 0.25s ease;
+
+    &.textarea {
+      resize: vertical;
+      min-height: 80px;
+      max-height: 400px;
+    }
+
+    &:focus {
+      border-color: var(--primary);
+    }
+  }
+`;

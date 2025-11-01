@@ -1,12 +1,12 @@
+import { css } from "@flairjs/client";
 import { CheckCircleIcon } from "@src/icons/CheckCircle";
 import type { CommentItem } from "@src/utils/types";
 import clsx from "clsx";
 import { formatDistance } from "date-fns";
 import { createSignal, For, Show } from "solid-js";
-import styles from "./comment.module.scss";
+import { Button } from "../Button";
 import { CommentForm } from "./CommentForm";
 import { commentsStore } from "./store";
-import { Button } from "../Button";
 
 export interface CommentProps extends CommentItem {
   isReply?: boolean;
@@ -33,22 +33,22 @@ export const Comment = (data: CommentProps) => {
 
   return (
     <div
-      class={clsx(styles.comment, {
-        [styles.reply]: data.isReply,
+      class={clsx("comment", {
+        reply: data.isReply,
       })}
       id={`c${data.id}`}
     >
-      <div class={styles["comment-body"]}>
-        <div class={styles["comment-header"]}>
-          <div class={styles["comment-avatar-container"]}>
+      <div class="comment-body">
+        <div class="comment-header">
+          <div class="comment-avatar-container">
             <img src={data.avatar} alt="Gravatar image" />
           </div>
-          <div class={styles["comment-header-meta"]}>
-            <p class={styles["comment-author-name"]}>
+          <div class="comment-header-meta">
+            <p class="comment-author-name">
               {data.author}
               {data.is_post_author && (
                 <span
-                  class={styles["comment-verified"]}
+                  class="comment-verified"
                   title="Verified author"
                   aria-label="Verified author"
                 >
@@ -56,33 +56,33 @@ export const Comment = (data: CommentProps) => {
                 </span>
               )}
             </p>
-            <p class={styles["comment-date"]}>{formattedDate}</p>
+            <p class="comment-date">{formattedDate}</p>
           </div>
         </div>
         {data.listingParent && data.parent_id !== data.listingParent.id && (
-          <div class={styles["comment-replying-to"]}>
+          <div class="comment-replying-to">
             <a href={`#c${data.parent_id}`} class="link">
               Replying to{" "}
               {commentsStore.commentsIdMapped[data.parent_id]?.author}'s comment
             </a>
           </div>
         )}
-        <div class={clsx(styles["comment-content"], "comment-content")}>
+        <div class="comment__content comment-content">
           <div innerHTML={data.content} />
         </div>
-        <div class={styles["reply-section"]}>
+        <div class="reply-section">
           <Show
             when={replyFormShown()}
             fallback={
               <Button
-                class={styles["reply-button"]}
+                class="reply-button"
                 onClick={() => setReplyFormShown(true)}
               >
                 Reply
               </Button>
             }
           >
-            <div class={styles["reply-form"]}>
+            <div class="reply-form">
               <CommentForm
                 postId={commentsStore.postId}
                 successCallback={(newComment) => {
@@ -100,7 +100,7 @@ export const Comment = (data: CommentProps) => {
                     Reply{" "}
                     <button
                       type="button"
-                      class={styles["reply-cancel"]}
+                      class="reply-cancel"
                       onClick={() => setReplyFormShown(false)}
                     >
                       Cancel
@@ -112,27 +112,6 @@ export const Comment = (data: CommentProps) => {
             </div>
           </Show>
         </div>
-        {/* <div class="my-4">
-          {replyActive ? (
-            <CommentForm
-              postId={data.postId}
-              updateComments={data.updateComments}
-              parent={data.id}
-              closeReply={() => {
-                setReplyActive(false);
-              }}
-            />
-          ) : (
-            <button
-              class="py-2 px-6 rounded inline-block border-2 border-primary text-fg-primary hover:bg-primary focus:bg-primary focus:outline-none focus:border-secondary"
-              onClick={() => {
-                setReplyActive(true);
-              }}
-            >
-              Reply
-            </button>
-          )}
-        </div> */}
       </div>
       <For each={sortedChildren()}>
         {(child) => (
@@ -141,10 +120,145 @@ export const Comment = (data: CommentProps) => {
             listingParent={data}
             isReply
             postId={data.postId}
-            // updateComments={data.updateComments}
           />
         )}
       </For>
     </div>
   );
 };
+
+Comment.flair = css`
+  .comment {
+    width: 100%;
+    background-color: var(--bg__secondary);
+    border-radius: 0.25rem;
+    margin: 1.5rem 0;
+    padding: 0.75rem;
+
+    &.reply {
+      border: 2px solid var(--bg__accent);
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .comment-body {
+    padding: 0.75rem;
+  }
+
+  .comment-header {
+    display: flex;
+    align-items: center;
+  }
+
+  .comment-avatar-container {
+    border-radius: 0.25rem;
+    overflow: hidden;
+    width: 3rem;
+    height: 3rem;
+    background-color: var(--bg__accent);
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .comment-header-meta {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0.5rem 0;
+    margin-left: 1rem;
+  }
+
+  .comment-author-name {
+    font-size: 1.125rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .comment-verified {
+    color: var(--fg__success);
+    margin-left: 0.5rem;
+
+    svg {
+      display: block;
+    }
+  }
+
+  .comment-date {
+    font-size: 0.875rem;
+    color: var(--fg__light);
+  }
+
+  .comment-replying-to {
+    margin-bottom: 1rem;
+
+    a {
+      font-size: 0.875rem;
+    }
+  }
+
+  .comment__content {
+    margin: 1rem 0;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    ul,
+    ol,
+    pre,
+    code,
+    img,
+    blockquote {
+      max-width: 100%;
+      overflow: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    ul,
+    ol,
+    pre {
+      margin: 0.5rem 0;
+    }
+
+    pre {
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  .reply-section {
+    margin: 1rem 0;
+  }
+
+  .reply-form {
+    padding: 1rem;
+  }
+
+  .reply-cancel {
+    background: transparent;
+    border: none;
+    color: var(--fg__link);
+    cursor: pointer;
+    text-decoration: underline;
+    margin-left: 0.5rem;
+  }
+
+  .reply-button {
+    padding: 0.5rem 1rem;
+  }
+`;

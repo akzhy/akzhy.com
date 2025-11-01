@@ -1,11 +1,10 @@
-import clsx from "clsx";
+import { css } from "@flairjs/client";
 import { WarningIcon } from "@src/icons/Warning";
-import styles from "./input.module.scss";
 
 export const ErrorContainer = (props: { message: string }) => {
   return (
     <div
-      class={clsx("error-container", styles.error_container)}
+      class="error-container container"
       aria-live="polite"
     >
       <WarningIcon />
@@ -13,3 +12,23 @@ export const ErrorContainer = (props: { message: string }) => {
     </div>
   );
 };
+
+ErrorContainer.flair = css`
+  .container {
+    border-radius: 0.25rem;
+    margin-top: 0.75rem;
+    padding: 0.75rem;
+    color: var(--fg__error);
+    display: flex;
+    align-items: center;
+    background-color: var(--bg__secondary);
+
+    svg {
+      flex-shrink: 0;
+    }
+
+    p {
+      margin-left: 0.5rem;
+    }
+  }
+`;
