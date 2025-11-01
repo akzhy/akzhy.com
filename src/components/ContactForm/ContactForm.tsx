@@ -167,11 +167,11 @@ ContactForm.flair = css`
     border-radius: 0.25rem;
     margin: 0.75rem 0;
     padding: 0.75rem;
-    color: cssvar(fg__success);
+    color: var(--fg__success);
     display: flex;
     align-items: center;
-    background-color: cssvar(bg__secondary);
-    border: 1px solid cssvar(fg__success);
+    background-color: var(--bg__secondary);
+    border: 1px solid var(--fg__success);
 
     svg {
       flex-shrink: 0;

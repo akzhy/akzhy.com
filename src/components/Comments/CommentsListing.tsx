@@ -54,8 +54,8 @@ CommentsListing.flair = css`
   .no-comments {
     padding: 2rem;
     text-align: center;
-    color: cssvar(fg__primary);
-    background: cssvar(bg__secondary);
+    color: var(--fg__primary);
+    background: var(--bg__secondary);
     border-radius: 0.25rem;
   }
 `;
