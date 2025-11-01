@@ -27,6 +27,9 @@ export default defineConfig({
         },
       },
     },
+    build: {
+      assetsInlineLimit: 6144,
+    },
     plugins: [
       flair(),
       prism({
@@ -38,7 +41,7 @@ export default defineConfig({
           "scss",
           "json",
           "bash",
-          "php"
+          "php",
         ],
       }),
     ],
