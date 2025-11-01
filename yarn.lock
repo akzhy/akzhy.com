@@ -60,10 +60,10 @@
   dependencies:
     node-fetch "^2.6.1"
 
-"@astrojs/check@0.9.4":
-  version "0.9.4"
-  resolved "https://registry.yarnpkg.com/@astrojs/check/-/check-0.9.4.tgz#6a5310eca7ba57c8f3bd65c8ea0c7be79106c30f"
-  integrity sha512-IOheHwCtpUfvogHHsvu0AbeRZEnjJg3MopdLddkJE70mULItS/Vh37BHcI00mcOJcH1vhD3odbpvWokpxam7xA==
+"@astrojs/check@0.9.5":
+  version "0.9.5"
+  resolved "https://registry.yarnpkg.com/@astrojs/check/-/check-0.9.5.tgz#302a2bacda608556185eabdd413ab593b08d2729"
+  integrity sha512-88vc8n2eJ1Oua74yXSGo/8ABMeypfQPGEzuoAx2awL9Ju8cE6tZ2Rz9jVx5hIExHK5gKVhpxfZj4WXm7e32g1w==
   dependencies:
     "@astrojs/language-server" "^2.15.0"
     chokidar "^4.0.1"
@@ -143,12 +143,12 @@
   dependencies:
     prismjs "^1.30.0"
 
-"@astrojs/solid-js@5.1.1":
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/@astrojs/solid-js/-/solid-js-5.1.1.tgz#ce1c819f7a5b10a39c396f4ac42f627efe3304b9"
-  integrity sha512-8HoB5d58N9UYHWIkg523BF6pc/SFgri3UxNg2faH/PzTWHncJrUujprjuW7atpiZSP8cFFOId/dPE7F2/ydFKg==
+"@astrojs/solid-js@5.1.2":
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/@astrojs/solid-js/-/solid-js-5.1.2.tgz#a35315f2991ee7921bd801fe342de7801ad2bb58"
+  integrity sha512-0Mt4tDXM4zQ8+WzY1ZNDgBQ4pE8vYW3We1P5XHJA9eOSYV2dhLOGT5zfVTQZ8PWTfZtoKBABtakZmdP97e01uQ==
   dependencies:
-    vite "^6.3.6"
+    vite "^6.4.1"
     vite-plugin-solid "^2.11.8"
 
 "@astrojs/telemetry@3.3.0":
@@ -2802,10 +2802,10 @@ astro-imagetools@^0.9.0:
   optionalDependencies:
     imagetools-core "3.0.2"
 
-astro@5.14.4:
-  version "5.14.4"
-  resolved "https://registry.yarnpkg.com/astro/-/astro-5.14.4.tgz#450c4d3d68323a4553612573b7ceb2e0aad0d52e"
-  integrity sha512-yqgMAO2Whi9GmZkByyiPcG7CiiPr0Me0iBSorMa6M0g+wQk/ewnIqUyr7T/uFCPTQndoKwucnYFTrf0yfb0urw==
+astro@5.15.3:
+  version "5.15.3"
+  resolved "https://registry.yarnpkg.com/astro/-/astro-5.15.3.tgz#f63d937f74a2cdd2cedef931e746166a97264ead"
+  integrity sha512-wUO/isJrcUoduRoKacKB9jpO6TxTlPV1zw8UqQx39jSNY7z9IxusJAiib3AiNvqK+dCWhqXx+OnExCCwELmcUw==
   dependencies:
     "@astrojs/compiler" "^2.12.2"
     "@astrojs/internal-helpers" "0.7.4"
@@ -2839,7 +2839,6 @@ astro@5.14.4:
     http-cache-semantics "^4.2.0"
     import-meta-resolve "^4.2.0"
     js-yaml "^4.1.0"
-    kleur "^4.1.5"
     magic-string "^0.30.18"
     magicast "^0.3.5"
     mrmime "^2.0.1"
@@ -2847,6 +2846,7 @@ astro@5.14.4:
     p-limit "^6.2.0"
     p-queue "^8.1.0"
     package-manager-detector "^1.3.0"
+    picocolors "^1.1.1"
     picomatch "^4.0.3"
     prompts "^2.4.2"
     rehype "^13.0.2"
@@ -2861,7 +2861,7 @@ astro@5.14.4:
     unist-util-visit "^5.0.0"
     unstorage "^1.17.0"
     vfile "^6.0.3"
-    vite "^6.3.6"
+    vite "^6.4.1"
     vitefu "^1.1.1"
     xxhash-wasm "^1.1.0"
     yargs-parser "^21.1.1"
@@ -7118,10 +7118,10 @@ vite-plugin-solid@^2.11.8:
     solid-refresh "^0.6.3"
     vitefu "^1.0.4"
 
-vite@^6.3.6:
-  version "6.3.6"
-  resolved "https://registry.yarnpkg.com/vite/-/vite-6.3.6.tgz#69a976b64930750d40219fbc68c5200874d315c1"
-  integrity sha512-0msEVHJEScQbhkbVTb/4iHZdJ6SXp/AvxL2sjwYQFfBqleHtnCqv1J3sa9zbWz/6kW1m9Tfzn92vW+kZ1WV6QA==
+vite@^6.4.1:
+  version "6.4.1"
+  resolved "https://registry.yarnpkg.com/vite/-/vite-6.4.1.tgz#afbe14518cdd6887e240a4b0221ab6d0ce733f96"
+  integrity sha512-+Oxm7q9hDoLMyJOYfUYBuHQo+dkAloi33apOPP56pzj+vsdJDzr+j1NISE5pyaAuKL4A3UD34qd0lx5+kfKp2g==
   dependencies:
     esbuild "^0.25.0"
     fdir "^6.4.4"
