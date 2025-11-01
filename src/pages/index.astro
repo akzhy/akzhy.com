@@ -20,45 +20,54 @@ const { data } = await apolloClient.query({
   description="Hi, I am Akshay, I am a web developer from Kerala, India who loves to experiment with TypeScript / JavaScript. This is my personal webpage where I show case some of my works and write about some of the stuff that I've learned."
   withRecaptcha
 >
-  <Wall />
-  <Section title="About">
-    <p class="about-text">
-      <Fragment set:html={data.siteSettings?.frontpage?.about} />
-    </p>
-  </Section>
-  <Section title="Shelf">
-    <Shelf>
+  <link
+    rel="preload"
+    as="image"
+    href="/wall.jpg"
+    fetchpriority="high"
+    slot="head"
+  />
+  <main>
+    <Wall />
+    <Section title="About">
+      <p class="about-text">
+        <Fragment set:html={data.siteSettings?.frontpage?.about} />
+      </p>
+    </Section>
+    <Section title="Shelf">
+      <Shelf>
+        {
+          data.shelfItems?.edges?.map(({ node }) => (
+            <ShelfCard
+              date={node.date!}
+              description={node.acf?.description!}
+              featuredImage={node.featuredImage?.node.sourceUrl!}
+              id={node.databaseId}
+              slug={node.slug!}
+              title={node.title!}
+            />
+          ))
+        }
+      </Shelf>
+    </Section>
+    <Section title="Blog">
       {
-        data.shelfItems?.edges?.map(({ node }) => (
-          <ShelfCard
+        data.posts?.edges.map(({ node }) => (
+          <BlogCard
             date={node.date!}
             description={node.acf?.description!}
             featuredImage={node.featuredImage?.node.sourceUrl!}
             id={node.databaseId}
-            slug={node.slug!}
             title={node.title!}
+            slug={node.slug!}
           />
         ))
       }
-    </Shelf>
-  </Section>
-  <Section title="Blog">
-    {
-      data.posts?.edges.map(({ node }) => (
-        <BlogCard
-          date={node.date!}
-          description={node.acf?.description!}
-          featuredImage={node.featuredImage?.node.sourceUrl!}
-          id={node.databaseId}
-          title={node.title!}
-          slug={node.slug!}
-        />
-      ))
-    }
-  </Section>
-  <Section title="Contact">
-    <Contact />
-  </Section>
+    </Section>
+    <Section title="Contact">
+      <Contact />
+    </Section>
+  </main>
 </Layout>
 
 <style>
@@ -67,15 +76,7 @@ const { data } = await apolloClient.query({
     font-size: 1.125rem;
     line-height: 1.75rem;
   }
-  main {
-    margin: auto;
-    padding: 1rem;
-    width: 800px;
-    max-width: calc(100% - 2rem);
-    color: white;
-    font-size: 20px;
-    line-height: 1.6;
-  }
+
   .astro-a {
     position: absolute;
     top: -32px;
