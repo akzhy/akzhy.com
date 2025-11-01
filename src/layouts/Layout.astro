@@ -45,6 +45,7 @@ const { title, description, featuredImage, withRecaptcha } = Astro.props;
       /></noscript
     >
     <Analytics />
+    <slot name="head" />
   </head>
   <body data-theme="light">
     <script is:inline>
@@ -57,7 +58,7 @@ const { title, description, featuredImage, withRecaptcha } = Astro.props;
       }
     </script>
     <div id="main">
-      <Header client:load />
+      <Header client:idle />
       <slot />
       <Footer />
     </div>
