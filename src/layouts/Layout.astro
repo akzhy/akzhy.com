@@ -22,14 +22,28 @@ const { title, description, featuredImage, withRecaptcha } = Astro.props;
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/png" href="/favicon.png" />
+    <Fragment set:html={`<style>@layer base, ui;</style>`} />
     <meta name="generator" content={Astro.generator} />
     <Seo title={title} description={description} image={featuredImage} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      rel="preload"
+      as="style"
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;900&display=swap"
-      rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;900&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript
+      ><link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;900&display=swap"
+      /></noscript
+    >
     <Analytics />
   </head>
   <body data-theme="light">
@@ -38,7 +52,8 @@ const { title, description, featuredImage, withRecaptcha } = Astro.props;
         document.body.dataset.theme = localStorage.getItem("theme");
       }
       if (localStorage.getItem("cookie-consent")) {
-        document.body.dataset.cookieConsent = localStorage.getItem("cookie-consent");
+        document.body.dataset.cookieConsent =
+          localStorage.getItem("cookie-consent");
       }
     </script>
     <div id="main">
@@ -62,10 +77,12 @@ const { title, description, featuredImage, withRecaptcha } = Astro.props;
 <style is:global lang="scss">
   @include cssvars();
 
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  @layer base {
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
   }
 
   body {

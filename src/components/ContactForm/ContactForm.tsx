@@ -1,8 +1,7 @@
+import { css } from "@flairjs/client";
 import { submitContactForm } from "@src/apis/contact-form";
 import { Paperplane } from "@src/icons/Paperplane";
-import styles from "@src/styles/form.module.scss";
 import { generateCaptchaToken } from "@src/utils/generate-captcha-token";
-import clsx from "clsx";
 import { createSignal, Show } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { CaptchaMessage } from "../Atoms/CaptchaMessage";
@@ -99,7 +98,7 @@ export const ContactForm = () => {
         }
       }}
     >
-      <div class={styles.spaced}>
+      <div class="spaced">
         <Input
           name="name"
           label="Name"
@@ -109,7 +108,7 @@ export const ContactForm = () => {
           }}
         />
       </div>
-      <div class={styles.spaced}>
+      <div class="spaced">
         <Input
           name="email"
           label="Email"
@@ -119,7 +118,7 @@ export const ContactForm = () => {
           }}
         />
       </div>
-      <div class={styles.spaced}>
+      <div class="spaced">
         <TextArea
           name="message"
           label="Message"
@@ -128,15 +127,15 @@ export const ContactForm = () => {
             setErrors({ ...errors(), message: "" });
           }}
         />
-        <CaptchaMessage class={styles["captcha-message"]} />
+        <CaptchaMessage class="captcha-message" />
       </div>
       <Show when={errors().captcha || errors().other}>
-        <div class={clsx("spaced", styles["general-error"])}>
+        <div class="spaced general-error">
           <ErrorContainer message={errors().captcha! || errors().other!} />
         </div>
       </Show>
       <Show when={showSuccess()}>
-        <div class={styles["success-message"]}>
+        <div class="success-message">
           <p>Message sent successfully!</p>
         </div>
       </Show>
@@ -150,3 +149,36 @@ export const ContactForm = () => {
     </form>
   );
 };
+
+ContactForm.flair = css`
+  .spaced {
+    margin-bottom: 1.5rem;
+  }
+
+  .captcha-message {
+    margin-top: 0.5rem;
+  }
+
+  .general-error {
+    margin-bottom: 0.5rem;
+  }
+
+  .success-message {
+    border-radius: 0.25rem;
+    margin: 0.75rem 0;
+    padding: 0.75rem;
+    color: var(--fg__success);
+    display: flex;
+    align-items: center;
+    background-color: var(--bg__secondary);
+    border: 1px solid var(--fg__success);
+
+    svg {
+      flex-shrink: 0;
+    }
+
+    p {
+      margin-left: 0.5rem;
+    }
+  }
+`;

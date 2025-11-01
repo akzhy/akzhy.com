@@ -1,8 +1,8 @@
-import { createEffect, createSignal, onMount } from "solid-js";
-import styles from "./theme-switcher.module.scss";
-import clsx from "clsx";
+import { css } from "@flairjs/client";
 import { MoonIcon } from "@src/icons/Moon";
 import { SunIcon } from "@src/icons/Sun";
+import clsx from "clsx";
+import { createEffect, createSignal, onMount } from "solid-js";
 
 export const ThemeSwitcher = () => {
   const [currentTheme, setCurrentTheme] = createSignal<"light" | "dark">(
@@ -38,19 +38,19 @@ export const ThemeSwitcher = () => {
   return (
     <button
       title="Switch theme"
-      class={styles["theme-switcher"]}
+      class="theme-switcher"
       onClick={toggleTheme}
     >
       <div
-        class={clsx(styles["icon-container"], {
-          [styles.active]: currentTheme() === "light",
+        class={clsx("icon-container", {
+          active: currentTheme() === "light",
         })}
       >
         <MoonIcon />
       </div>
       <div
-        class={clsx(styles["icon-container"], {
-          [styles.active]: currentTheme() === "dark",
+        class={clsx("icon-container", {
+          active: currentTheme() === "dark",
         })}
       >
         <SunIcon />
@@ -58,3 +58,28 @@ export const ThemeSwitcher = () => {
     </button>
   );
 };
+
+ThemeSwitcher.flair = css`
+  .theme-switcher {
+    width: 2.5rem;
+    height: 2.5rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    color: var(--fg__primary);
+  }
+
+  .icon-container {
+    position: absolute;
+    transform: scale(0, 0);
+    transition: transform 0.3s;
+
+    &.active {
+      transform: scale(1, 1);
+    }
+  }
+`;

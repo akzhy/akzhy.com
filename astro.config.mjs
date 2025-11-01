@@ -3,6 +3,7 @@ import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 import { astroImageTools } from "astro-imagetools";
 import prism from "vite-plugin-prismjs";
+import flair from "@flairjs/vite-plugin";
 
 import "./global";
 
@@ -26,7 +27,11 @@ export default defineConfig({
         },
       },
     },
+    build: {
+      assetsInlineLimit: 6144,
+    },
     plugins: [
+      flair(),
       prism({
         languages: [
           "javascript",
@@ -36,7 +41,7 @@ export default defineConfig({
           "scss",
           "json",
           "bash",
-          "php"
+          "php",
         ],
       }),
     ],

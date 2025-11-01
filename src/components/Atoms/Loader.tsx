@@ -1,6 +1,6 @@
 import type { JSX } from "solid-js/jsx-runtime";
-import styles from "./styles.module.scss";
 import clsx from "clsx";
+import { css } from "@flairjs/client";
 
 interface LoaderProps extends JSX.SvgSVGAttributes<SVGSVGElement> {
   size?: number;
@@ -23,7 +23,7 @@ export const Loader = ({
       width={size}
       height={size}
       stroke={color}
-      class={clsx(styles.loader, props.class)}
+      class={clsx("loader", props.class)}
     >
       <line x1="12" y1="2" x2="12" y2="6"></line>
       <line x1="12" y1="18" x2="12" y2="22"></line>
@@ -36,3 +36,18 @@ export const Loader = ({
     </svg>
   );
 };
+
+Loader.flair = css`
+  .loader {
+    animation: spin 3s linear infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+`;

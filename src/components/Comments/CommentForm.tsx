@@ -1,6 +1,8 @@
+import { css } from "@flairjs/client";
 import { addComment } from "@src/apis/comments";
 import { Paperplane } from "@src/icons/Paperplane";
 import { generateCaptchaToken } from "@src/utils/generate-captcha-token";
+import type { CommentItem } from "@src/utils/types";
 import clsx from "clsx";
 import { createSignal, Show, type JSX } from "solid-js";
 import { Dynamic } from "solid-js/web";
@@ -9,10 +11,8 @@ import { Loader } from "../Atoms/Loader";
 import { Button } from "../Button";
 import { Input, TextArea } from "../Input";
 import { ErrorContainer } from "../Input/Error";
-import formStyles from "@src/styles/form.module.scss";
 import { Toggle } from "../Toggle";
 import { addCommentToStore } from "./store";
-import type { CommentItem } from "@src/utils/types";
 
 interface ContactFormProps {
   postId: number;
@@ -119,10 +119,10 @@ export const CommentForm = (props: ContactFormProps) => {
         }
       }}
     >
-      <div class={formStyles.spaced}>
+      <div class="spaced">
         <h2 class="comment-title">{props.title}</h2>
       </div>
-      <div class={formStyles.spaced}>
+      <div class="spaced">
         <Input
           name="name"
           label="Name"
@@ -132,7 +132,7 @@ export const CommentForm = (props: ContactFormProps) => {
           }}
         />
       </div>
-      <div class={formStyles.spaced}>
+      <div class="spaced">
         <Input
           name="email"
           label="Email"
@@ -142,7 +142,7 @@ export const CommentForm = (props: ContactFormProps) => {
           }}
         />
       </div>
-      <div class={formStyles.spaced}>
+      <div class="spaced">
         <TextArea
           name="comment"
           label="Comment"
@@ -153,21 +153,21 @@ export const CommentForm = (props: ContactFormProps) => {
           }}
         />
       </div>
-      <div class={formStyles.spaced}>
+      <div class="spaced">
         <Toggle name="subscribe" checked>
           Get email notifications for replies
         </Toggle>
       </div>
-      <div class={formStyles.spaced}>
-        <CaptchaMessage class={formStyles["captcha-message"]} />
+      <div class="spaced">
+        <CaptchaMessage class="captcha-message" />
       </div>
       <Show when={errors().captcha || errors().other}>
-        <div class={clsx("spaced", formStyles["general-error"])}>
+        <div class={clsx("spaced", "general-error")}>
           <ErrorContainer message={errors().captcha! || errors().other!} />
         </div>
       </Show>
       <Show when={showSuccess()}>
-        <div class={formStyles["success-message"]}>
+        <div class="success-message">
           <p>Message sent successfully!</p>
         </div>
       </Show>
@@ -181,3 +181,36 @@ export const CommentForm = (props: ContactFormProps) => {
     </form>
   );
 };
+
+CommentForm.flair = css`
+  .spaced {
+    margin-bottom: 1.5rem;
+  }
+
+  .captcha-message {
+    margin-top: 0.5rem;
+  }
+
+  .general-error {
+    margin-bottom: 0.5rem;
+  }
+
+  .success-message {
+    border-radius: 0.25rem;
+    margin: 0.75rem 0;
+    padding: 0.75rem;
+    color: var(--fg__success);
+    display: flex;
+    align-items: center;
+    background-color: var(--bg__secondary);
+    border: 1px solid var(--fg__success);
+
+    svg {
+      flex-shrink: 0;
+    }
+
+    p {
+      margin-left: 0.5rem;
+    }
+  }
+`;
