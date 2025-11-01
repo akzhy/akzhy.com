@@ -28,7 +28,7 @@ export default defineConfig({
       },
     },
     build: {
-      assetsInlineLimit: 6144,
+      assetsInlineLimit: 10240,
     },
     plugins: [
       flair(),
