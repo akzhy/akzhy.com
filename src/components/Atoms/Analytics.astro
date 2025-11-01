@@ -1,20 +1,41 @@
-<script
-  async
-  src="https://www.googletagmanager.com/gtag/js?id=G-15XK8HSC3B"
-  is:inline
-  defer></script>
 <script is:inline>
-  window.dataLayer = window.dataLayer || [];
-  function gtag() {
-    dataLayer.push(arguments);
-  }
-  gtag("js", new Date());
-  gtag("consent", "default", {
-    ad_storage: "denied",
-    ad_user_data: "denied",
-    ad_personalization: "denied",
-    analytics_storage: "denied",
-  });
+  let analyticsLoaded = false;
+  
+  function loadAnalytics() {
+    if (analyticsLoaded) return;
+    analyticsLoaded = true;
+    
+    // Load Google Analytics script
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=G-15XK8HSC3B';
+    document.head.appendChild(script);
+    
+    // Initialize dataLayer and gtag function
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    window.gtag = gtag;
+    
+    gtag("js", new Date());
+    gtag("consent", "default", {
+      ad_storage: "denied",
+      ad_user_data: "denied",
+      ad_personalization: "denied",
+      analytics_storage: "denied",
+    });
 
-  gtag("config", "G-15XK8HSC3B");
+    gtag("config", "G-15XK8HSC3B");
+    
+    // Remove event listeners after loading
+    document.removeEventListener('mousemove', loadAnalytics);
+    document.removeEventListener('scroll', loadAnalytics);
+  }
+  
+  // Wait for page load, then add interaction listeners
+  window.addEventListener('load', () => {
+    document.addEventListener('mousemove', loadAnalytics, { once: true });
+    document.addEventListener('scroll', loadAnalytics, { once: true });
+  });
 </script>
